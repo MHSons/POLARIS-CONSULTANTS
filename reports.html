@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports & Analytics | Polaris Consultants</title>
+
+    <link rel="stylesheet" href="reports.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">✦</div>
+
+            <div>
+                <h2>POLARIS</h2>
+                <span>CONSULTANTS</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="admin.html">⌂ Dashboard</a>
+            <a href="leads.html">👥 Leads</a>
+            <a href="customers.html">◉ Customers</a>
+            <a href="applications.html">▣ Applications</a>
+
+            <div class="nav-title">BUSINESS</div>
+
+            <a href="documents.html">▤ Documents</a>
+            <a href="#">🌍 Countries</a>
+            <a href="#">▥ Visa Services</a>
+            <a href="#">✓ Follow-ups</a>
+
+            <div class="nav-title">FINANCE</div>
+
+            <a href="finance.html">৳ Finance</a>
+            <a href="receipts.html">▤ Receipts</a>
+            <a href="reports.html" class="active">▥ Reports</a>
+
+            <div class="nav-title">MANAGEMENT</div>
+
+            <a href="#">♙ Team</a>
+            <a href="#">⚙ Settings</a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button onclick="logoutUser()">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="title-area">
+
+                <button
+                    class="mobile-menu"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Reports & Analytics</h1>
+
+                    <p>
+                        Monitor business performance, finance and visa operations.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    class="btn secondary"
+                    onclick="printReport()"
+                >
+                    Print Report
+                </button>
+
+                <button
+                    class="btn primary"
+                    onclick="exportReportCSV()"
+                >
+                    Export CSV
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- REPORT FILTERS -->
+        <section class="report-filter-panel">
+
+            <div class="filter-title">
+
+                <div>
+                    <h2>Report Period</h2>
+
+                    <p>
+                        Select the period you want to analyze.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="report-filters">
+
+                <div class="filter-group">
+
+                    <label>Period</label>
+
+                    <select
+                        id="periodFilter"
+                        onchange="changeReportPeriod()"
+                    >
+                        <option value="thisMonth">
+                            This Month
+                        </option>
+
+                        <option value="lastMonth">
+                            Last Month
+                        </option>
+
+                        <option value="thisYear">
+                            This Year
+                        </option>
+
+                        <option value="all">
+                            All Time
+                        </option>
+
+                        <option value="custom">
+                            Custom
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    class="filter-group custom-date"
+                    id="customDateFields"
+                >
+
+                    <label>From</label>
+
+                    <input
+                        type="date"
+                        id="dateFrom"
+                        onchange="renderReports()"
+                    >
+
+                </div>
+
+
+                <div
+                    class="filter-group custom-date"
+                    id="customDateFields2"
+                >
+
+                    <label>To</label>
+
+                    <input
+                        type="date"
+                        id="dateTo"
+                        onchange="renderReports()"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Country</label>
+
+                    <select
+                        id="countryFilter"
+                        onchange="renderReports()"
+                    >
+
+                        <option value="">
+                            All Countries
+                        </option>
+
+                        <option value="United Kingdom">
+                            United Kingdom
+                        </option>
+
+                        <option value="Canada">
+                            Canada
+                        </option>
+
+                        <option value="Australia">
+                            Australia
+                        </option>
+
+                        <option value="USA">
+                            USA
+                        </option>
+
+                        <option value="Germany">
+                            Germany
+                        </option>
+
+                        <option value="UAE">
+                            UAE
+                        </option>
+
+                        <option value="Turkey">
+                            Turkey
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>Visa Type</label>
+
+                    <select
+                        id="visaFilter"
+                        onchange="renderReports()"
+                    >
+
+                        <option value="">
+                            All Visa Types
+                        </option>
+
+                        <option value="Study Visa">
+                            Study Visa
+                        </option>
+
+                        <option value="Work Visa">
+                            Work Visa
+                        </option>
+
+                        <option value="Visit Visa">
+                            Visit Visa
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="btn reset-btn"
+                    onclick="resetReportFilters()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- KPI CARDS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ৳
+                </div>
+
+                <div>
+
+                    <span>Total Income</span>
+
+                    <strong id="totalIncome">
+                        PKR 0
+                    </strong>
+
+                    <small id="incomeChange">
+                        --
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ↓
+                </div>
+
+                <div>
+
+                    <span>Total Expenses</span>
+
+                    <strong id="totalExpenses">
+                        PKR 0
+                    </strong>
+
+                    <small id="expenseChange">
+                        --
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>Net Profit</span>
+
+                    <strong id="netProfit">
+                        PKR 0
+                    </strong>
+
+                    <small id="profitMargin">
+                        0% margin
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <span>Outstanding</span>
+
+                    <strong id="outstanding">
+                        PKR 0
+                    </strong>
+
+                    <small>
+                        Customer balances
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- APPLICATION KPI -->
+        <section class="mini-stats">
+
+            <div class="mini-card">
+
+                <span>Total Leads</span>
+
+                <strong id="totalLeads">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-card">
+
+                <span>Applications</span>
+
+                <strong id="totalApplications">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-card">
+
+                <span>Approved</span>
+
+                <strong id="approvedApplications">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-card">
+
+                <span>Rejected</span>
+
+                <strong id="rejectedApplications">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-card">
+
+                <span>Processing</span>
+
+                <strong id="processingApplications">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-card">
+
+                <span>Conversion Rate</span>
+
+                <strong id="conversionRate">
+                    0%
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHART GRID -->
+        <section class="charts-grid">
+
+
+            <!-- MONTHLY PERFORMANCE -->
+            <div class="panel chart-panel large-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Monthly Financial Performance</h2>
+
+                        <p>
+                            Income, expenses and profit trend.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-area">
+
+                    <div
+                        class="bar-chart"
+                        id="monthlyChart"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPLICATION STATUS -->
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Application Status</h2>
+
+                        <p>
+                            Current application distribution.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="donut-container"
+                    id="statusChart"
+                ></div>
+
+
+                <div
+                    class="legend"
+                    id="statusLegend"
+                ></div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- COUNTRY + VISA -->
+        <section class="two-column">
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Country Performance</h2>
+
+                        <p>
+                            Leads and applications by destination.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="horizontal-chart"
+                    id="countryChart"
+                ></div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Visa Type Performance</h2>
+
+                        <p>
+                            Distribution by visa category.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="horizontal-chart"
+                    id="visaChart"
+                ></div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FINANCE TABLES -->
+        <section class="two-column">
+
+
+            <!-- TOP CUSTOMERS -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Top Customers</h2>
+
+                        <p>
+                            Customers by total paid amount.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Customer</th>
+                                <th>Country</th>
+                                <th>Total Fee</th>
+                                <th>Paid</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="topCustomersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEAM PERFORMANCE -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>Team Performance</h2>
+
+                        <p>
+                            Leads and applications handled by team.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>Leads</th>
+                                <th>Applications</th>
+                                <th>Approved</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="teamTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- APPLICATION STATUS TABLE -->
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>Application Status Report</h2>
+
+                    <p>
+                        Detailed visa application status breakdown.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-grid">
+
+                <div class="status-report-card">
+
+                    <span>Draft</span>
+
+                    <strong id="draftCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-report-card">
+
+                    <span>Documents Pending</span>
+
+                    <strong id="documentsPendingCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-report-card">
+
+                    <span>Submitted</span>
+
+                    <strong id="submittedCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-report-card">
+
+                    <span>Processing</span>
+
+                    <strong id="processingCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-report-card success">
+
+                    <span>Approved</span>
+
+                    <strong id="approvedCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-report-card danger">
+
+                    <span>Rejected</span>
+
+                    <strong id="rejectedCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REPORT FOOTER -->
+        <div class="report-footer">
+
+            <p>
+                Polaris Consultants • Business Intelligence & Reporting
+            </p>
+
+            <span id="reportGenerated">
+                Report generated today
+            </span>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="reports.js"></script>
+
+</body>
+</html>
