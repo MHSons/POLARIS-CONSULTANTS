@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Polaris Consultants | Documents
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="documents.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+
+    <div class="sidebar-logo">
+
+        <div class="logo-mark">
+            ✦
+        </div>
+
+        <div>
+
+            <strong>POLARIS</strong>
+
+            <span>CONSULTANTS</span>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MAIN
+        </span>
+
+
+        <a
+            href="admin.html"
+            class="sidebar-link"
+        >
+            <span>▦</span>
+            Dashboard
+        </a>
+
+
+        <a
+            href="leads.html"
+            class="sidebar-link"
+        >
+            <span>◉</span>
+            Leads
+        </a>
+
+
+        <a
+            href="customers.html"
+            class="sidebar-link"
+        >
+            <span>♙</span>
+            Customers
+        </a>
+
+
+        <a
+            href="applications.html"
+            class="sidebar-link"
+        >
+            <span>▤</span>
+            Applications
+        </a>
+
+    </div>
+
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            BUSINESS
+        </span>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>🌍</span>
+            Countries
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>🎓</span>
+            Visa Services
+        </a>
+
+
+        <a
+            href="documents.html"
+            class="sidebar-link active"
+        >
+            <span>📁</span>
+            Documents
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>⏰</span>
+            Follow-ups
+        </a>
+
+    </div>
+
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            FINANCE
+        </span>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>💰</span>
+            Finance
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>🧾</span>
+            Receipts
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>📊</span>
+            Reports
+        </a>
+
+    </div>
+
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MANAGEMENT
+        </span>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>👥</span>
+            Team
+        </a>
+
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            <span>⚙</span>
+            Settings
+        </a>
+
+    </div>
+
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-button"
+            id="logoutButton"
+        >
+            ⇥ &nbsp; Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main-content">
+
+
+    <header class="top-header">
+
+
+        <div class="header-left">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+            >
+                ☰
+            </button>
+
+
+            <div>
+
+                <h1>
+                    Documents
+                </h1>
+
+                <p>
+                    Manage customer and visa application documents.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="header-right">
+
+            <button class="notification-button">
+                🔔
+                <span></span>
+            </button>
+
+
+            <div class="admin-profile">
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Admin User
+                    </strong>
+
+                    <small>
+                        Super Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <section class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <h2>
+                    Document Management
+                </h2>
+
+                <p>
+                    Track, verify and manage required visa documents.
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary-button"
+                id="uploadButton"
+            >
+                + Upload Document
+            </button>
+
+        </div>
+
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📁
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Documents
+                    </span>
+
+                    <strong id="totalDocuments">
+                        0
+                    </strong>
+
+                    <small>
+                        All uploaded records
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    ⏳
+                </div>
+
+                <div>
+
+                    <span>
+                        Pending
+                    </span>
+
+                    <strong id="pendingDocuments">
+                        0
+                    </strong>
+
+                    <small>
+                        Documents required
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Verified
+                    </span>
+
+                    <strong id="verifiedDocuments">
+                        0
+                    </strong>
+
+                    <small>
+                        Successfully verified
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    !
+                </div>
+
+                <div>
+
+                    <span>
+                        Rejected
+                    </span>
+
+                    <strong id="rejectedDocuments">
+                        0
+                    </strong>
+
+                    <small>
+                        Need replacement
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DOCUMENT STATUS -->
+
+        <div class="status-card">
+
+
+            <button
+                class="status-filter active"
+                data-status=""
+            >
+
+                <strong id="allCount">
+                    0
+                </strong>
+
+                <span>
+                    All
+                </span>
+
+            </button>
+
+
+            <button
+                class="status-filter"
+                data-status="Pending"
+            >
+
+                <strong id="pendingCount">
+                    0
+                </strong>
+
+                <span>
+                    Pending
+                </span>
+
+            </button>
+
+
+            <button
+                class="status-filter"
+                data-status="Received"
+            >
+
+                <strong id="receivedCount">
+                    0
+                </strong>
+
+                <span>
+                    Received
+                </span>
+
+            </button>
+
+
+            <button
+                class="status-filter"
+                data-status="Verified"
+            >
+
+                <strong id="verifiedCount">
+                    0
+                </strong>
+
+                <span>
+                    Verified
+                </span>
+
+            </button>
+
+
+            <button
+                class="status-filter"
+                data-status="Rejected"
+            >
+
+                <strong id="rejectedCount">
+                    0
+                </strong>
+
+                <span>
+                    Rejected
+                </span>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- FILTERS -->
+
+        <div class="filter-card">
+
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search document, customer, application or passport..."
+                >
+
+            </div>
+
+
+            <select id="documentTypeFilter">
+
+                <option value="">
+                    All Document Types
+                </option>
+
+                <option>
+                    Passport
+                </option>
+
+                <option>
+                    CNIC
+                </option>
+
+                <option>
+                    Photograph
+                </option>
+
+                <option>
+                    Educational
+                </option>
+
+                <option>
+                    Bank Statement
+                </option>
+
+                <option>
+                    Employment Letter
+                </option>
+
+                <option>
+                    Experience Letter
+                </option>
+
+                <option>
+                    IELTS / PTE
+                </option>
+
+                <option>
+                    Admission Letter
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+
+            <select id="countryFilter">
+
+                <option value="">
+                    All Countries
+                </option>
+
+                <option>
+                    United Kingdom
+                </option>
+
+                <option>
+                    Canada
+                </option>
+
+                <option>
+                    Australia
+                </option>
+
+                <option>
+                    USA
+                </option>
+
+                <option>
+                    Germany
+                </option>
+
+                <option>
+                    UAE
+                </option>
+
+            </select>
+
+
+            <button
+                class="reset-button"
+                id="resetFilters"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+
+        <!-- DOCUMENT TABLE -->
+
+        <div class="table-card">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Document Records
+                    </h3>
+
+                    <p id="resultText">
+                        Showing documents
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="secondary-button"
+                    id="exportButton"
+                >
+                    ↓ Export CSV
+                </button>
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    id="selectAll"
+                                >
+                            </th>
+
+                            <th>
+                                Document
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Application
+                            </th>
+
+                            <th>
+                                Country
+                            </th>
+
+                            <th>
+                                Uploaded
+                            </th>
+
+                            <th>
+                                Expiry
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="documentTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <div class="pagination">
+
+                <span id="paginationText">
+                    Showing documents
+                </span>
+
+
+                <div>
+
+                    <button class="page-button active">
+                        1
+                    </button>
+
+                    <button class="page-button">
+                        2
+                    </button>
+
+                    <button class="page-button">
+                        3
+                    </button>
+
+                    <button class="page-button">
+                        →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================
+     UPLOAD MODAL
+========================================= -->
+
+<div
+    class="modal-overlay"
+    id="uploadModal"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Upload Document
+                </h2>
+
+                <p>
+                    Add a document to a customer application.
+                </p>
+
+            </div>
+
+
+            <button
+                class="close-modal"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <form id="documentForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        required
+                        placeholder="Customer name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerId"
+                        placeholder="CUS-000001"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Application ID *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="applicationId"
+                        required
+                        placeholder="APP-000001"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Passport Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="passport"
+                        placeholder="Passport number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Country *
+                    </label>
+
+                    <select
+                        id="country"
+                        required
+                    >
+
+                        <option value="">
+                            Select Country
+                        </option>
+
+                        <option>
+                            United Kingdom
+                        </option>
+
+                        <option>
+                            Canada
+                        </option>
+
+                        <option>
+                            Australia
+                        </option>
+
+                        <option>
+                            USA
+                        </option>
+
+                        <option>
+                            Germany
+                        </option>
+
+                        <option>
+                            UAE
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Document Type *
+                    </label>
+
+                    <select
+                        id="documentType"
+                        required
+                    >
+
+                        <option value="">
+                            Select Document
+                        </option>
+
+                        <option>
+                            Passport
+                        </option>
+
+                        <option>
+                            CNIC
+                        </option>
+
+                        <option>
+                            Photograph
+                        </option>
+
+                        <option>
+                            Educational
+                        </option>
+
+                        <option>
+                            Bank Statement
+                        </option>
+
+                        <option>
+                            Employment Letter
+                        </option>
+
+                        <option>
+                            Experience Letter
+                        </option>
+
+                        <option>
+                            IELTS / PTE
+                        </option>
+
+                        <option>
+                            Admission Letter
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Document Status
+                    </label>
+
+                    <select id="documentStatus">
+
+                        <option>
+                            Pending
+                        </option>
+
+                        <option>
+                            Received
+                        </option>
+
+                        <option>
+                            Verified
+                        </option>
+
+                        <option>
+                            Rejected
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Expiry Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expiryDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Select File
+                    </label>
+
+                    <div class="upload-area">
+
+                        <input
+                            type="file"
+                            id="documentFile"
+                            accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                        >
+
+                        <div>
+                            <strong>
+                                📤 Choose document
+                            </strong>
+
+                            <small>
+                                PDF, JPG, PNG, DOC or DOCX
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Document notes..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelModal"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Document
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script src="documents.js"></script>
+
+</body>
+
+</html>
