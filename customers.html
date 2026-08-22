@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Polaris Consultants | Customers
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="customers.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     SIDEBAR
+===================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+
+    <div class="sidebar-logo">
+
+        <div class="logo-mark">
+            ✦
+        </div>
+
+        <div>
+
+            <strong>
+                POLARIS
+            </strong>
+
+            <span>
+                CONSULTANTS
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MAIN -->
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MAIN
+        </span>
+
+
+        <a
+            href="admin.html"
+            class="sidebar-link"
+        >
+            <span>▦</span>
+            Dashboard
+        </a>
+
+
+        <a
+            href="leads.html"
+            class="sidebar-link"
+        >
+            <span>◉</span>
+            Leads
+        </a>
+
+
+        <a
+            href="customers.html"
+            class="sidebar-link active"
+        >
+            <span>♙</span>
+            Customers
+        </a>
+
+
+        <a
+            href="applications.html"
+            class="sidebar-link"
+        >
+            <span>▤</span>
+            Applications
+        </a>
+
+    </div>
+
+
+
+    <!-- BUSINESS -->
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            BUSINESS
+        </span>
+
+
+        <a href="#" class="sidebar-link">
+            <span>🌍</span>
+            Countries
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>🎓</span>
+            Visa Services
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>📁</span>
+            Documents
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>⏰</span>
+            Follow-ups
+        </a>
+
+    </div>
+
+
+
+    <!-- FINANCE -->
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            FINANCE
+        </span>
+
+
+        <a href="#" class="sidebar-link">
+            <span>💰</span>
+            Finance
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>🧾</span>
+            Receipts
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>📊</span>
+            Reports
+        </a>
+
+    </div>
+
+
+
+    <!-- MANAGEMENT -->
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MANAGEMENT
+        </span>
+
+
+        <a href="#" class="sidebar-link">
+            <span>👥</span>
+            Team
+        </a>
+
+
+        <a href="#" class="sidebar-link">
+            <span>⚙</span>
+            Settings
+        </a>
+
+    </div>
+
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-button"
+            id="logoutButton"
+        >
+            ⇥ &nbsp; Logout
+        </button>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================
+     MAIN CONTENT
+===================================== -->
+
+<main class="main-content">
+
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+
+        <div class="header-left">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+            >
+                ☰
+            </button>
+
+
+            <div>
+
+                <h1>
+                    Customers
+                </h1>
+
+                <p>
+                    Manage complete customer profiles and accounts.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="header-right">
+
+
+            <button class="notification-button">
+
+                🔔
+
+                <span></span>
+
+            </button>
+
+
+
+            <div class="admin-profile">
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+
+                <div class="profile-info">
+
+                    <strong>
+                        Admin User
+                    </strong>
+
+                    <small>
+                        Super Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-heading">
+
+
+            <div>
+
+                <h2>
+                    Customer Management
+                </h2>
+
+                <p>
+                    Search, review and manage all registered customers.
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary-button"
+                id="addCustomerButton"
+            >
+                + Add Customer
+            </button>
+
+        </div>
+
+
+
+        <!-- CUSTOMER STATS -->
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    👥
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Customers
+                    </span>
+
+                    <strong id="totalCustomers">
+                        0
+                    </strong>
+
+                    <small>
+                        Registered customers
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Active Customers
+                    </span>
+
+                    <strong id="activeCustomers">
+                        0
+                    </strong>
+
+                    <small>
+                        Active cases
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon gold">
+                    💰
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Receivable
+                    </span>
+
+                    <strong id="totalReceivable">
+                        Rs. 0
+                    </strong>
+
+                    <small>
+                        Outstanding balance
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    📄
+                </div>
+
+                <div>
+
+                    <span>
+                        Applications
+                    </span>
+
+                    <strong id="totalApplications">
+                        0
+                    </strong>
+
+                    <small>
+                        Total applications
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FILTER -->
+
+        <div class="filter-card">
+
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search customer, CNIC, passport, phone or Customer ID..."
+                >
+
+            </div>
+
+
+            <select id="countryFilter">
+
+                <option value="">
+                    All Countries
+                </option>
+
+                <option>
+                    United Kingdom
+                </option>
+
+                <option>
+                    Canada
+                </option>
+
+                <option>
+                    Australia
+                </option>
+
+                <option>
+                    USA
+                </option>
+
+                <option>
+                    Germany
+                </option>
+
+                <option>
+                    UAE
+                </option>
+
+            </select>
+
+
+            <select id="visaFilter">
+
+                <option value="">
+                    All Visa Types
+                </option>
+
+                <option>
+                    Study
+                </option>
+
+                <option>
+                    Work
+                </option>
+
+                <option>
+                    Visit
+                </option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option>
+                    Active
+                </option>
+
+                <option>
+                    Completed
+                </option>
+
+                <option>
+                    Pending
+                </option>
+
+                <option>
+                    Closed
+                </option>
+
+            </select>
+
+
+            <button
+                class="reset-button"
+                id="resetFilters"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+
+        <!-- CUSTOMER TABLE -->
+
+        <div class="table-card">
+
+
+            <div class="table-header">
+
+
+                <div>
+
+                    <h3>
+                        Customer Records
+                    </h3>
+
+                    <p id="resultText">
+                        Showing customers
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="secondary-button"
+                    id="exportButton"
+                >
+                    ↓ Export
+                </button>
+
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    id="selectAll"
+                                >
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Contact
+                            </th>
+
+                            <th>
+                                Country
+                            </th>
+
+                            <th>
+                                Visa
+                            </th>
+
+                            <th>
+                                Assigned
+                            </th>
+
+                            <th>
+                                Applications
+                            </th>
+
+                            <th>
+                                Financial
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="customerTableBody">
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
+
+            <!-- PAGINATION -->
+
+            <div class="pagination">
+
+
+                <span id="paginationText">
+                    Showing 1–10
+                </span>
+
+
+                <div>
+
+                    <button class="page-button active">
+                        1
+                    </button>
+
+                    <button class="page-button">
+                        2
+                    </button>
+
+                    <button class="page-button">
+                        3
+                    </button>
+
+                    <button class="page-button">
+                        →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================
+     CUSTOMER MODAL
+===================================== -->
+
+<div
+    class="modal-overlay"
+    id="customerModal"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+
+            <div>
+
+                <h2>
+                    Add New Customer
+                </h2>
+
+                <p>
+                    Create a complete customer profile.
+                </p>
+
+            </div>
+
+
+            <button
+                class="close-modal"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+
+        <form id="customerForm">
+
+
+            <!-- PERSONAL -->
+
+            <div class="form-section-title">
+                Personal Information
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        required
+                        placeholder="Full name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Father / Husband Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fatherName"
+                        placeholder="Father / Husband name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        CNIC
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerCnic"
+                        placeholder="XXXXX-XXXXXXX-X"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Passport Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerPassport"
+                        placeholder="Passport number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Date of Birth
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dob"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select id="gender">
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option>
+                            Male
+                        </option>
+
+                        <option>
+                            Female
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        required
+                        placeholder="+92 300 0000000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        WhatsApp
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customerWhatsapp"
+                        placeholder="+92 300 0000000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="customerEmail"
+                        placeholder="email@example.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerCity"
+                        placeholder="City"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerAddress"
+                        placeholder="Complete address"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- VISA -->
+
+            <div class="form-section-title">
+                Visa / Case Information
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Country *
+                    </label>
+
+                    <select
+                        id="customerCountry"
+                        required
+                    >
+
+                        <option value="">
+                            Select Country
+                        </option>
+
+                        <option>
+                            United Kingdom
+                        </option>
+
+                        <option>
+                            Canada
+                        </option>
+
+                        <option>
+                            Australia
+                        </option>
+
+                        <option>
+                            USA
+                        </option>
+
+                        <option>
+                            Germany
+                        </option>
+
+                        <option>
+                            UAE
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Visa Type *
+                    </label>
+
+                    <select
+                        id="customerVisa"
+                        required
+                    >
+
+                        <option value="">
+                            Select Visa
+                        </option>
+
+                        <option>
+                            Study
+                        </option>
+
+                        <option>
+                            Work
+                        </option>
+
+                        <option>
+                            Visit
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Education
+                    </label>
+
+                    <input
+                        type="text"
+                        id="education"
+                        placeholder="Highest qualification"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Occupation
+                    </label>
+
+                    <input
+                        type="text"
+                        id="occupation"
+                        placeholder="Current occupation"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Assigned Counsellor
+                    </label>
+
+                    <select id="assigned">
+
+                        <option>
+                            Asad
+                        </option>
+
+                        <option>
+                            Bilal
+                        </option>
+
+                        <option>
+                            Salman
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer Status
+                    </label>
+
+                    <select id="customerStatus">
+
+                        <option>
+                            Active
+                        </option>
+
+                        <option>
+                            Pending
+                        </option>
+
+                        <option>
+                            Completed
+                        </option>
+
+                        <option>
+                            Closed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FINANCE -->
+
+            <div class="form-section-title">
+                Financial Information
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Total Consultancy Fee
+                    </label>
+
+                    <input
+                        type="number"
+                        id="totalFee"
+                        value="0"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Paid Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="paidAmount"
+                        value="0"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="customerNotes"
+                        placeholder="Customer notes..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="modal-footer">
+
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelModal"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Customer
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="customers.js"></script>
+
+</body>
+
+</html>
