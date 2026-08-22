@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Polaris Consultants | Finance
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="finance.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-mark">
+            ✦
+        </div>
+
+        <div>
+            <strong>POLARIS</strong>
+            <span>CONSULTANTS</span>
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MAIN
+        </span>
+
+        <a href="admin.html" class="sidebar-link">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="leads.html" class="sidebar-link">
+            <span>◉</span>
+            Leads
+        </a>
+
+        <a href="customers.html" class="sidebar-link">
+            <span>♙</span>
+            Customers
+        </a>
+
+        <a href="applications.html" class="sidebar-link">
+            <span>▤</span>
+            Applications
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            BUSINESS
+        </span>
+
+        <a href="#" class="sidebar-link">
+            <span>🌍</span>
+            Countries
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span>🎓</span>
+            Visa Services
+        </a>
+
+        <a href="documents.html" class="sidebar-link">
+            <span>📁</span>
+            Documents
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span>⏰</span>
+            Follow-ups
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            FINANCE
+        </span>
+
+        <a href="finance.html" class="sidebar-link active">
+            <span>💰</span>
+            Finance
+        </a>
+
+        <a href="receipts.html" class="sidebar-link">
+            <span>🧾</span>
+            Receipts
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span>📊</span>
+            Reports
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <span class="sidebar-title">
+            MANAGEMENT
+        </span>
+
+        <a href="#" class="sidebar-link">
+            <span>👥</span>
+            Team
+        </a>
+
+        <a href="#" class="sidebar-link">
+            <span>⚙</span>
+            Settings
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-button"
+            id="logoutButton"
+        >
+            ⇥ &nbsp; Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main-content">
+
+
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+            >
+                ☰
+            </button>
+
+            <div>
+
+                <h1>
+                    Finance
+                </h1>
+
+                <p>
+                    Manage payments, expenses and customer balances.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <button class="notification-button">
+                🔔
+                <span></span>
+            </button>
+
+
+            <div class="admin-profile">
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Admin User
+                    </strong>
+
+                    <small>
+                        Super Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <section class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <h2>
+                    Financial Overview
+                </h2>
+
+                <p>
+                    Monitor business income, expenses and receivables.
+                </p>
+
+            </div>
+
+
+            <div class="heading-actions">
+
+                <button
+                    class="secondary-button"
+                    id="exportButton"
+                >
+                    ↓ Export
+                </button>
+
+                <button
+                    class="expense-button"
+                    id="addExpenseButton"
+                >
+                    + Expense
+                </button>
+
+                <button
+                    class="primary-button"
+                    id="addPaymentButton"
+                >
+                    + Payment
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             FINANCE STATS
+        ========================================= -->
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    💰
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Income
+                    </span>
+
+                    <strong id="totalIncome">
+                        Rs. 0
+                    </strong>
+
+                    <small>
+                        Customer payments
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    📤
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Expenses
+                    </span>
+
+                    <strong id="totalExpenses">
+                        Rs. 0
+                    </strong>
+
+                    <small>
+                        Business expenses
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    📈
+                </div>
+
+                <div>
+
+                    <span>
+                        Net Profit
+                    </span>
+
+                    <strong id="netProfit">
+                        Rs. 0
+                    </strong>
+
+                    <small>
+                        Income minus expenses
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    ⏳
+                </div>
+
+                <div>
+
+                    <span>
+                        Outstanding
+                    </span>
+
+                    <strong id="outstanding">
+                        Rs. 0
+                    </strong>
+
+                    <small>
+                        Customer receivables
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             FINANCE SUMMARY
+        ========================================= -->
+
+        <div class="summary-grid">
+
+
+            <div class="summary-card">
+
+                <div class="summary-header">
+
+                    <div>
+
+                        <h3>
+                            Collection Summary
+                        </h3>
+
+                        <p>
+                            Consultancy fee collection
+                        </p>
+
+                    </div>
+
+                    <span class="summary-icon">
+                        💳
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Total Contract Value
+                    </span>
+
+                    <strong id="contractValue">
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Amount Received
+                    </span>
+
+                    <strong
+                        class="positive"
+                        id="amountReceived"
+                    >
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Remaining Amount
+                    </span>
+
+                    <strong
+                        class="warning"
+                        id="remainingAmount"
+                    >
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        id="collectionProgress"
+                    ></div>
+
+                </div>
+
+
+                <small
+                    class="progress-text"
+                    id="progressText"
+                >
+                    0% collected
+                </small>
+
+            </div>
+
+
+
+            <div class="summary-card">
+
+                <div class="summary-header">
+
+                    <div>
+
+                        <h3>
+                            Expense Summary
+                        </h3>
+
+                        <p>
+                            Business operating expenses
+                        </p>
+
+                    </div>
+
+                    <span class="summary-icon">
+                        📊
+                    </span>
+
+                </div>
+
+
+                <div class="expense-list">
+
+                    <div>
+
+                        <span>
+                            Office / Rent
+                        </span>
+
+                        <strong id="rentExpense">
+                            Rs. 0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Salaries
+                        </span>
+
+                        <strong id="salaryExpense">
+                            Rs. 0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Marketing
+                        </span>
+
+                        <strong id="marketingExpense">
+                            Rs. 0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Other
+                        </span>
+
+                        <strong id="otherExpense">
+                            Rs. 0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             TABS
+        ========================================= -->
+
+        <div class="finance-tabs">
+
+            <button
+                class="finance-tab active"
+                data-tab="payments"
+            >
+                Payments
+            </button>
+
+            <button
+                class="finance-tab"
+                data-tab="expenses"
+            >
+                Expenses
+            </button>
+
+            <button
+                class="finance-tab"
+                data-tab="ledger"
+            >
+                Customer Ledger
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================================
+             FILTERS
+        ========================================= -->
+
+        <div class="filter-card">
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search customer, payment ID, invoice..."
+                >
+
+            </div>
+
+
+            <select id="countryFilter">
+
+                <option value="">
+                    All Countries
+                </option>
+
+                <option>
+                    United Kingdom
+                </option>
+
+                <option>
+                    Canada
+                </option>
+
+                <option>
+                    Australia
+                </option>
+
+                <option>
+                    USA
+                </option>
+
+                <option>
+                    Germany
+                </option>
+
+                <option>
+                    UAE
+                </option>
+
+            </select>
+
+
+            <select id="paymentMethodFilter">
+
+                <option value="">
+                    All Payment Methods
+                </option>
+
+                <option>
+                    Cash
+                </option>
+
+                <option>
+                    Bank Transfer
+                </option>
+
+                <option>
+                    JazzCash
+                </option>
+
+                <option>
+                    Easypaisa
+                </option>
+
+                <option>
+                    Card
+                </option>
+
+            </select>
+
+
+            <button
+                class="reset-button"
+                id="resetFilters"
+            >
+                Reset
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================================
+             PAYMENTS TABLE
+        ========================================= -->
+
+        <div
+            class="table-card"
+            id="paymentsSection"
+        >
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Payment History
+                    </h3>
+
+                    <p id="paymentResultText">
+                        Customer payment records
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Payment ID
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Application
+                            </th>
+
+                            <th>
+                                Country
+                            </th>
+
+                            <th>
+                                Total Fee
+                            </th>
+
+                            <th>
+                                Payment
+                            </th>
+
+                            <th>
+                                Remaining
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="paymentTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             EXPENSES TABLE
+        ========================================= -->
+
+        <div
+            class="table-card hidden-section"
+            id="expensesSection"
+        >
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Expense Records
+                    </h3>
+
+                    <p>
+                        Business expense transactions
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Expense ID
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Payment Method
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Added By
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="expenseTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             LEDGER
+        ========================================= -->
+
+        <div
+            class="table-card hidden-section"
+            id="ledgerSection"
+        >
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Customer Ledger
+                    </h3>
+
+                    <p>
+                        Customer-wise debit, credit and balance
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Application
+                            </th>
+
+                            <th>
+                                Total Fee
+                            </th>
+
+                            <th>
+                                Debit
+                            </th>
+
+                            <th>
+                                Credit
+                            </th>
+
+                            <th>
+                                Balance
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ledgerTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================
+     PAYMENT MODAL
+========================================= -->
+
+<div
+    class="modal-overlay"
+    id="paymentModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Add Customer Payment
+                </h2>
+
+                <p>
+                    Record a customer payment transaction.
+                </p>
+
+            </div>
+
+            <button
+                class="close-modal"
+                id="closePaymentModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="paymentForm">
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer Name *
+                    </label>
+
+                    <input
+                        id="paymentCustomer"
+                        required
+                        placeholder="Customer name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Customer ID
+                    </label>
+
+                    <input
+                        id="paymentCustomerId"
+                        placeholder="CUS-000001"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Application ID *
+                    </label>
+
+                    <input
+                        id="paymentApplication"
+                        required
+                        placeholder="APP-000001"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Country
+                    </label>
+
+                    <select id="paymentCountry">
+
+                        <option>
+                            United Kingdom
+                        </option>
+
+                        <option>
+                            Canada
+                        </option>
+
+                        <option>
+                            Australia
+                        </option>
+
+                        <option>
+                            USA
+                        </option>
+
+                        <option>
+                            Germany
+                        </option>
+
+                        <option>
+                            UAE
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Total Consultancy Fee *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="paymentTotalFee"
+                        required
+                        min="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Amount Received *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="paymentAmount"
+                        required
+                        min="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Method
+                    </label>
+
+                    <select id="paymentMethod">
+
+                        <option>
+                            Cash
+                        </option>
+
+                        <option>
+                            Bank Transfer
+                        </option>
+
+                        <option>
+                            JazzCash
+                        </option>
+
+                        <option>
+                            Easypaisa
+                        </option>
+
+                        <option>
+                            Card
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="paymentDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="paymentNotes"
+                        placeholder="Payment notes..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelPayment"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Payment
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     EXPENSE MODAL
+========================================= -->
+
+<div
+    class="modal-overlay"
+    id="expenseModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Add Expense
+                </h2>
+
+                <p>
+                    Record a business expense.
+                </p>
+
+            </div>
+
+            <button
+                class="close-modal"
+                id="closeExpenseModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="expenseForm">
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Expense Category *
+                    </label>
+
+                    <select
+                        id="expenseCategory"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option>
+                            Rent
+                        </option>
+
+                        <option>
+                            Electricity
+                        </option>
+
+                        <option>
+                            Internet
+                        </option>
+
+                        <option>
+                            Salaries
+                        </option>
+
+                        <option>
+                            Marketing
+                        </option>
+
+                        <option>
+                            Courier
+                        </option>
+
+                        <option>
+                            Embassy / Third Party
+                        </option>
+
+                        <option>
+                            Travel
+                        </option>
+
+                        <option>
+                            Office Supplies
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Amount *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        required
+                        min="0"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Method
+                    </label>
+
+                    <select id="expenseMethod">
+
+                        <option>
+                            Cash
+                        </option>
+
+                        <option>
+                            Bank Transfer
+                        </option>
+
+                        <option>
+                            Card
+                        </option>
+
+                        <option>
+                            JazzCash
+                        </option>
+
+                        <option>
+                            Easypaisa
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Expense Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expenseDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Description *
+                    </label>
+
+                    <input
+                        id="expenseDescription"
+                        required
+                        placeholder="Expense description"
+                    >
+
+                </div>
+
+
+                <div class="form-group full-width">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="expenseNotes"
+                        placeholder="Additional notes..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelExpense"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="expense-button"
+                >
+                    Save Expense
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script src="finance.js"></script>
+
+</body>
+
+</html>
