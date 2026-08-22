@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Receipts & Invoices | Polaris Consultants</title>
+
+    <link rel="stylesheet" href="receipts.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">✦</div>
+
+            <div>
+                <h2>POLARIS</h2>
+                <span>CONSULTANTS</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin.html">⌂ Dashboard</a>
+            <a href="leads.html">👥 Leads</a>
+            <a href="customers.html">◉ Customers</a>
+            <a href="applications.html">▣ Applications</a>
+
+            <div class="nav-title">BUSINESS</div>
+
+            <a href="documents.html">▤ Documents</a>
+            <a href="#">🌍 Countries</a>
+            <a href="#">▥ Visa Services</a>
+            <a href="#">✓ Follow-ups</a>
+
+            <div class="nav-title">FINANCE</div>
+
+            <a href="finance.html">৳ Finance</a>
+            <a href="receipts.html" class="active">▤ Receipts</a>
+            <a href="#">▥ Reports</a>
+
+            <div class="nav-title">MANAGEMENT</div>
+
+            <a href="#">♙ Team</a>
+            <a href="#">⚙ Settings</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button onclick="logoutUser()">Logout</button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+                <h1>Receipts & Invoices</h1>
+                <p>Manage customer receipts, invoices and payment verification.</p>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="btn secondary" onclick="openVerifyModal()">
+                    Verify Receipt
+                </button>
+
+                <button class="btn primary" onclick="openReceiptModal()">
+                    + Create Receipt
+                </button>
+            </div>
+
+        </header>
+
+
+        <!-- STATS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">▤</div>
+                <div>
+                    <span>Total Receipts</span>
+                    <strong id="totalReceipts">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">৳</div>
+                <div>
+                    <span>Total Collected</span>
+                    <strong id="totalCollected">PKR 0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">✓</div>
+                <div>
+                    <span>Verified</span>
+                    <strong id="verifiedReceipts">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">!</div>
+                <div>
+                    <span>Pending Verification</span>
+                    <strong id="pendingReceipts">0</strong>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- FILTERS -->
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Receipt History</h2>
+                    <p>Search and manage customer payment records.</p>
+                </div>
+
+                <button class="btn secondary" onclick="exportReceiptsCSV()">
+                    Export CSV
+                </button>
+
+            </div>
+
+
+            <div class="filters">
+
+                <div class="filter-group search-box">
+                    <label>Search</label>
+
+                    <input
+                        type="text"
+                        id="receiptSearch"
+                        placeholder="Receipt ID, customer, application..."
+                        oninput="renderReceipts()"
+                    >
+                </div>
+
+
+                <div class="filter-group">
+                    <label>Receipt Type</label>
+
+                    <select id="receiptTypeFilter" onchange="renderReceipts()">
+                        <option value="">All Types</option>
+                        <option value="Payment Receipt">Payment Receipt</option>
+                        <option value="Invoice">Invoice</option>
+                        <option value="Refund Receipt">Refund Receipt</option>
+                        <option value="Application Slip">Application Slip</option>
+                    </select>
+                </div>
+
+
+                <div class="filter-group">
+                    <label>Status</label>
+
+                    <select id="receiptStatusFilter" onchange="renderReceipts()">
+                        <option value="">All Status</option>
+                        <option value="Verified">Verified</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+
+
+                <div class="filter-group">
+                    <label>Country</label>
+
+                    <select id="countryFilter" onchange="renderReceipts()">
+                        <option value="">All Countries</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="USA">USA</option>
+                        <option value="Germany">Germany</option>
+                        <option value="UAE">UAE</option>
+                    </select>
+                </div>
+
+
+                <button class="btn reset-btn" onclick="resetFilters()">
+                    Reset
+                </button>
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Receipt ID</th>
+                            <th>Customer</th>
+                            <th>Application</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="receiptsTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- QR VERIFICATION INFO -->
+        <section class="verification-info">
+
+            <div class="verification-icon">▣</div>
+
+            <div>
+                <h3>Secure QR Verification</h3>
+
+                <p>
+                    Every receipt can contain a QR code linked to its secure
+                    Receipt ID. Sensitive information such as CNIC and passport
+                    numbers is never encoded directly into the QR code.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- CREATE RECEIPT MODAL -->
+<div class="modal" id="receiptModal">
+
+    <div class="modal-box large">
+
+        <div class="modal-header">
+            <div>
+                <h2>Create Receipt</h2>
+                <p>Create a payment receipt, invoice or application slip.</p>
+            </div>
+
+            <button class="close-btn" onclick="closeReceiptModal()">×</button>
+        </div>
+
+
+        <form id="receiptForm" onsubmit="createReceipt(event)">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Receipt Type *</label>
+
+                    <select id="receiptType" required>
+                        <option value="">Select Type</option>
+                        <option value="Payment Receipt">Payment Receipt</option>
+                        <option value="Invoice">Invoice</option>
+                        <option value="Refund Receipt">Refund Receipt</option>
+                        <option value="Application Slip">Application Slip</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Customer Name *</label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Customer full name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Customer ID</label>
+
+                    <input
+                        type="text"
+                        id="customerId"
+                        placeholder="CUS-000001"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Payment ID</label>
+
+                    <input
+                        type="text"
+                        id="paymentId"
+                        placeholder="PAY-000001"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Application ID</label>
+
+                    <input
+                        type="text"
+                        id="applicationId"
+                        placeholder="APP-000001"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Country</label>
+
+                    <select id="country">
+                        <option value="">Select Country</option>
+                        <option>United Kingdom</option>
+                        <option>Canada</option>
+                        <option>Australia</option>
+                        <option>USA</option>
+                        <option>Germany</option>
+                        <option>UAE</option>
+                        <option>Turkey</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Visa Type</label>
+
+                    <select id="visaType">
+                        <option value="">Select Visa</option>
+                        <option>Study Visa</option>
+                        <option>Work Visa</option>
+                        <option>Visit Visa</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Total Consultancy Fee</label>
+
+                    <input
+                        type="number"
+                        id="totalFee"
+                        min="0"
+                        placeholder="0"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Amount Paid *</label>
+
+                    <input
+                        type="number"
+                        id="amountPaid"
+                        min="0"
+                        placeholder="0"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+
+                    <select id="paymentMethod">
+                        <option>Cash</option>
+                        <option>Bank Transfer</option>
+                        <option>JazzCash</option>
+                        <option>EasyPaisa</option>
+                        <option>Card</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Payment Date *</label>
+
+                    <input
+                        type="date"
+                        id="paymentDate"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Received By</label>
+
+                    <input
+                        type="text"
+                        id="receivedBy"
+                        value="Admin"
+                    >
+                </div>
+
+
+                <div class="form-group full">
+                    <label>Notes</label>
+
+                    <textarea
+                        id="receiptNotes"
+                        rows="3"
+                        placeholder="Additional notes..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn secondary"
+                    onclick="closeReceiptModal()"
+                >
+                    Cancel
+                </button>
+
+                <button type="submit" class="btn primary">
+                    Create Receipt
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- VIEW RECEIPT MODAL -->
+<div class="modal" id="viewModal">
+
+    <div class="modal-box receipt-modal-box">
+
+        <div class="modal-header no-print">
+
+            <div>
+                <h2>Receipt Preview</h2>
+                <p>Professional customer receipt.</p>
+            </div>
+
+            <button class="close-btn" onclick="closeViewModal()">×</button>
+
+        </div>
+
+
+        <div id="receiptPreview"></div>
+
+
+        <div class="preview-actions no-print">
+
+            <button class="btn secondary" onclick="printReceipt()">
+                Print
+            </button>
+
+            <button class="btn secondary" onclick="downloadReceipt()">
+                Download
+            </button>
+
+            <button class="btn primary" onclick="verifyCurrentReceipt()">
+                Verify
+            </button>
+
+            <button class="btn whatsapp" onclick="whatsappReceipt()">
+                WhatsApp
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- VERIFY MODAL -->
+<div class="modal" id="verifyModal">
+
+    <div class="modal-box verify-box">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Verify Receipt</h2>
+                <p>Enter the secure Receipt ID.</p>
+            </div>
+
+            <button class="close-btn" onclick="closeVerifyModal()">×</button>
+
+        </div>
+
+
+        <div class="verify-form">
+
+            <label>Receipt ID</label>
+
+            <input
+                type="text"
+                id="verifyReceiptId"
+                placeholder="e.g. RCP-000001"
+            >
+
+            <button class="btn primary" onclick="verifyReceipt()">
+                Verify Receipt
+            </button>
+
+        </div>
+
+
+        <div id="verificationResult"></div>
+
+    </div>
+
+</div>
+
+
+<script src="receipts.js"></script>
+
+</body>
+</html>
