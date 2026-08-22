@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Polaris Consultants | Admin Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         SIDEBAR
+    =============================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                ✦
+            </div>
+
+            <div>
+                <strong>POLARIS</strong>
+                <span>CONSULTANTS</span>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-title">
+                MAIN
+            </span>
+
+
+            <a href="admin.html" class="sidebar-link active">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+
+            <a href="leads.html" class="sidebar-link">
+                <span>◉</span>
+                Leads
+            </a>
+
+
+            <a href="customers.html" class="sidebar-link">
+                <span>♙</span>
+                Customers
+            </a>
+
+
+            <a href="applications.html" class="sidebar-link">
+                <span>▤</span>
+                Applications
+            </a>
+
+        </div>
+
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-title">
+                BUSINESS
+            </span>
+
+
+            <a href="#" class="sidebar-link">
+                <span>🌍</span>
+                Countries
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>🎓</span>
+                Visa Services
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>📁</span>
+                Documents
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>⏰</span>
+                Follow-ups
+            </a>
+
+        </div>
+
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-title">
+                FINANCE
+            </span>
+
+
+            <a href="#" class="sidebar-link">
+                <span>💰</span>
+                Finance
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>🧾</span>
+                Receipts
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>📊</span>
+                Reports
+            </a>
+
+        </div>
+
+
+
+        <div class="sidebar-section">
+
+            <span class="sidebar-title">
+                MANAGEMENT
+            </span>
+
+
+            <a href="#" class="sidebar-link">
+                <span>👥</span>
+                Team
+            </a>
+
+
+            <a href="#" class="sidebar-link">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </div>
+
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="logout-button"
+                id="logoutButton"
+            >
+                <span>⇥</span>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ==============================
+         MAIN
+    =============================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP HEADER -->
+
+        <header class="dashboard-header">
+
+            <div class="header-left">
+
+                <button
+                    class="menu-button"
+                    id="menuButton"
+                >
+                    ☰
+                </button>
+
+
+                <div>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Welcome back to Polaris Consultants.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification-button">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="admin-profile">
+
+                    <div class="profile-avatar">
+                        A
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Admin User
+                        </strong>
+
+                        <span>
+                            Super Admin
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ==============================
+             DASHBOARD CONTENT
+        =============================== -->
+
+        <section class="dashboard-content">
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        👥
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span>
+                            Total Leads
+                        </span>
+
+                        <strong id="totalLeads">
+                            0
+                        </strong>
+
+                        <small class="positive">
+                            +12% this month
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span>
+                            Active Applications
+                        </span>
+
+                        <strong id="activeApplications">
+                            0
+                        </strong>
+
+                        <small class="positive">
+                            +8% this month
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon gold">
+                        💰
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span>
+                            Total Revenue
+                        </span>
+
+                        <strong id="totalRevenue">
+                            Rs. 0
+                        </strong>
+
+                        <small class="positive">
+                            +15% this month
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon red">
+                        ⏰
+                    </div>
+
+                    <div class="stat-information">
+
+                        <span>
+                            Pending Follow-ups
+                        </span>
+
+                        <strong id="pendingFollowups">
+                            0
+                        </strong>
+
+                        <small class="warning">
+                            Need attention
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Frequently used management tools.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <a href="#newLead" class="quick-card">
+
+                    <span>
+                        ➕
+                    </span>
+
+                    <strong>
+                        Add New Lead
+                    </strong>
+
+                    <small>
+                        Register a potential customer
+                    </small>
+
+                </a>
+
+
+                <a href="#newCustomer" class="quick-card">
+
+                    <span>
+                        👤
+                    </span>
+
+                    <strong>
+                        Add Customer
+                    </strong>
+
+                    <small>
+                        Create customer profile
+                    </small>
+
+                </a>
+
+
+                <a href="#newApplication" class="quick-card">
+
+                    <span>
+                        📄
+                    </span>
+
+                    <strong>
+                        New Application
+                    </strong>
+
+                    <small>
+                        Start visa application
+                    </small>
+
+                </a>
+
+
+                <a href="#payment" class="quick-card">
+
+                    <span>
+                        💳
+                    </span>
+
+                    <strong>
+                        Record Payment
+                    </strong>
+
+                    <small>
+                        Add customer payment
+                    </small>
+
+                </a>
+
+
+                <a href="#expense" class="quick-card">
+
+                    <span>
+                        💸
+                    </span>
+
+                    <strong>
+                        Add Expense
+                    </strong>
+
+                    <small>
+                        Record business expense
+                    </small>
+
+                </a>
+
+
+                <a href="#receipt" class="quick-card">
+
+                    <span>
+                        🧾
+                    </span>
+
+                    <strong>
+                        Create Receipt
+                    </strong>
+
+                    <small>
+                        Generate payment receipt
+                    </small>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- MAIN DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- RECENT LEADS -->
+
+                <div class="dashboard-card large-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Recent Leads
+                            </h3>
+
+                            <p>
+                                Latest customer inquiries
+                            </p>
+
+                        </div>
+
+                        <a href="leads.html">
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Lead ID
+                                    </th>
+
+                                    <th>
+                                        Customer
+                                    </th>
+
+                                    <th>
+                                        Country
+                                    </th>
+
+                                    <th>
+                                        Visa
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="recentLeadsTable">
+
+                                <tr>
+
+                                    <td>
+                                        POL-000001
+                                    </td>
+
+                                    <td>
+                                        Muhammad Ali
+                                    </td>
+
+                                    <td>
+                                        🇬🇧 United Kingdom
+                                    </td>
+
+                                    <td>
+                                        Study
+                                    </td>
+
+                                    <td>
+                                        <span class="status new">
+                                            New
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        POL-000002
+                                    </td>
+
+                                    <td>
+                                        Ahmed Khan
+                                    </td>
+
+                                    <td>
+                                        🇨🇦 Canada
+                                    </td>
+
+                                    <td>
+                                        Work
+                                    </td>
+
+                                    <td>
+                                        <span class="status contacted">
+                                            Contacted
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        POL-000003
+                                    </td>
+
+                                    <td>
+                                        Usman Raza
+                                    </td>
+
+                                    <td>
+                                        🇦🇺 Australia
+                                    </td>
+
+                                    <td>
+                                        Study
+                                    </td>
+
+                                    <td>
+                                        <span class="status processing">
+                                            Processing
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- APPLICATION STATUS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Applications
+                            </h3>
+
+                            <p>
+                                Current application status
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-status">
+
+
+                        <div class="status-row">
+
+                            <div>
+
+                                <span class="status-dot blue-dot"></span>
+
+                                <span>
+                                    New
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                12
+                            </strong>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <div>
+
+                                <span class="status-dot yellow-dot"></span>
+
+                                <span>
+                                    Documents Pending
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                18
+                            </strong>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <div>
+
+                                <span class="status-dot purple-dot"></span>
+
+                                <span>
+                                    Processing
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                25
+                            </strong>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <div>
+
+                                <span class="status-dot green-dot"></span>
+
+                                <span>
+                                    Approved
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                16
+                            </strong>
+
+                        </div>
+
+
+                        <div class="status-row">
+
+                            <div>
+
+                                <span class="status-dot red-dot"></span>
+
+                                <span>
+                                    Rejected
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                4
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FINANCE + FOLLOW UPS -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- FINANCE -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Finance Overview
+                            </h3>
+
+                            <p>
+                                Current business financial summary
+                            </p>
+
+                        </div>
+
+                        <a href="#">
+                            Finance →
+                        </a>
+
+                    </div>
+
+
+                    <div class="finance-list">
+
+
+                        <div>
+
+                            <span>
+                                Today's Income
+                            </span>
+
+                            <strong>
+                                Rs. 0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Today's Expenses
+                            </span>
+
+                            <strong class="expense-value">
+                                Rs. 0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                This Month Income
+                            </span>
+
+                            <strong>
+                                Rs. 0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Outstanding
+                            </span>
+
+                            <strong class="outstanding-value">
+                                Rs. 0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FOLLOW UPS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Today's Follow-ups
+                            </h3>
+
+                            <p>
+                                Customers requiring attention
+                            </p>
+
+                        </div>
+
+                        <a href="#">
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <div class="followup-list">
+
+
+                        <div class="followup-item">
+
+                            <div class="followup-avatar">
+                                A
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Ahmed Khan
+                                </strong>
+
+                                <span>
+                                    Canada Work Visa
+                                </span>
+
+                            </div>
+
+                            <time>
+                                11:00 AM
+                            </time>
+
+                        </div>
+
+
+                        <div class="followup-item">
+
+                            <div class="followup-avatar">
+                                M
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Muhammad Ali
+                                </strong>
+
+                                <span>
+                                    UK Study Visa
+                                </span>
+
+                            </div>
+
+                            <time>
+                                02:00 PM
+                            </time>
+
+                        </div>
+
+
+                        <div class="followup-item">
+
+                            <div class="followup-avatar">
+                                U
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Usman Raza
+                                </strong>
+
+                                <span>
+                                    Australia Student Visa
+                                </span>
+
+                            </div>
+
+                            <time>
+                                04:30 PM
+                            </time>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Team Performance
+                        </h3>
+
+                        <p>
+                            Current month performance
+                        </p>
+
+                    </div>
+
+                    <a href="#">
+                        Manage Team →
+                    </a>
+
+                </div>
+
+
+                <div class="team-table-container">
+
+                    <table class="team-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Team Member
+                                </th>
+
+                                <th>
+                                    Leads
+                                </th>
+
+                                <th>
+                                    Applications
+                                </th>
+
+                                <th>
+                                    Converted
+                                </th>
+
+                                <th>
+                                    Revenue
+                                </th>
+
+                                <th>
+                                    Performance
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    <div class="team-member">
+
+                                        <div class="small-avatar">
+                                            A
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Asad
+                                            </strong>
+
+                                            <span>
+                                                Counsellor
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    45
+                                </td>
+
+                                <td>
+                                    24
+                                </td>
+
+                                <td>
+                                    15
+                                </td>
+
+                                <td>
+                                    Rs. 850,000
+                                </td>
+
+                                <td>
+                                    <div class="progress">
+
+                                        <div
+                                            class="progress-bar"
+                                            style="width: 82%;"
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="team-member">
+
+                                        <div class="small-avatar">
+                                            B
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Bilal
+                                            </strong>
+
+                                            <span>
+                                                Counsellor
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    36
+                                </td>
+
+                                <td>
+                                    19
+                                </td>
+
+                                <td>
+                                    11
+                                </td>
+
+                                <td>
+                                    Rs. 620,000
+                                </td>
+
+                                <td>
+
+                                    <div class="progress">
+
+                                        <div
+                                            class="progress-bar"
+                                            style="width: 68%;"
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="team-member">
+
+                                        <div class="small-avatar">
+                                            S
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+                                                Salman
+                                            </strong>
+
+                                            <span>
+                                                Processing Officer
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    28
+                                </td>
+
+                                <td>
+                                    22
+                                </td>
+
+                                <td>
+                                    9
+                                </td>
+
+                                <td>
+                                    Rs. 510,000
+                                </td>
+
+                                <td>
+
+                                    <div class="progress">
+
+                                        <div
+                                            class="progress-bar"
+                                            style="width: 56%;"
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
