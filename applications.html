@@ -1,1224 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Polaris Consultants | Applications
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="applications.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polaris Consultants | Applications</title>
+    <link rel="stylesheet" href="applications.css">
 </head>
-
-
 <body>
 
-
-<!-- =====================================
-     SIDEBAR
-===================================== -->
-
-<aside class="sidebar" id="sidebar">
-
-
-    <div class="sidebar-logo">
-
-        <div class="logo-mark">
-            ✦
-        </div>
-
-        <div>
-
-            <strong>
-                POLARIS
-            </strong>
-
-            <span>
-                CONSULTANTS
-            </span>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="sidebar-section">
-
-        <span class="sidebar-title">
-            MAIN
-        </span>
-
-
-        <a
-            href="admin.html"
-            class="sidebar-link"
-        >
-            <span>▦</span>
-            Dashboard
-        </a>
-
-
-        <a
-            href="leads.html"
-            class="sidebar-link"
-        >
-            <span>◉</span>
-            Leads
-        </a>
-
-
-        <a
-            href="customers.html"
-            class="sidebar-link"
-        >
-            <span>♙</span>
-            Customers
-        </a>
-
-
-        <a
-            href="applications.html"
-            class="sidebar-link active"
-        >
-            <span>▤</span>
-            Applications
-        </a>
-
-    </div>
-
-
-
-    <div class="sidebar-section">
-
-        <span class="sidebar-title">
-            BUSINESS
-        </span>
-
-
-        <a href="#" class="sidebar-link">
-            <span>🌍</span>
-            Countries
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>🎓</span>
-            Visa Services
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>📁</span>
-            Documents
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>⏰</span>
-            Follow-ups
-        </a>
-
-    </div>
-
-
-
-    <div class="sidebar-section">
-
-        <span class="sidebar-title">
-            FINANCE
-        </span>
-
-
-        <a href="#" class="sidebar-link">
-            <span>💰</span>
-            Finance
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>🧾</span>
-            Receipts
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>📊</span>
-            Reports
-        </a>
-
-    </div>
-
-
-
-    <div class="sidebar-section">
-
-        <span class="sidebar-title">
-            MANAGEMENT
-        </span>
-
-
-        <a href="#" class="sidebar-link">
-            <span>👥</span>
-            Team
-        </a>
-
-
-        <a href="#" class="sidebar-link">
-            <span>⚙</span>
-            Settings
-        </a>
-
-    </div>
-
-
-
-    <div class="sidebar-bottom">
-
-        <button
-            class="logout-button"
-            id="logoutButton"
-        >
-            ⇥ &nbsp; Logout
-        </button>
-
-    </div>
-
-</aside>
-
-
-
-<!-- =====================================
-     MAIN
-===================================== -->
-
-<main class="main-content">
-
-
-    <header class="top-header">
-
-
-        <div class="header-left">
-
-            <button
-                class="menu-button"
-                id="menuButton"
-            >
-                ☰
-            </button>
-
-
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-mark">✦</div>
             <div>
-
-                <h1>
-                    Applications
-                </h1>
-
-                <p>
-                    Track and manage visa applications.
-                </p>
-
+                <strong>POLARIS</strong>
+                <span>CONSULTANTS</span>
             </div>
-
         </div>
 
+        <div class="sidebar-section">
+            <span class="sidebar-title">MAIN</span>
+            <a href="admin.html" class="sidebar-link">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="leads.html" class="sidebar-link">
+                <span>◉</span> Leads
+            </a>
+            <a href="customers.html" class="sidebar-link">
+                <span>♙</span> Customers
+            </a>
+            <a href="applications.html" class="sidebar-link active">
+                <span>▤</span> Applications
+            </a>
+        </div>
 
+        <div class="sidebar-section">
+            <span class="sidebar-title">BUSINESS</span>
+            <a href="#" class="sidebar-link"><span>🌍</span> Countries</a>
+            <a href="#" class="sidebar-link"><span>🎓</span> Visa Services</a>
+            <a href="#" class="sidebar-link"><span>📁</span> Documents</a>
+            <a href="#" class="sidebar-link"><span>⏰</span> Follow-ups</a>
+        </div>
 
-        <div class="header-right">
+        <div class="sidebar-section">
+            <span class="sidebar-title">FINANCE</span>
+            <a href="#" class="sidebar-link"><span>💰</span> Finance</a>
+            <a href="#" class="sidebar-link"><span>🧾</span> Receipts</a>
+            <a href="#" class="sidebar-link"><span>📊</span> Reports</a>
+        </div>
 
-            <button class="notification-button">
-                🔔
-                <span></span>
+        <div class="sidebar-section">
+            <span class="sidebar-title">MANAGEMENT</span>
+            <a href="#" class="sidebar-link"><span>👥</span> Team</a>
+            <a href="#" class="sidebar-link"><span>⚙</span> Settings</a>
+        </div>
+
+        <div class="sidebar-bottom">
+            <button class="logout-button" id="logoutButton">
+                ⇥ &nbsp; Logout
             </button>
-
-
-            <div class="admin-profile">
-
-                <div class="profile-avatar">
-                    A
-                </div>
-
-                <div class="profile-info">
-
-                    <strong>
-                        Admin User
-                    </strong>
-
-                    <small>
-                        Super Admin
-                    </small>
-
-                </div>
-
-            </div>
-
         </div>
+    </aside>
 
-    </header>
-
-
-
-    <section class="content">
-
-
-        <!-- PAGE HEADING -->
-
-        <div class="page-heading">
-
-            <div>
-
-                <h2>
-                    Application Management
-                </h2>
-
-                <p>
-                    Monitor every visa case from preparation to final decision.
-                </p>
-
-            </div>
-
-
-            <button
-                class="primary-button"
-                id="addApplicationButton"
-            >
-                + New Application
-            </button>
-
-        </div>
-
-
-
-        <!-- STATISTICS -->
-
-        <div class="stats-grid">
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon blue">
-                    📄
-                </div>
-
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-button" id="menuButton">☰</button>
                 <div>
-
-                    <span>
-                        Total Applications
-                    </span>
-
-                    <strong id="totalApplications">
-                        0
-                    </strong>
-
-                    <small>
-                        All visa cases
-                    </small>
-
+                    <h1>Applications</h1>
+                    <p>Track and manage visa applications.</p>
                 </div>
-
             </div>
 
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon orange">
-                    ⏳
-                </div>
-
-                <div>
-
-                    <span>
-                        Processing
-                    </span>
-
-                    <strong id="processingApplications">
-                        0
-                    </strong>
-
-                    <small>
-                        Active applications
-                    </small>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon green">
-                    ✓
-                </div>
-
-                <div>
-
-                    <span>
-                        Approved
-                    </span>
-
-                    <strong id="approvedApplications">
-                        0
-                    </strong>
-
-                    <small>
-                        Successful cases
-                    </small>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon red">
-                    !
-                </div>
-
-                <div>
-
-                    <span>
-                        Rejected
-                    </span>
-
-                    <strong id="rejectedApplications">
-                        0
-                    </strong>
-
-                    <small>
-                        Decision received
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- STATUS PIPELINE -->
-
-        <div class="pipeline-card">
-
-
-            <button
-                class="pipeline-item active"
-                data-status=""
-            >
-
-                <strong id="allCount">
-                    0
-                </strong>
-
-                <span>
-                    All
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Draft"
-            >
-
-                <strong id="draftCount">
-                    0
-                </strong>
-
-                <span>
-                    Draft
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Documents Pending"
-            >
-
-                <strong id="documentsCount">
-                    0
-                </strong>
-
-                <span>
-                    Documents
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Submitted"
-            >
-
-                <strong id="submittedCount">
-                    0
-                </strong>
-
-                <span>
-                    Submitted
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Processing"
-            >
-
-                <strong id="processingCount">
-                    0
-                </strong>
-
-                <span>
-                    Processing
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Approved"
-            >
-
-                <strong id="approvedCount">
-                    0
-                </strong>
-
-                <span>
-                    Approved
-                </span>
-
-            </button>
-
-
-            <button
-                class="pipeline-item"
-                data-status="Rejected"
-            >
-
-                <strong id="rejectedCount">
-                    0
-                </strong>
-
-                <span>
-                    Rejected
-                </span>
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- FILTERS -->
-
-        <div class="filter-card">
-
-
-            <div class="search-box">
-
-                <span>
-                    🔎
-                </span>
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search Application ID, customer, passport or phone..."
-                >
-
-            </div>
-
-
-            <select id="countryFilter">
-
-                <option value="">
-                    All Countries
-                </option>
-
-                <option>
-                    United Kingdom
-                </option>
-
-                <option>
-                    Canada
-                </option>
-
-                <option>
-                    Australia
-                </option>
-
-                <option>
-                    USA
-                </option>
-
-                <option>
-                    Germany
-                </option>
-
-                <option>
-                    UAE
-                </option>
-
-            </select>
-
-
-            <select id="visaFilter">
-
-                <option value="">
-                    All Visa Types
-                </option>
-
-                <option>
-                    Study
-                </option>
-
-                <option>
-                    Work
-                </option>
-
-                <option>
-                    Visit
-                </option>
-
-            </select>
-
-
-            <select id="officerFilter">
-
-                <option value="">
-                    All Officers
-                </option>
-
-                <option>
-                    Asad
-                </option>
-
-                <option>
-                    Bilal
-                </option>
-
-                <option>
-                    Salman
-                </option>
-
-            </select>
-
-
-            <button
-                class="reset-button"
-                id="resetFilters"
-            >
-                Reset
-            </button>
-
-        </div>
-
-
-
-        <!-- TABLE -->
-
-        <div class="table-card">
-
-
-            <div class="table-header">
-
-                <div>
-
-                    <h3>
-                        Application Records
-                    </h3>
-
-                    <p id="resultText">
-                        Showing applications
-                    </p>
-
-                </div>
-
-
-                <button
-                    class="secondary-button"
-                    id="exportButton"
-                >
-                    ↓ Export CSV
+            <div class="header-right">
+                <button class="notification-button">
+                    🔔 <span></span>
                 </button>
-
+                <div class="admin-profile">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <strong>Admin User</strong>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
             </div>
+        </header>
 
-
-
-            <div class="table-wrapper">
-
-
-                <table>
-
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                <input
-                                    type="checkbox"
-                                    id="selectAll"
-                                >
-                            </th>
-
-                            <th>
-                                Application
-                            </th>
-
-                            <th>
-                                Customer
-                            </th>
-
-                            <th>
-                                Destination
-                            </th>
-
-                            <th>
-                                Visa
-                            </th>
-
-                            <th>
-                                Officer
-                            </th>
-
-                            <th>
-                                Submission
-                            </th>
-
-                            <th>
-                                Documents
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="applicationTableBody">
-
-                    </tbody>
-
-
-                </table>
-
-            </div>
-
-
-
-            <div class="pagination">
-
-                <span id="paginationText">
-                    Showing applications
-                </span>
-
-
+        <section class="content">
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
                 <div>
-
-                    <button class="page-button active">
-                        1
-                    </button>
-
-                    <button class="page-button">
-                        2
-                    </button>
-
-                    <button class="page-button">
-                        3
-                    </button>
-
-                    <button class="page-button">
-                        →
-                    </button>
-
+                    <h2>Application Management</h2>
+                    <p>Monitor every visa case from preparation to final decision.</p>
                 </div>
-
+                <button class="primary-button" id="addApplicationButton">+ New Application</button>
             </div>
 
-        </div>
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📄</div>
+                    <div>
+                        <span>Total Applications</span>
+                        <strong id="totalApplications">0</strong>
+                        <small>All visa cases</small>
+                    </div>
+                </div>
 
+                <div class="stat-card">
+                    <div class="stat-icon orange">⏳</div>
+                    <div>
+                        <span>Processing</span>
+                        <strong id="processingApplications">0</strong>
+                        <small>Active applications</small>
+                    </div>
+                </div>
 
-    </section>
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Approved</span>
+                        <strong id="approvedApplications">0</strong>
+                        <small>Successful cases</small>
+                    </div>
+                </div>
 
-</main>
-
-
-
-<!-- =====================================
-     APPLICATION MODAL
-===================================== -->
-
-<div
-    class="modal-overlay"
-    id="applicationModal"
->
-
-
-    <div class="modal">
-
-
-        <div class="modal-header">
-
-            <div>
-
-                <h2>
-                    New Visa Application
-                </h2>
-
-                <p>
-                    Create a new application case.
-                </p>
-
+                <div class="stat-card">
+                    <div class="stat-icon red">!</div>
+                    <div>
+                        <span>Rejected</span>
+                        <strong id="rejectedApplications">0</strong>
+                        <small>Decision received</small>
+                    </div>
+                </div>
             </div>
 
-
-            <button
-                class="close-modal"
-                id="closeModal"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-
-        <form id="applicationForm">
-
-
-            <div class="form-section-title">
-                Customer & Visa Information
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>
-                        Customer Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="customerName"
-                        required
-                        placeholder="Customer name"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Customer ID
-                    </label>
-
-                    <input
-                        type="text"
-                        id="customerId"
-                        placeholder="CUS-000001"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Passport Number
-                    </label>
-
-                    <input
-                        type="text"
-                        id="passport"
-                        placeholder="Passport number"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Phone
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="phone"
-                        placeholder="+92 300 0000000"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Country *
-                    </label>
-
-                    <select
-                        id="country"
-                        required
-                    >
-
-                        <option value="">
-                            Select Country
-                        </option>
-
-                        <option>
-                            United Kingdom
-                        </option>
-
-                        <option>
-                            Canada
-                        </option>
-
-                        <option>
-                            Australia
-                        </option>
-
-                        <option>
-                            USA
-                        </option>
-
-                        <option>
-                            Germany
-                        </option>
-
-                        <option>
-                            UAE
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Visa Type *
-                    </label>
-
-                    <select
-                        id="visa"
-                        required
-                    >
-
-                        <option value="">
-                            Select Visa Type
-                        </option>
-
-                        <option>
-                            Study
-                        </option>
-
-                        <option>
-                            Work
-                        </option>
-
-                        <option>
-                            Visit
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Assigned Officer
-                    </label>
-
-                    <select id="officer">
-
-                        <option>
-                            Asad
-                        </option>
-
-                        <option>
-                            Bilal
-                        </option>
-
-                        <option>
-                            Salman
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Priority
-                    </label>
-
-                    <select id="priority">
-
-                        <option>
-                            Normal
-                        </option>
-
-                        <option>
-                            High
-                        </option>
-
-                        <option>
-                            Urgent
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="form-section-title">
-                Application Dates
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>
-                        Submission Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="submissionDate"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Appointment Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="appointmentDate"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Expected Decision Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="decisionDate"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Application Status
-                    </label>
-
-                    <select id="applicationStatus">
-
-                        <option>
-                            Draft
-                        </option>
-
-                        <option>
-                            Documents Pending
-                        </option>
-
-                        <option>
-                            Submitted
-                        </option>
-
-                        <option>
-                            Processing
-                        </option>
-
-                        <option>
-                            Approved
-                        </option>
-
-                        <option>
-                            Rejected
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="form-section-title">
-                Financial & Documents
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>
-                        Consultancy Fee
-                    </label>
-
-                    <input
-                        type="number"
-                        id="fee"
-                        value="0"
-                        min="0"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Paid Amount
-                    </label>
-
-                    <input
-                        type="number"
-                        id="paid"
-                        value="0"
-                        min="0"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Documents Status
-                    </label>
-
-                    <select id="documentsStatus">
-
-                        <option>
-                            Pending
-                        </option>
-
-                        <option>
-                            Partial
-                        </option>
-
-                        <option>
-                            Complete
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group full-width">
-
-                    <label>
-                        Application Notes
-                    </label>
-
-                    <textarea
-                        id="notes"
-                        placeholder="Application notes..."
-                    ></textarea>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="cancel-button"
-                    id="cancelModal"
-                >
-                    Cancel
+            <!-- STATUS PIPELINE -->
+            <div class="pipeline-card">
+                <button class="pipeline-item active" data-status="">
+                    <strong id="allCount">0</strong>
+                    <span>All</span>
                 </button>
-
-
-                <button
-                    type="submit"
-                    class="primary-button"
-                >
-                    Create Application
+                <button class="pipeline-item" data-status="Draft">
+                    <strong id="draftCount">0</strong>
+                    <span>Draft</span>
                 </button>
-
+                <button class="pipeline-item" data-status="Documents Pending">
+                    <strong id="documentsCount">0</strong>
+                    <span>Documents</span>
+                </button>
+                <button class="pipeline-item" data-status="Submitted">
+                    <strong id="submittedCount">0</strong>
+                    <span>Submitted</span>
+                </button>
+                <button class="pipeline-item" data-status="Processing">
+                    <strong id="processingCount">0</strong>
+                    <span>Processing</span>
+                </button>
+                <button class="pipeline-item" data-status="Approved">
+                    <strong id="approvedCount">0</strong>
+                    <span>Approved</span>
+                </button>
+                <button class="pipeline-item" data-status="Rejected">
+                    <strong id="rejectedCount">0</strong>
+                    <span>Rejected</span>
+                </button>
             </div>
 
+            <!-- FILTERS -->
+            <div class="filter-card">
+                <div class="search-box">
+                    <span>🔎</span>
+                    <input type="text" id="searchInput" placeholder="Search Application ID, customer, passport or phone...">
+                </div>
 
-        </form>
+                <select id="countryFilter">
+                    <option value="">All Countries</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>USA</option>
+                    <option>Germany</option>
+                    <option>UAE</option>
+                </select>
 
+                <select id="visaFilter">
+                    <option value="">All Visa Types</option>
+                    <option>Study</option>
+                    <option>Work</option>
+                    <option>Visit</option>
+                </select>
+
+                <select id="officerFilter">
+                    <option value="">All Officers</option>
+                    <option>Asad</option>
+                    <option>Bilal</option>
+                    <option>Salman</option>
+                </select>
+
+                <button class="reset-button" id="resetFilters">Reset</button>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div>
+                        <h3>Application Records</h3>
+                        <p id="resultText">Showing applications</p>
+                    </div>
+                    <button class="secondary-button" id="exportButton">↓ Export CSV</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>Application</th>
+                                <th>Customer</th>
+                                <th>Destination</th>
+                                <th>Visa</th>
+                                <th>Officer</th>
+                                <th>Submission</th>
+                                <th>Documents</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span id="paginationText">Showing applications</span>
+                    <div>
+                        <button class="page-button active">1</button>
+                        <button class="page-button">2</button>
+                        <button class="page-button">3</button>
+                        <button class="page-button">→</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- APPLICATION MODAL -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2>New Visa Application</h2>
+                    <p>Create a new application case.</p>
+                </div>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+
+            <form id="applicationForm">
+                <div class="form-section-title">Customer & Visa Information</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Customer Name *</label>
+                        <input type="text" id="customerName" required placeholder="Customer name">
+                    </div>
+                    <div class="form-group">
+                        <label>Customer ID</label>
+                        <input type="text" id="customerId" placeholder="CUS-000001">
+                    </div>
+                    <div class="form-group">
+                        <label>Passport Number</label>
+                        <input type="text" id="passport" placeholder="Passport number">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="phone" placeholder="+92 300 0000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Country *</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                            <option>United Kingdom</option>
+                            <option>Canada</option>
+                            <option>Australia</option>
+                            <option>USA</option>
+                            <option>Germany</option>
+                            <option>UAE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Visa Type *</label>
+                        <select id="visa" required>
+                            <option value="">Select Visa Type</option>
+                            <option>Study</option>
+                            <option>Work</option>
+                            <option>Visit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Officer</label>
+                        <select id="officer">
+                            <option>Asad</option>
+                            <option>Bilal</option>
+                            <option>Salman</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <select id="priority">
+                            <option>Normal</option>
+                            <option>High</option>
+                            <option>Urgent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section-title">Application Dates</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Submission Date</label>
+                        <input type="date" id="submissionDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Appointment Date</label>
+                        <input type="date" id="appointmentDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Decision Date</label>
+                        <input type="date" id="decisionDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Application Status</label>
+                        <select id="applicationStatus">
+                            <option>Draft</option>
+                            <option>Documents Pending</option>
+                            <option>Submitted</option>
+                            <option>Processing</option>
+                            <option>Approved</option>
+                            <option>Rejected</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section-title">Financial & Documents</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Consultancy Fee</label>
+                        <input type="number" id="fee" value="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Paid Amount</label>
+                        <input type="number" id="paid" value="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Documents Status</label>
+                        <select id="documentsStatus">
+                            <option>Pending</option>
+                            <option>Partial</option>
+                            <option>Complete</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Application Notes</label>
+                        <textarea id="notes" placeholder="Application notes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="cancel-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Create Application</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-</div>
-
-
-
-<script src="applications.js"></script>
-
+    <script src="applications.js"></script>
 </body>
-
 </html>
