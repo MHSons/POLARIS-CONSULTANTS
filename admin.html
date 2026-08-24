@@ -10,7 +10,14 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Polaris Consultants | Admin Dashboard</title>
+    <title>
+        Admin Dashboard | Polaris Consultants
+    </title>
+
+    <meta
+        name="description"
+        content="Polaris Consultants administration dashboard"
+    >
 
     <link
         rel="stylesheet"
@@ -23,176 +30,302 @@
 <body>
 
 
-    <!-- ==============================
-         SIDEBAR
-    =============================== -->
+    <!-- =====================================================
+         MOBILE OVERLAY
+    ====================================================== -->
 
-    <aside class="sidebar" id="sidebar">
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+
+        <!-- LOGO -->
 
         <div class="sidebar-logo">
 
-            <div class="logo-mark">
-                ✦
+            <div class="logo-circle">
+
+                <span>
+                    PC
+                </span>
+
             </div>
 
             <div>
-                <strong>POLARIS</strong>
-                <span>CONSULTANTS</span>
+
+                <h1>
+                    POLARIS
+                </h1>
+
+                <span>
+                    CONSULTANTS
+                </span>
+
             </div>
 
         </div>
 
 
-        <div class="sidebar-section">
+        <!-- NAVIGATION -->
 
-            <span class="sidebar-title">
-                MAIN
-            </span>
+        <nav class="sidebar-nav">
 
 
-            <a href="admin.html" class="sidebar-link active">
-                <span>▦</span>
-                Dashboard
-            </a>
+            <button
+                class="nav-item active"
+                data-section="dashboard"
+            >
+
+                <span class="nav-icon">
+                    ▦
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </button>
 
 
-            <a href="leads.html" class="sidebar-link">
-                <span>◉</span>
-                Leads
-            </a>
+            <button
+                class="nav-item"
+                data-section="customers"
+            >
+
+                <span class="nav-icon">
+                    👥
+                </span>
+
+                <span>
+                    Customers
+                </span>
+
+            </button>
 
 
-            <a href="customers.html" class="sidebar-link">
-                <span>♙</span>
-                Customers
-            </a>
+            <button
+                class="nav-item"
+                data-section="leads"
+            >
+
+                <span class="nav-icon">
+                    🎯
+                </span>
+
+                <span>
+                    Leads
+                </span>
+
+            </button>
 
 
-            <a href="applications.html" class="sidebar-link">
-                <span>▤</span>
-                Applications
-            </a>
+            <button
+                class="nav-item"
+                data-section="applications"
+            >
 
-        </div>
+                <span class="nav-icon">
+                    📄
+                </span>
 
+                <span>
+                    Applications
+                </span>
 
-
-        <div class="sidebar-section">
-
-            <span class="sidebar-title">
-                BUSINESS
-            </span>
-
-
-            <a href="#" class="sidebar-link">
-                <span>🌍</span>
-                Countries
-            </a>
+            </button>
 
 
-            <a href="#" class="sidebar-link">
-                <span>🎓</span>
-                Visa Services
-            </a>
+            <button
+                class="nav-item"
+                data-section="countries"
+            >
+
+                <span class="nav-icon">
+                    🌍
+                </span>
+
+                <span>
+                    Countries
+                </span>
+
+            </button>
 
 
-            <a href="#" class="sidebar-link">
-                <span>📁</span>
-                Documents
-            </a>
+            <button
+                class="nav-item"
+                data-section="teams"
+            >
+
+                <span class="nav-icon">
+                    👨‍💼
+                </span>
+
+                <span>
+                    Teams
+                </span>
+
+            </button>
 
 
-            <a href="#" class="sidebar-link">
-                <span>⏰</span>
-                Follow-ups
-            </a>
+            <button
+                class="nav-item"
+                data-section="staff"
+            >
 
-        </div>
+                <span class="nav-icon">
+                    👤
+                </span>
 
+                <span>
+                    Staff
+                </span>
 
-
-        <div class="sidebar-section">
-
-            <span class="sidebar-title">
-                FINANCE
-            </span>
-
-
-            <a href="#" class="sidebar-link">
-                <span>💰</span>
-                Finance
-            </a>
+            </button>
 
 
-            <a href="#" class="sidebar-link">
-                <span>🧾</span>
-                Receipts
-            </a>
+            <div class="nav-divider"></div>
 
 
-            <a href="#" class="sidebar-link">
-                <span>📊</span>
-                Reports
-            </a>
+            <button
+                class="nav-item"
+                data-section="finance"
+            >
 
-        </div>
+                <span class="nav-icon">
+                    💰
+                </span>
 
+                <span>
+                    Finance
+                </span>
 
-
-        <div class="sidebar-section">
-
-            <span class="sidebar-title">
-                MANAGEMENT
-            </span>
-
-
-            <a href="#" class="sidebar-link">
-                <span>👥</span>
-                Team
-            </a>
+            </button>
 
 
-            <a href="#" class="sidebar-link">
-                <span>⚙</span>
-                Settings
-            </a>
+            <button
+                class="nav-item"
+                data-section="transactions"
+            >
 
-        </div>
+                <span class="nav-icon">
+                    💳
+                </span>
+
+                <span>
+                    Transactions
+                </span>
+
+            </button>
 
 
+            <button
+                class="nav-item"
+                data-section="slips"
+            >
+
+                <span class="nav-icon">
+                    🧾
+                </span>
+
+                <span>
+                    Payment Slips
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="reports"
+            >
+
+                <span class="nav-icon">
+                    📈
+                </span>
+
+                <span>
+                    Reports
+                </span>
+
+            </button>
+
+
+            <div class="nav-divider"></div>
+
+
+            <button
+                class="nav-item"
+                data-section="settings"
+            >
+
+                <span class="nav-icon">
+                    ⚙️
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
 
         <div class="sidebar-bottom">
 
             <button
-                class="logout-button"
                 id="logoutButton"
+                class="logout-button"
             >
-                <span>⇥</span>
+
+                <span>
+                    🚪
+                </span>
+
                 Logout
+
             </button>
 
         </div>
 
+
     </aside>
 
 
-
-    <!-- ==============================
+    <!-- =====================================================
          MAIN
-    =============================== -->
+    ====================================================== -->
 
     <main class="main-content">
 
 
-        <!-- TOP HEADER -->
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
 
-        <header class="dashboard-header">
+        <header class="topbar">
 
-            <div class="header-left">
+
+            <div class="topbar-left">
 
                 <button
-                    class="menu-button"
                     id="menuButton"
+                    class="menu-button"
+                    aria-label="Open menu"
                 >
                     ☰
                 </button>
@@ -200,12 +333,12 @@
 
                 <div>
 
-                    <h1>
+                    <h2 id="pageTitle">
                         Dashboard
-                    </h1>
+                    </h2>
 
-                    <p>
-                        Welcome back to Polaris Consultants.
+                    <p id="pageSubtitle">
+                        Welcome to Polaris Consultants
                     </p>
 
                 </div>
@@ -213,293 +346,345 @@
             </div>
 
 
-            <div class="header-right">
+            <div class="topbar-right">
 
-                <button class="notification-button">
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    id="notificationButton"
+                    class="icon-button"
+                    aria-label="Notifications"
+                >
                     🔔
-                    <span class="notification-dot"></span>
+
+                    <span
+                        id="notificationBadge"
+                        class="notification-badge"
+                    >
+                        0
+                    </span>
+
                 </button>
 
 
+                <!-- ADMIN -->
+
                 <div class="admin-profile">
 
-                    <div class="profile-avatar">
+                    <div class="admin-avatar">
                         A
                     </div>
 
-                    <div class="profile-info">
+                    <div class="admin-info">
 
-                        <strong>
-                            Admin User
+                        <strong
+                            id="adminName"
+                        >
+                            Administrator
                         </strong>
 
                         <span>
-                            Super Admin
+                            Admin
                         </span>
 
                     </div>
 
                 </div>
+
 
             </div>
 
         </header>
 
 
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
 
-        <!-- ==============================
-             DASHBOARD CONTENT
-        =============================== -->
-
-        <section class="dashboard-content">
-
-
-            <!-- STATS -->
-
-            <div class="stats-grid">
+        <div class="content-area">
 
 
-                <div class="stat-card">
+            <!-- =============================================
+                 DASHBOARD
+            ============================================== -->
 
-                    <div class="stat-icon blue">
-                        👥
+            <section
+                id="dashboardSection"
+                class="dashboard-section page-section active-section"
+            >
+
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Business Overview
+                        </h3>
+
+                        <p>
+                            Monitor your visa consultancy business.
+                        </p>
+
                     </div>
 
-                    <div class="stat-information">
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon customers">
+                            👥
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Total Customers
+                            </span>
+
+                            <strong id="totalCustomers">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon leads">
+                            🎯
+                        </div>
+
+                        <div>
+
+                            <span>
+                                New Leads
+                            </span>
+
+                            <strong id="totalLeads">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon applications">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Applications
+                            </span>
+
+                            <strong id="totalApplications">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon countries">
+                            🌍
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Countries
+                            </span>
+
+                            <strong id="totalCountries">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- FINANCE CARDS -->
+
+                <div class="finance-grid">
+
+
+                    <div class="finance-card">
 
                         <span>
-                            Total Leads
+                            Total Received
                         </span>
 
-                        <strong id="totalLeads">
-                            0
+                        <strong id="totalReceived">
+                            PKR 0
                         </strong>
 
-                        <small class="positive">
-                            +12% this month
+                        <small>
+                            Money received from customers
                         </small>
 
                     </div>
 
-                </div>
 
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon green">
-                        ✓
-                    </div>
-
-                    <div class="stat-information">
+                    <div class="finance-card">
 
                         <span>
-                            Active Applications
+                            Total Paid
                         </span>
 
-                        <strong id="activeApplications">
-                            0
+                        <strong id="totalPaid">
+                            PKR 0
                         </strong>
 
-                        <small class="positive">
-                            +8% this month
+                        <small>
+                            Business payments
                         </small>
 
                     </div>
 
-                </div>
 
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon gold">
-                        💰
-                    </div>
-
-                    <div class="stat-information">
+                    <div class="finance-card">
 
                         <span>
-                            Total Revenue
+                            Net Balance
                         </span>
 
-                        <strong id="totalRevenue">
-                            Rs. 0
+                        <strong id="netBalance">
+                            PKR 0
                         </strong>
 
-                        <small class="positive">
-                            +15% this month
+                        <small>
+                            Received minus paid
                         </small>
 
                     </div>
 
+
                 </div>
 
 
+                <!-- QUICK ACTIONS -->
 
-                <div class="stat-card">
+                <div class="content-card">
 
-                    <div class="stat-icon red">
-                        ⏰
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                            <p>
+                                Frequently used management tools.
+                            </p>
+
+                        </div>
+
                     </div>
 
-                    <div class="stat-information">
 
-                        <span>
-                            Pending Follow-ups
-                        </span>
+                    <div class="quick-actions">
 
-                        <strong id="pendingFollowups">
-                            0
-                        </strong>
 
-                        <small class="warning">
-                            Need attention
-                        </small>
+                        <button
+                            class="quick-action"
+                            data-section="customers"
+                        >
+
+                            <span>
+                                👥
+                            </span>
+
+                            Add Customer
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-section="leads"
+                        >
+
+                            <span>
+                                🎯
+                            </span>
+
+                            Manage Leads
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-section="applications"
+                        >
+
+                            <span>
+                                📄
+                            </span>
+
+                            Applications
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-section="transactions"
+                        >
+
+                            <span>
+                                💳
+                            </span>
+
+                            Add Transaction
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            data-section="slips"
+                        >
+
+                            <span>
+                                🧾
+                            </span>
+
+                            Generate Slip
+
+                        </button>
+
 
                     </div>
 
                 </div>
-
-            </div>
-
-
-
-            <!-- QUICK ACTIONS -->
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>
-                        Quick Actions
-                    </h2>
-
-                    <p>
-                        Frequently used management tools.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="quick-actions">
-
-
-                <a href="#newLead" class="quick-card">
-
-                    <span>
-                        ➕
-                    </span>
-
-                    <strong>
-                        Add New Lead
-                    </strong>
-
-                    <small>
-                        Register a potential customer
-                    </small>
-
-                </a>
-
-
-                <a href="#newCustomer" class="quick-card">
-
-                    <span>
-                        👤
-                    </span>
-
-                    <strong>
-                        Add Customer
-                    </strong>
-
-                    <small>
-                        Create customer profile
-                    </small>
-
-                </a>
-
-
-                <a href="#newApplication" class="quick-card">
-
-                    <span>
-                        📄
-                    </span>
-
-                    <strong>
-                        New Application
-                    </strong>
-
-                    <small>
-                        Start visa application
-                    </small>
-
-                </a>
-
-
-                <a href="#payment" class="quick-card">
-
-                    <span>
-                        💳
-                    </span>
-
-                    <strong>
-                        Record Payment
-                    </strong>
-
-                    <small>
-                        Add customer payment
-                    </small>
-
-                </a>
-
-
-                <a href="#expense" class="quick-card">
-
-                    <span>
-                        💸
-                    </span>
-
-                    <strong>
-                        Add Expense
-                    </strong>
-
-                    <small>
-                        Record business expense
-                    </small>
-
-                </a>
-
-
-                <a href="#receipt" class="quick-card">
-
-                    <span>
-                        🧾
-                    </span>
-
-                    <strong>
-                        Create Receipt
-                    </strong>
-
-                    <small>
-                        Generate payment receipt
-                    </small>
-
-                </a>
-
-            </div>
-
-
-
-            <!-- MAIN DASHBOARD GRID -->
-
-            <div class="dashboard-grid">
 
 
                 <!-- RECENT LEADS -->
 
-                <div class="dashboard-card large-card">
+                <div class="content-card">
 
                     <div class="card-header">
 
@@ -510,29 +695,28 @@
                             </h3>
 
                             <p>
-                                Latest customer inquiries
+                                Latest customer inquiries.
                             </p>
 
                         </div>
 
-                        <a href="leads.html">
-                            View All →
-                        </a>
+                        <button
+                            class="view-all-button"
+                            data-section="leads"
+                        >
+                            View All
+                        </button>
 
                     </div>
 
 
-                    <div class="table-container">
+                    <div class="table-wrapper">
 
                         <table>
 
                             <thead>
 
                                 <tr>
-
-                                    <th>
-                                        Lead ID
-                                    </th>
 
                                     <th>
                                         Customer
@@ -550,89 +734,25 @@
                                         Status
                                     </th>
 
+                                    <th>
+                                        Date
+                                    </th>
+
                                 </tr>
 
                             </thead>
 
-
-                            <tbody id="recentLeadsTable">
-
-                                <tr>
-
-                                    <td>
-                                        POL-000001
-                                    </td>
-
-                                    <td>
-                                        Muhammad Ali
-                                    </td>
-
-                                    <td>
-                                        🇬🇧 United Kingdom
-                                    </td>
-
-                                    <td>
-                                        Study
-                                    </td>
-
-                                    <td>
-                                        <span class="status new">
-                                            New
-                                        </span>
-                                    </td>
-
-                                </tr>
-
+                            <tbody
+                                id="recentLeadsTable"
+                            >
 
                                 <tr>
 
-                                    <td>
-                                        POL-000002
-                                    </td>
-
-                                    <td>
-                                        Ahmed Khan
-                                    </td>
-
-                                    <td>
-                                        🇨🇦 Canada
-                                    </td>
-
-                                    <td>
-                                        Work
-                                    </td>
-
-                                    <td>
-                                        <span class="status contacted">
-                                            Contacted
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        POL-000003
-                                    </td>
-
-                                    <td>
-                                        Usman Raza
-                                    </td>
-
-                                    <td>
-                                        🇦🇺 Australia
-                                    </td>
-
-                                    <td>
-                                        Study
-                                    </td>
-
-                                    <td>
-                                        <span class="status processing">
-                                            Processing
-                                        </span>
+                                    <td
+                                        colspan="5"
+                                        class="empty-table"
+                                    >
+                                        No leads found.
                                     </td>
 
                                 </tr>
@@ -646,582 +766,1114 @@
                 </div>
 
 
+            </section>
 
-                <!-- APPLICATION STATUS -->
 
-                <div class="dashboard-card">
+            <!-- =============================================
+                 CUSTOMERS
+            ============================================== -->
 
-                    <div class="card-header">
+            <section
+                id="customersSection"
+                class="page-section"
+            >
 
-                        <div>
-
-                            <h3>
-                                Applications
-                            </h3>
-
-                            <p>
-                                Current application status
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-status">
-
-
-                        <div class="status-row">
-
-                            <div>
-
-                                <span class="status-dot blue-dot"></span>
-
-                                <span>
-                                    New
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                12
-                            </strong>
-
-                        </div>
-
-
-                        <div class="status-row">
-
-                            <div>
-
-                                <span class="status-dot yellow-dot"></span>
-
-                                <span>
-                                    Documents Pending
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                18
-                            </strong>
-
-                        </div>
-
-
-                        <div class="status-row">
-
-                            <div>
-
-                                <span class="status-dot purple-dot"></span>
-
-                                <span>
-                                    Processing
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                25
-                            </strong>
-
-                        </div>
-
-
-                        <div class="status-row">
-
-                            <div>
-
-                                <span class="status-dot green-dot"></span>
-
-                                <span>
-                                    Approved
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                16
-                            </strong>
-
-                        </div>
-
-
-                        <div class="status-row">
-
-                            <div>
-
-                                <span class="status-dot red-dot"></span>
-
-                                <span>
-                                    Rejected
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                4
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- FINANCE + FOLLOW UPS -->
-
-            <div class="dashboard-grid">
-
-
-                <!-- FINANCE -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Finance Overview
-                            </h3>
-
-                            <p>
-                                Current business financial summary
-                            </p>
-
-                        </div>
-
-                        <a href="#">
-                            Finance →
-                        </a>
-
-                    </div>
-
-
-                    <div class="finance-list">
-
-
-                        <div>
-
-                            <span>
-                                Today's Income
-                            </span>
-
-                            <strong>
-                                Rs. 0
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                Today's Expenses
-                            </span>
-
-                            <strong class="expense-value">
-                                Rs. 0
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                This Month Income
-                            </span>
-
-                            <strong>
-                                Rs. 0
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                Outstanding
-                            </span>
-
-                            <strong class="outstanding-value">
-                                Rs. 0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- FOLLOW UPS -->
-
-                <div class="dashboard-card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Today's Follow-ups
-                            </h3>
-
-                            <p>
-                                Customers requiring attention
-                            </p>
-
-                        </div>
-
-                        <a href="#">
-                            View All →
-                        </a>
-
-                    </div>
-
-
-                    <div class="followup-list">
-
-
-                        <div class="followup-item">
-
-                            <div class="followup-avatar">
-                                A
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Ahmed Khan
-                                </strong>
-
-                                <span>
-                                    Canada Work Visa
-                                </span>
-
-                            </div>
-
-                            <time>
-                                11:00 AM
-                            </time>
-
-                        </div>
-
-
-                        <div class="followup-item">
-
-                            <div class="followup-avatar">
-                                M
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Muhammad Ali
-                                </strong>
-
-                                <span>
-                                    UK Study Visa
-                                </span>
-
-                            </div>
-
-                            <time>
-                                02:00 PM
-                            </time>
-
-                        </div>
-
-
-                        <div class="followup-item">
-
-                            <div class="followup-avatar">
-                                U
-                            </div>
-
-                            <div>
-
-                                <strong>
-                                    Usman Raza
-                                </strong>
-
-                                <span>
-                                    Australia Student Visa
-                                </span>
-
-                            </div>
-
-                            <time>
-                                04:30 PM
-                            </time>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- TEAM -->
-
-            <div class="dashboard-card">
-
-                <div class="card-header">
+                <div class="section-header">
 
                     <div>
 
                         <h3>
-                            Team Performance
+                            Customers
                         </h3>
 
                         <p>
-                            Current month performance
+                            Manage all customer records.
                         </p>
 
                     </div>
 
-                    <a href="#">
-                        Manage Team →
-                    </a>
+                    <button
+                        class="primary-button"
+                        id="addCustomerButton"
+                    >
+                        + Add Customer
+                    </button>
 
                 </div>
 
 
-                <div class="team-table-container">
+                <div class="content-card">
 
-                    <table class="team-table">
+                    <div class="toolbar">
 
-                        <thead>
+                        <input
+                            type="search"
+                            id="customerSearch"
+                            placeholder="Search customer..."
+                        >
 
-                            <tr>
+                    </div>
 
-                                <th>
-                                    Team Member
-                                </th>
 
-                                <th>
-                                    Leads
-                                </th>
+                    <div class="table-wrapper">
 
-                                <th>
-                                    Applications
-                                </th>
+                        <table>
 
-                                <th>
-                                    Converted
-                                </th>
+                            <thead>
 
-                                <th>
-                                    Revenue
-                                </th>
+                                <tr>
 
-                                <th>
-                                    Performance
-                                </th>
+                                    <th>
+                                        Name
+                                    </th>
 
-                            </tr>
+                                    <th>
+                                        CNIC
+                                    </th>
 
-                        </thead>
+                                    <th>
+                                        Passport
+                                    </th>
 
+                                    <th>
+                                        Phone
+                                    </th>
 
-                        <tbody>
+                                    <th>
+                                        City
+                                    </th>
 
-                            <tr>
+                                    <th>
+                                        Date
+                                    </th>
 
-                                <td>
-                                    <div class="team-member">
+                                </tr>
 
-                                        <div class="small-avatar">
-                                            A
-                                        </div>
+                            </thead>
 
-                                        <div>
+                            <tbody
+                                id="customersTable"
+                            >
 
-                                            <strong>
-                                                Asad
-                                            </strong>
+                                <tr>
 
-                                            <span>
-                                                Counsellor
-                                            </span>
+                                    <td
+                                        colspan="6"
+                                        class="empty-table"
+                                    >
+                                        Loading customers...
+                                    </td>
 
-                                        </div>
+                                </tr>
 
-                                    </div>
-                                </td>
+                            </tbody>
 
-                                <td>
-                                    45
-                                </td>
+                        </table>
 
-                                <td>
-                                    24
-                                </td>
-
-                                <td>
-                                    15
-                                </td>
-
-                                <td>
-                                    Rs. 850,000
-                                </td>
-
-                                <td>
-                                    <div class="progress">
-
-                                        <div
-                                            class="progress-bar"
-                                            style="width: 82%;"
-                                        ></div>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-
-                                    <div class="team-member">
-
-                                        <div class="small-avatar">
-                                            B
-                                        </div>
-
-                                        <div>
-
-                                            <strong>
-                                                Bilal
-                                            </strong>
-
-                                            <span>
-                                                Counsellor
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    36
-                                </td>
-
-                                <td>
-                                    19
-                                </td>
-
-                                <td>
-                                    11
-                                </td>
-
-                                <td>
-                                    Rs. 620,000
-                                </td>
-
-                                <td>
-
-                                    <div class="progress">
-
-                                        <div
-                                            class="progress-bar"
-                                            style="width: 68%;"
-                                        ></div>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-
-                                    <div class="team-member">
-
-                                        <div class="small-avatar">
-                                            S
-                                        </div>
-
-                                        <div>
-
-                                            <strong>
-                                                Salman
-                                            </strong>
-
-                                            <span>
-                                                Processing Officer
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-
-                                </td>
-
-                                <td>
-                                    28
-                                </td>
-
-                                <td>
-                                    22
-                                </td>
-
-                                <td>
-                                    9
-                                </td>
-
-                                <td>
-                                    Rs. 510,000
-                                </td>
-
-                                <td>
-
-                                    <div class="progress">
-
-                                        <div
-                                            class="progress-bar"
-                                            style="width: 56%;"
-                                        ></div>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+                    </div>
 
                 </div>
 
-            </div>
+            </section>
 
 
-        </section>
+            <!-- =============================================
+                 LEADS
+            ============================================== -->
+
+            <section
+                id="leadsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Lead Management
+                        </h3>
+
+                        <p>
+                            Track and manage customer leads.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addLeadButton"
+                    >
+                        + Add Lead
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="toolbar">
+
+                        <input
+                            type="search"
+                            id="leadSearch"
+                            placeholder="Search leads..."
+                        >
+
+                        <select
+                            id="leadStatusFilter"
+                        >
+
+                            <option value="">
+                                All Status
+                            </option>
+
+                            <option value="New">
+                                New
+                            </option>
+
+                            <option value="Contacted">
+                                Contacted
+                            </option>
+
+                            <option value="Processing">
+                                Processing
+                            </option>
+
+                            <option value="Converted">
+                                Converted
+                            </option>
+
+                            <option value="Lost">
+                                Lost
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Customer
+                                    </th>
+
+                                    <th>
+                                        Country
+                                    </th>
+
+                                    <th>
+                                        Visa
+                                    </th>
+
+                                    <th>
+                                        Source
+                                    </th>
+
+                                    <th>
+                                        Team
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="leadsTable"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="6"
+                                        class="empty-table"
+                                    >
+                                        Loading leads...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 APPLICATIONS
+            ============================================== -->
+
+            <section
+                id="applicationsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Visa Applications
+                        </h3>
+
+                        <p>
+                            Manage customer visa applications.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addApplicationButton"
+                    >
+                        + New Application
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="toolbar">
+
+                        <input
+                            type="search"
+                            id="applicationSearch"
+                            placeholder="Search applications..."
+                        >
+
+                        <select
+                            id="applicationVisaFilter"
+                        >
+
+                            <option value="">
+                                All Visa Types
+                            </option>
+
+                            <option value="Study Visa">
+                                Study Visa
+                            </option>
+
+                            <option value="Work Visa">
+                                Work Visa
+                            </option>
+
+                            <option value="Visit Visa">
+                                Visit Visa
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Applicant
+                                    </th>
+
+                                    <th>
+                                        Country
+                                    </th>
+
+                                    <th>
+                                        Visa Type
+                                    </th>
+
+                                    <th>
+                                        Passport
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="applicationsTable"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="6"
+                                        class="empty-table"
+                                    >
+                                        Loading applications...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 COUNTRIES
+            ============================================== -->
+
+            <section
+                id="countriesSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Countries & Visa Services
+                        </h3>
+
+                        <p>
+                            Manage country-specific visa information.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addCountryButton"
+                    >
+                        + Add Country
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="countriesGrid"
+                    class="countries-grid"
+                >
+
+                    <div class="loading-card">
+                        Loading countries...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 TEAMS
+            ============================================== -->
+
+            <section
+                id="teamsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Teams
+                        </h3>
+
+                        <p>
+                            Manage consultancy teams.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addTeamButton"
+                    >
+                        + Add Team
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Team
+                                    </th>
+
+                                    <th>
+                                        Team Leader
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Created
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="teamsTable"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        class="empty-table"
+                                    >
+                                        No teams found.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 STAFF
+            ============================================== -->
+
+            <section
+                id="staffSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Staff
+                        </h3>
+
+                        <p>
+                            Manage employees and team assignments.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addStaffButton"
+                    >
+                        + Add Staff
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Name
+                                    </th>
+
+                                    <th>
+                                        Email
+                                    </th>
+
+                                    <th>
+                                        Phone
+                                    </th>
+
+                                    <th>
+                                        Role
+                                    </th>
+
+                                    <th>
+                                        Team
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="staffTable"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="6"
+                                        class="empty-table"
+                                    >
+                                        No staff found.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 FINANCE
+            ============================================== -->
+
+            <section
+                id="financeSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Finance
+                        </h3>
+
+                        <p>
+                            Financial overview and accounting.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="finance-grid">
+
+                    <div class="finance-card">
+
+                        <span>
+                            Total Received
+                        </span>
+
+                        <strong
+                            id="financeReceived"
+                        >
+                            PKR 0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <span>
+                            Total Paid
+                        </span>
+
+                        <strong
+                            id="financePaid"
+                        >
+                            PKR 0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <span>
+                            Net Balance
+                        </span>
+
+                        <strong
+                            id="financeBalance"
+                        >
+                            PKR 0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Financial Summary
+                            </h3>
+
+                            <p>
+                                All business transactions will appear here.
+                            </p>
+
+                        </div>
+
+                        <button
+                            class="primary-button"
+                            data-section="transactions"
+                        >
+                            View Transactions
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 TRANSACTIONS
+            ============================================== -->
+
+            <section
+                id="transactionsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Transactions
+                        </h3>
+
+                        <p>
+                            Track money received and money paid.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addTransactionButton"
+                    >
+                        + Add Transaction
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Type
+                                    </th>
+
+                                    <th>
+                                        Amount
+                                    </th>
+
+                                    <th>
+                                        Method
+                                    </th>
+
+                                    <th>
+                                        Description
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="transactionsTable"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="5"
+                                        class="empty-table"
+                                    >
+                                        No transactions found.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 SLIPS
+            ============================================== -->
+
+            <section
+                id="slipsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Payment Slips
+                        </h3>
+
+                        <p>
+                            Generate and manage QR payment slips.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="generateSlipButton"
+                    >
+                        + Generate Slip
+                    </button>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🧾
+                        </div>
+
+                        <h3>
+                            Payment Slips
+                        </h3>
+
+                        <p>
+                            Your generated slips will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 REPORTS
+            ============================================== -->
+
+            <section
+                id="reportsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Reports
+                        </h3>
+
+                        <p>
+                            Business performance and financial reports.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon leads">
+                            🎯
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Lead Conversion
+                            </span>
+
+                            <strong>
+                                0%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon applications">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Applications
+                            </span>
+
+                            <strong id="reportApplications">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon customers">
+                            👥
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Customers
+                            </span>
+
+                            <strong id="reportCustomers">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            📈
+                        </div>
+
+                        <h3>
+                            Reports Center
+                        </h3>
+
+                        <p>
+                            Detailed reports and analytics will be connected next.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 SETTINGS
+            ============================================== -->
+
+            <section
+                id="settingsSection"
+                class="page-section"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Settings
+                        </h3>
+
+                        <p>
+                            Manage Polaris Consultants system settings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="settings-list">
+
+
+                        <div class="setting-row">
+
+                            <div>
+
+                                <strong>
+                                    Company Name
+                                </strong>
+
+                                <p>
+                                    Polaris Consultants
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div>
+
+                                <strong>
+                                    WhatsApp
+                                </strong>
+
+                                <p>
+                                    WhatsApp Business integration
+                                </p>
+
+                            </div>
+
+                            <span class="status-badge pending">
+                                Pending
+                            </span>
+
+                        </div>
+
+
+                        <div class="setting-row">
+
+                            <div>
+
+                                <strong>
+                                    Database
+                                </strong>
+
+                                <p>
+                                    Supabase
+                                </p>
+
+                            </div>
+
+                            <span class="status-badge active">
+                                Connected
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
 
     </main>
 
 
-    <script src="admin.js"></script>
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script
+        src="supabase-config.js"
+    ></script>
+
+
+    <script
+        src="supabase-db.js"
+    ></script>
+
+
+    <script
+        src="admin.js"
+    ></script>
+
 
 </body>
 
