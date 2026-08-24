@@ -3,13 +3,11 @@
    APPLICATION MANAGEMENT
 ========================================= */
 
-
 /* =========================================
    DEMO APPLICATION DATA
 ========================================= */
 
 let applications = [
-
     {
         id: "APP-000001",
         customerId: "CUS-000001",
@@ -29,7 +27,6 @@ let applications = [
         paid: 200000,
         notes: "Application under processing."
     },
-
     {
         id: "APP-000002",
         customerId: "CUS-000002",
@@ -49,7 +46,6 @@ let applications = [
         paid: 300000,
         notes: "Waiting for application processing."
     },
-
     {
         id: "APP-000003",
         customerId: "CUS-000003",
@@ -69,7 +65,6 @@ let applications = [
         paid: 500000,
         notes: "Visa approved."
     },
-
     {
         id: "APP-000004",
         customerId: "CUS-000004",
@@ -89,7 +84,6 @@ let applications = [
         paid: 80000,
         notes: "Bank statement required."
     },
-
     {
         id: "APP-000005",
         customerId: "CUS-000005",
@@ -109,7 +103,6 @@ let applications = [
         paid: 400000,
         notes: "Successfully completed."
     },
-
     {
         id: "APP-000006",
         customerId: "CUS-000006",
@@ -129,7 +122,6 @@ let applications = [
         paid: 100000,
         notes: "Employment documents under review."
     },
-
     {
         id: "APP-000007",
         customerId: "CUS-000007",
@@ -149,7 +141,6 @@ let applications = [
         paid: 175000,
         notes: "Application preparation."
     },
-
     {
         id: "APP-000008",
         customerId: "CUS-000008",
@@ -169,7 +160,6 @@ let applications = [
         paid: 225000,
         notes: "Case under processing."
     },
-
     {
         id: "APP-000009",
         customerId: "CUS-000009",
@@ -189,7 +179,6 @@ let applications = [
         paid: 60000,
         notes: "Visa application rejected."
     },
-
     {
         id: "APP-000010",
         customerId: "CUS-000010",
@@ -209,1339 +198,450 @@ let applications = [
         paid: 320000,
         notes: "Submitted successfully."
     }
-
 ];
-
 
 /* =========================================
    ELEMENTS
 ========================================= */
 
-const tableBody =
-    document.getElementById(
-        "applicationTableBody"
-    );
-
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
-
-const countryFilter =
-    document.getElementById(
-        "countryFilter"
-    );
-
-const visaFilter =
-    document.getElementById(
-        "visaFilter"
-    );
-
-const officerFilter =
-    document.getElementById(
-        "officerFilter"
-    );
-
-const resultText =
-    document.getElementById(
-        "resultText"
-    );
-
+const tableBody = document.getElementById("applicationTableBody");
+const searchInput = document.getElementById("searchInput");
+const countryFilter = document.getElementById("countryFilter");
+const visaFilter = document.getElementById("visaFilter");
+const officerFilter = document.getElementById("officerFilter");
+const resultText = document.getElementById("resultText");
 
 /* =========================================
    FLAG
 ========================================= */
 
 function getFlag(country) {
-
     const flags = {
-
         "United Kingdom": "🇬🇧",
-
         "Canada": "🇨🇦",
-
         "Australia": "🇦🇺",
-
         "USA": "🇺🇸",
-
         "Germany": "🇩🇪",
-
         "UAE": "🇦🇪"
-
     };
-
     return flags[country] || "🌍";
-
 }
-
 
 /* =========================================
    STATUS CLASS
 ========================================= */
 
 function getStatusClass(status) {
-
     const classes = {
-
-        "Draft":
-            "status-draft",
-
-        "Documents Pending":
-            "status-documents",
-
-        "Submitted":
-            "status-submitted",
-
-        "Processing":
-            "status-processing",
-
-        "Approved":
-            "status-approved",
-
-        "Rejected":
-            "status-rejected"
-
+        "Draft": "status-draft",
+        "Documents Pending": "status-documents",
+        "Submitted": "status-submitted",
+        "Processing": "status-processing",
+        "Approved": "status-approved",
+        "Rejected": "status-rejected"
     };
-
-    return (
-        classes[status] ||
-        "status-draft"
-    );
-
+    return classes[status] || "status-draft";
 }
-
 
 /* =========================================
    DOCUMENT CLASS
 ========================================= */
 
 function getDocumentClass(status) {
-
     const classes = {
-
-        "Pending":
-            "document-pending",
-
-        "Partial":
-            "document-partial",
-
-        "Complete":
-            "document-complete"
-
+        "Pending": "document-pending",
+        "Partial": "document-partial",
+        "Complete": "document-complete"
     };
-
-    return (
-        classes[status] ||
-        "document-pending"
-    );
-
+    return classes[status] || "document-pending";
 }
-
 
 /* =========================================
    PRIORITY CLASS
 ========================================= */
 
 function getPriorityClass(priority) {
-
-    return (
-        "priority-" +
-        priority
-            .toLowerCase()
-            .replace(
-                " ",
-                "-"
-            )
-    );
-
+    return "priority-" + priority.toLowerCase().replace(" ", "-");
 }
-
 
 /* =========================================
    FORMAT DATE
 ========================================= */
 
 function formatDate(date) {
-
-    if (!date) {
-        return "-";
-    }
-
-
-    const parts =
-        date.split("-");
-
-
-    return (
-        parts[2] +
-        "-" +
-        parts[1] +
-        "-" +
-        parts[0]
-    );
-
+    if (!date) return "-";
+    const parts = date.split("-");
+    return parts[2] + "-" + parts[1] + "-" + parts[0];
 }
-
 
 /* =========================================
    RENDER APPLICATIONS
 ========================================= */
 
-function renderApplications(
-    data = applications
-) {
-
+function renderApplications(data = applications) {
     tableBody.innerHTML = "";
 
-
     if (!data.length) {
-
         tableBody.innerHTML = `
-
             <tr>
-
-                <td
-                    colspan="10"
-                    style="
-                        text-align:center;
-                        padding:40px;
-                        color:#718096;
-                    "
-                >
+                <td colspan="10" style="text-align:center; padding:40px; color:#718096;">
                     No applications found.
                 </td>
-
             </tr>
-
         `;
-
-        resultText.textContent =
-            "Showing 0 applications";
-
+        resultText.textContent = "Showing 0 applications";
         return;
     }
 
-
     data.forEach(function(application) {
-
-
-        const row =
-            document.createElement("tr");
-
+        const row = document.createElement("tr");
 
         row.innerHTML = `
-
             <td>
-
-                <input
-                    type="checkbox"
-                    class="application-checkbox"
-                    value="${application.id}"
-                >
-
+                <input type="checkbox" class="application-checkbox" value="${application.id}">
             </td>
-
-
             <td>
-
                 <div class="application-cell">
-
-                    <strong>
-                        ${application.id}
-                    </strong>
-
-                    <small>
-                        ${application.priority} Priority
-                    </small>
-
+                    <strong>${application.id}</strong>
+                    <small>${application.priority} Priority</small>
                 </div>
-
             </td>
-
-
             <td>
-
                 <div class="customer-cell">
-
-                    <strong>
-                        ${application.customer}
-                    </strong>
-
-                    <small>
-                        ${application.customerId}
-                    </small>
-
+                    <strong>${application.customer}</strong>
+                    <small>${application.customerId}</small>
                 </div>
-
             </td>
-
-
             <td>
-
                 <div class="country-cell">
-
-                    ${getFlag(application.country)}
-                    ${application.country}
-
+                    ${getFlag(application.country)} ${application.country}
                 </div>
-
             </td>
-
-
+            <td>${application.visa}</td>
+            <td>${application.officer}</td>
+            <td>${formatDate(application.submission)}</td>
             <td>
-                ${application.visa}
-            </td>
-
-
-            <td>
-                ${application.officer}
-            </td>
-
-
-            <td>
-                ${formatDate(application.submission)}
-            </td>
-
-
-            <td>
-
-                <span
-                    class="
-                        document-status
-                        ${getDocumentClass(
-                            application.documents
-                        )}
-                    "
-                >
+                <span class="document-status ${getDocumentClass(application.documents)}">
                     ${application.documents}
                 </span>
-
             </td>
-
-
             <td>
-
-                <span
-                    class="
-                        application-status
-                        ${getStatusClass(
-                            application.status
-                        )}
-                "
-                >
+                <span class="application-status ${getStatusClass(application.status)}">
                     ${application.status}
                 </span>
-
             </td>
-
-
             <td>
-
                 <div class="action-buttons">
-
-                    <button
-                        class="action-button"
-                        title="View"
-                        onclick="viewApplication('${application.id}')"
-                    >
-                        👁
-                    </button>
-
-
-                    <button
-                        class="action-button"
-                        title="Edit"
-                        onclick="editApplication('${application.id}')"
-                    >
-                        ✎
-                    </button>
-
-
-                    <button
-                        class="action-button"
-                        title="WhatsApp"
-                        onclick="openWhatsApp('${application.phone}')"
-                    >
-                        W
-                    </button>
-
+                    <button class="action-button" title="View" onclick="viewApplication('${application.id}')">👁</button>
+                    <button class="action-button" title="Edit" onclick="editApplication('${application.id}')">✎</button>
+                    <button class="action-button" title="WhatsApp" onclick="openWhatsApp('${application.phone}')">W</button>
                 </div>
-
             </td>
-
         `;
 
-
         tableBody.appendChild(row);
-
     });
 
-
-    resultText.textContent =
-        `Showing ${data.length} applications`;
-
+    resultText.textContent = `Showing ${data.length} applications`;
 }
-
 
 /* =========================================
    FILTER
 ========================================= */
 
 function filterApplications() {
+    const search = searchInput.value.toLowerCase().trim();
+    const country = countryFilter.value;
+    const visa = visaFilter.value;
+    const officer = officerFilter.value;
+    const activeStatus = document.querySelector(".pipeline-item.active")?.dataset.status || "";
 
+    const filtered = applications.filter(function(application) {
+        const searchMatch = !search ||
+            application.id.toLowerCase().includes(search) ||
+            application.customer.toLowerCase().includes(search) ||
+            application.passport.toLowerCase().includes(search) ||
+            application.phone.toLowerCase().includes(search);
 
-    const search =
-        searchInput.value
-            .toLowerCase()
-            .trim();
+        const countryMatch = !country || application.country === country;
+        const visaMatch = !visa || application.visa === visa;
+        const officerMatch = !officer || application.officer === officer;
+        const statusMatch = !activeStatus || application.status === activeStatus;
 
-
-    const country =
-        countryFilter.value;
-
-
-    const visa =
-        visaFilter.value;
-
-
-    const officer =
-        officerFilter.value;
-
-
-    const activeStatus =
-        document
-            .querySelector(
-                ".pipeline-item.active"
-            )
-            ?.dataset.status || "";
-
-
-    const filtered =
-        applications.filter(
-            function(application) {
-
-
-                const searchMatch =
-
-                    !search ||
-
-                    application.id
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    application.customer
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    application.passport
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    application.phone
-                        .toLowerCase()
-                        .includes(search);
-
-
-                const countryMatch =
-
-                    !country ||
-
-                    application.country ===
-                        country;
-
-
-                const visaMatch =
-
-                    !visa ||
-
-                    application.visa ===
-                        visa;
-
-
-                const officerMatch =
-
-                    !officer ||
-
-                    application.officer ===
-                        officer;
-
-
-                const statusMatch =
-
-                    !activeStatus ||
-
-                    application.status ===
-                        activeStatus;
-
-
-                return (
-
-                    searchMatch &&
-
-                    countryMatch &&
-
-                    visaMatch &&
-
-                    officerMatch &&
-
-                    statusMatch
-
-                );
-
-            }
-        );
-
+        return searchMatch && countryMatch && visaMatch && officerMatch && statusMatch;
+    });
 
     renderApplications(filtered);
-
 }
-
 
 /* =========================================
    SEARCH / FILTER EVENTS
 ========================================= */
 
-searchInput.addEventListener(
-    "input",
-    filterApplications
-);
-
-
-countryFilter.addEventListener(
-    "change",
-    filterApplications
-);
-
-
-visaFilter.addEventListener(
-    "change",
-    filterApplications
-);
-
-
-officerFilter.addEventListener(
-    "change",
-    filterApplications
-);
-
+searchInput.addEventListener("input", filterApplications);
+countryFilter.addEventListener("change", filterApplications);
+visaFilter.addEventListener("change", filterApplications);
+officerFilter.addEventListener("change", filterApplications);
 
 /* =========================================
    PIPELINE
 ========================================= */
 
-document
-    .querySelectorAll(
-        ".pipeline-item"
-    )
-    .forEach(
-        function(button) {
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-
-                    document
-                        .querySelectorAll(
-                            ".pipeline-item"
-                        )
-                        .forEach(
-                            item =>
-                                item.classList.remove(
-                                    "active"
-                                )
-                        );
-
-
-                    this.classList.add(
-                        "active"
-                    );
-
-
-                    filterApplications();
-
-                }
-            );
-
-        }
-    );
-
+document.querySelectorAll(".pipeline-item").forEach(function(button) {
+    button.addEventListener("click", function() {
+        document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
+        this.classList.add("active");
+        filterApplications();
+    });
+});
 
 /* =========================================
    RESET
 ========================================= */
 
-document
-    .getElementById(
-        "resetFilters"
-    )
-    .addEventListener(
-        "click",
-        function() {
+document.getElementById("resetFilters").addEventListener("click", function() {
+    searchInput.value = "";
+    countryFilter.value = "";
+    visaFilter.value = "";
+    officerFilter.value = "";
 
+    document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
+    document.querySelector('.pipeline-item[data-status=""]').classList.add("active");
 
-            searchInput.value = "";
-
-            countryFilter.value = "";
-
-            visaFilter.value = "";
-
-            officerFilter.value = "";
-
-
-            document
-                .querySelectorAll(
-                    ".pipeline-item"
-                )
-                .forEach(
-                    item =>
-                        item.classList.remove(
-                            "active"
-                        )
-                );
-
-
-            document
-                .querySelector(
-                    '.pipeline-item[data-status=""]'
-                )
-                .classList.add(
-                    "active"
-                );
-
-
-            renderApplications();
-
-        }
-    );
-
+    renderApplications();
+});
 
 /* =========================================
    UPDATE STATISTICS
 ========================================= */
 
 function updateStats() {
+    const total = applications.length;
+    const processing = applications.filter(app => app.status === "Processing").length;
+    const approved = applications.filter(app => app.status === "Approved").length;
+    const rejected = applications.filter(app => app.status === "Rejected").length;
 
-
-    const total =
-        applications.length;
-
-
-    const processing =
-        applications.filter(
-            application =>
-                application.status ===
-                "Processing"
-        ).length;
-
-
-    const approved =
-        applications.filter(
-            application =>
-                application.status ===
-                "Approved"
-        ).length;
-
-
-    const rejected =
-        applications.filter(
-            application =>
-                application.status ===
-                "Rejected"
-        ).length;
-
-
-    document
-        .getElementById(
-            "totalApplications"
-        )
-        .textContent = total;
-
-
-    document
-        .getElementById(
-            "processingApplications"
-        )
-        .textContent = processing;
-
-
-    document
-        .getElementById(
-            "approvedApplications"
-        )
-        .textContent = approved;
-
-
-    document
-        .getElementById(
-            "rejectedApplications"
-        )
-        .textContent = rejected;
-
+    document.getElementById("totalApplications").textContent = total;
+    document.getElementById("processingApplications").textContent = processing;
+    document.getElementById("approvedApplications").textContent = approved;
+    document.getElementById("rejectedApplications").textContent = rejected;
 
     updatePipelineCounts();
-
 }
-
 
 /* =========================================
    PIPELINE COUNTS
 ========================================= */
 
 function updatePipelineCounts() {
-
-
     const count = function(status) {
-
-        if (!status) {
-
-            return applications.length;
-
-        }
-
-
-        return applications.filter(
-            application =>
-                application.status ===
-                status
-        ).length;
-
+        if (!status) return applications.length;
+        return applications.filter(app => app.status === status).length;
     };
 
-
-    document
-        .getElementById("allCount")
-        .textContent =
-            count("");
-
-
-    document
-        .getElementById("draftCount")
-        .textContent =
-            count("Draft");
-
-
-    document
-        .getElementById("documentsCount")
-        .textContent =
-            count("Documents Pending");
-
-
-    document
-        .getElementById("submittedCount")
-        .textContent =
-            count("Submitted");
-
-
-    document
-        .getElementById("processingCount")
-        .textContent =
-            count("Processing");
-
-
-    document
-        .getElementById("approvedCount")
-        .textContent =
-            count("Approved");
-
-
-    document
-        .getElementById("rejectedCount")
-        .textContent =
-            count("Rejected");
-
+    document.getElementById("allCount").textContent = count("");
+    document.getElementById("draftCount").textContent = count("Draft");
+    document.getElementById("documentsCount").textContent = count("Documents Pending");
+    document.getElementById("submittedCount").textContent = count("Submitted");
+    document.getElementById("processingCount").textContent = count("Processing");
+    document.getElementById("approvedCount").textContent = count("Approved");
+    document.getElementById("rejectedCount").textContent = count("Rejected");
 }
-
 
 /* =========================================
    MODAL
 ========================================= */
 
-const modal =
-    document.getElementById(
-        "applicationModal"
-    );
+const modal = document.getElementById("applicationModal");
 
-
-document
-    .getElementById(
-        "addApplicationButton"
-    )
-    .addEventListener(
-        "click",
-        function() {
-
-            modal.classList.add(
-                "show"
-            );
-
-            document.body.style.overflow =
-                "hidden";
-
-        }
-    );
-
+document.getElementById("addApplicationButton").addEventListener("click", function() {
+    modal.classList.add("show");
+    document.body.style.overflow = "hidden";
+});
 
 function closeApplicationModal() {
-
-    modal.classList.remove(
-        "show"
-    );
-
-    document.body.style.overflow =
-        "";
-
+    modal.classList.remove("show");
+    document.body.style.overflow = "";
 }
 
+document.getElementById("closeModal").addEventListener("click", closeApplicationModal);
+document.getElementById("cancelModal").addEventListener("click", closeApplicationModal);
 
-document
-    .getElementById(
-        "closeModal"
-    )
-    .addEventListener(
-        "click",
-        closeApplicationModal
-    );
-
-
-document
-    .getElementById(
-        "cancelModal"
-    )
-    .addEventListener(
-        "click",
-        closeApplicationModal
-    );
-
-
-modal.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target === modal
-        ) {
-
-            closeApplicationModal();
-
-        }
-
+modal.addEventListener("click", function(event) {
+    if (event.target === modal) {
+        closeApplicationModal();
     }
-);
-
+});
 
 /* =========================================
    CREATE APPLICATION
 ========================================= */
 
-document
-    .getElementById(
-        "applicationForm"
-    )
-    .addEventListener(
-        "submit",
-        function(event) {
+document.getElementById("applicationForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
+    const newNumber = applications.length + 1;
 
-            event.preventDefault();
+    const newApplication = {
+        id: "APP-" + String(newNumber).padStart(6, "0"),
+        customerId: document.getElementById("customerId").value,
+        customer: document.getElementById("customerName").value,
+        passport: document.getElementById("passport").value,
+        phone: document.getElementById("phone").value,
+        country: document.getElementById("country").value,
+        visa: document.getElementById("visa").value,
+        officer: document.getElementById("officer").value,
+        submission: document.getElementById("submissionDate").value,
+        appointment: document.getElementById("appointmentDate").value,
+        decision: document.getElementById("decisionDate").value,
+        documents: document.getElementById("documentsStatus").value,
+        status: document.getElementById("applicationStatus").value,
+        priority: document.getElementById("priority").value,
+        fee: Number(document.getElementById("fee").value) || 0,
+        paid: Number(document.getElementById("paid").value) || 0,
+        notes: document.getElementById("notes").value
+    };
 
+    applications.unshift(newApplication);
 
-            const newNumber =
-                applications.length + 1;
+    document.getElementById("applicationForm").reset();
+    closeApplicationModal();
 
+    renderApplications();
+    updateStats();
 
-            const newApplication = {
-
-                id:
-                    "APP-" +
-                    String(newNumber)
-                        .padStart(6,"0"),
-
-                customerId:
-                    document
-                        .getElementById(
-                            "customerId"
-                        )
-                        .value,
-
-                customer:
-                    document
-                        .getElementById(
-                            "customerName"
-                        )
-                        .value,
-
-                passport:
-                    document
-                        .getElementById(
-                            "passport"
-                        )
-                        .value,
-
-                phone:
-                    document
-                        .getElementById(
-                            "phone"
-                        )
-                        .value,
-
-                country:
-                    document
-                        .getElementById(
-                            "country"
-                        )
-                        .value,
-
-                visa:
-                    document
-                        .getElementById(
-                            "visa"
-                        )
-                        .value,
-
-                officer:
-                    document
-                        .getElementById(
-                            "officer"
-                        )
-                        .value,
-
-                submission:
-                    document
-                        .getElementById(
-                            "submissionDate"
-                        )
-                        .value,
-
-                appointment:
-                    document
-                        .getElementById(
-                            "appointmentDate"
-                        )
-                        .value,
-
-                decision:
-                    document
-                        .getElementById(
-                            "decisionDate"
-                        )
-                        .value,
-
-                documents:
-                    document
-                        .getElementById(
-                            "documentsStatus"
-                        )
-                        .value,
-
-                status:
-                    document
-                        .getElementById(
-                            "applicationStatus"
-                        )
-                        .value,
-
-                priority:
-                    document
-                        .getElementById(
-                            "priority"
-                        )
-                        .value,
-
-                fee:
-                    Number(
-                        document
-                            .getElementById(
-                                "fee"
-                            )
-                            .value
-                    ) || 0,
-
-                paid:
-                    Number(
-                        document
-                            .getElementById(
-                                "paid"
-                            )
-                            .value
-                    ) || 0,
-
-                notes:
-                    document
-                        .getElementById(
-                            "notes"
-                        )
-                        .value
-
-            };
-
-
-            applications.unshift(
-                newApplication
-            );
-
-
-            document
-                .getElementById(
-                    "applicationForm"
-                )
-                .reset();
-
-
-            closeApplicationModal();
-
-
-            renderApplications();
-
-            updateStats();
-
-
-            alert(
-                `Application ${newApplication.id} created successfully.`
-            );
-
-        }
-    );
-
+    alert(`Application ${newApplication.id} created successfully.`);
+});
 
 /* =========================================
    VIEW APPLICATION
 ========================================= */
 
 function viewApplication(id) {
+    const application = applications.find(item => item.id === id);
+    if (!application) return;
 
-
-    const application =
-        applications.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!application) {
-        return;
-    }
-
-
-    const remaining =
-        application.fee -
-        application.paid;
-
+    const remaining = application.fee - application.paid;
 
     alert(
-
         "APPLICATION DETAILS\n\n" +
-
-        "Application ID: " +
-        application.id +
-
-        "\nCustomer: " +
-        application.customer +
-
-        "\nCustomer ID: " +
-        application.customerId +
-
-        "\nCountry: " +
-        application.country +
-
-        "\nVisa: " +
-        application.visa +
-
-        "\nOfficer: " +
-        application.officer +
-
-        "\nStatus: " +
-        application.status +
-
-        "\nDocuments: " +
-        application.documents +
-
-        "\nPriority: " +
-        application.priority +
-
-        "\nSubmission: " +
-        formatDate(
-            application.submission
-        ) +
-
-        "\nAppointment: " +
-        formatDate(
-            application.appointment
-        ) +
-
-        "\nDecision: " +
-        formatDate(
-            application.decision
-        ) +
-
-        "\n\nFee: Rs. " +
-        application.fee
-            .toLocaleString() +
-
-        "\nPaid: Rs. " +
-        application.paid
-            .toLocaleString() +
-
-        "\nRemaining: Rs. " +
-        remaining
-            .toLocaleString()
-
+        "Application ID: " + application.id +
+        "\nCustomer: " + application.customer +
+        "\nCustomer ID: " + application.customerId +
+        "\nCountry: " + application.country +
+        "\nVisa: " + application.visa +
+        "\nOfficer: " + application.officer +
+        "\nStatus: " + application.status +
+        "\nDocuments: " + application.documents +
+        "\nPriority: " + application.priority +
+        "\nSubmission: " + formatDate(application.submission) +
+        "\nAppointment: " + formatDate(application.appointment) +
+        "\nDecision: " + formatDate(application.decision) +
+        "\n\nFee: Rs. " + application.fee.toLocaleString() +
+        "\nPaid: Rs. " + application.paid.toLocaleString() +
+        "\nRemaining: Rs. " + remaining.toLocaleString()
     );
-
 }
-
 
 /* =========================================
    EDIT APPLICATION
 ========================================= */
 
 function editApplication(id) {
+    const application = applications.find(item => item.id === id);
+    if (!application) return;
 
-
-    const application =
-        applications.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!application) {
-        return;
-    }
-
-
-    alert(
-        "Application editing will be connected to the secure CRM database."
-    );
-
+    alert("Application editing will be connected to the secure CRM database.");
 }
-
 
 /* =========================================
    WHATSAPP
 ========================================= */
 
 function openWhatsApp(phone) {
-
-
-    const cleanPhone =
-        phone.replace(
-            /[^0-9]/g,
-            ""
-        );
-
+    const cleanPhone = phone.replace(/[^0-9]/g, "");
 
     if (!cleanPhone) {
-
-        alert(
-            "Customer WhatsApp number is not available."
-        );
-
+        alert("Customer WhatsApp number is not available.");
         return;
     }
 
-
-    window.open(
-        "https://wa.me/" +
-        cleanPhone,
-        "_blank"
-    );
-
+    window.open("https://wa.me/" + cleanPhone, "_blank");
 }
-
 
 /* =========================================
    SELECT ALL
 ========================================= */
 
-document
-    .getElementById(
-        "selectAll"
-    )
-    .addEventListener(
-        "change",
-        function() {
-
-
-            document
-                .querySelectorAll(
-                    ".application-checkbox"
-                )
-                .forEach(
-                    function(checkbox) {
-
-                        checkbox.checked =
-                            this.checked;
-
-                    },
-                    this
-                );
-
-        }
-    );
-
+document.getElementById("selectAll").addEventListener("change", function() {
+    document.querySelectorAll(".application-checkbox").forEach(checkbox => {
+        checkbox.checked = this.checked;
+    });
+});
 
 /* =========================================
    EXPORT CSV
 ========================================= */
 
-document
-    .getElementById(
-        "exportButton"
-    )
-    .addEventListener(
-        "click",
-        function() {
+document.getElementById("exportButton").addEventListener("click", function() {
+    let csv = "Application ID,Customer ID,Customer,Passport,Phone,Country,Visa,Officer,Submission,Appointment,Documents,Status,Priority,Fee,Paid,Remaining\n";
 
+    applications.forEach(function(application) {
+        const remaining = application.fee - application.paid;
 
-            let csv =
-                "Application ID,Customer ID,Customer,Passport,Phone,Country,Visa,Officer,Submission,Appointment,Documents,Status,Priority,Fee,Paid,Remaining\n";
+        csv += `"${application.id}",` +
+            `"${application.customerId}",` +
+            `"${application.customer}",` +
+            `"${application.passport}",` +
+            `"${application.phone}",` +
+            `"${application.country}",` +
+            `"${application.visa}",` +
+            `"${application.officer}",` +
+            `"${application.submission}",` +
+            `"${application.appointment}",` +
+            `"${application.documents}",` +
+            `"${application.status}",` +
+            `"${application.priority}",` +
+            `"${application.fee}",` +
+            `"${application.paid}",` +
+            `"${remaining}"\n`;
+    });
 
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
 
-            applications.forEach(
-                function(application) {
+    link.href = url;
+    link.download = "polaris-applications.csv";
+    link.click();
 
-
-                    const remaining =
-                        application.fee -
-                        application.paid;
-
-
-                    csv +=
-
-                        `"${application.id}",` +
-
-                        `"${application.customerId}",` +
-
-                        `"${application.customer}",` +
-
-                        `"${application.passport}",` +
-
-                        `"${application.phone}",` +
-
-                        `"${application.country}",` +
-
-                        `"${application.visa}",` +
-
-                        `"${application.officer}",` +
-
-                        `"${application.submission}",` +
-
-                        `"${application.appointment}",` +
-
-                        `"${application.documents}",` +
-
-                        `"${application.status}",` +
-
-                        `"${application.priority}",` +
-
-                        `"${application.fee}",` +
-
-                        `"${application.paid}",` +
-
-                        `"${remaining}"\n`;
-
-                }
-            );
-
-
-            const blob =
-                new Blob(
-                    [csv],
-                    {
-                        type:
-                            "text/csv;charset=utf-8;"
-                    }
-                );
-
-
-            const url =
-                URL.createObjectURL(
-                    blob
-                );
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href = url;
-
-            link.download =
-                "polaris-applications.csv";
-
-
-            link.click();
-
-
-            URL.revokeObjectURL(
-                url
-            );
-
-        }
-    );
-
+    URL.revokeObjectURL(url);
+});
 
 /* =========================================
    MOBILE SIDEBAR
 ========================================= */
 
-const menuButton =
-    document.getElementById(
-        "menuButton"
-    );
+const menuButton = document.getElementById("menuButton");
+const sidebar = document.getElementById("sidebar");
 
-
-const sidebar =
-    document.getElementById(
-        "sidebar"
-    );
-
-
-menuButton.addEventListener(
-    "click",
-    function() {
-
-        sidebar.classList.toggle(
-            "mobile-open"
-        );
-
-    }
-);
-
+menuButton.addEventListener("click", function() {
+    sidebar.classList.toggle("mobile-open");
+});
 
 /* =========================================
    LOGOUT
 ========================================= */
 
-document
-    .getElementById(
-        "logoutButton"
-    )
-    .addEventListener(
-        "click",
-        function() {
-
-            alert(
-                "Secure logout will be connected with Supabase Authentication."
-            );
-
-        }
-    );
-
+document.getElementById("logoutButton").addEventListener("click", function() {
+    alert("Secure logout will be connected with Supabase Authentication.");
+});
 
 /* =========================================
    INITIAL LOAD
 ========================================= */
 
 renderApplications();
-
 updateStats();
 
-
-console.log(
-    "Polaris Consultants Application Management loaded."
-);
+console.log("Polaris Consultants Application Management loaded.");
