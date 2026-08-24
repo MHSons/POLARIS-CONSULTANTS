@@ -1,85 +1,35 @@
 /* =========================================================
-   POLARIS CONSULTANTS
-   ADMIN PROFILE SETUP
+   POLARIS CONSULTANTS - ADMIN PROFILE SETUP
 ========================================================= */
 
-
 /*
-   IMPORTANT:
-
-   First create the user from:
-
-   Supabase Dashboard
-   ↓
-   Authentication
-   ↓
-   Users
-   ↓
-   Add User
-
-
-   Enter your admin email and password.
-
-   Then copy that user's UUID.
-
-   Replace:
-
-   YOUR_ADMIN_USER_UUID
-
-   below.
+   INSTRUCTIONS:
+   1. Create user in Supabase Dashboard -> Authentication -> Users -> Add User
+   2. Copy the user's UUID and replace 'YOUR_ADMIN_USER_UUID' below.
+   3. Replace 'YOUR_ADMIN_EMAIL' with your actual admin email.
 */
 
-
-insert into public.profiles (
-
+INSERT INTO public.profiles (
     id,
-
     full_name,
-
     email,
-
     role,
-
     team_name,
-
     is_active
-
-)
-
-values (
-
+) 
+VALUES (
     'YOUR_ADMIN_USER_UUID',
-
     'Polaris Administrator',
-
     'YOUR_ADMIN_EMAIL',
-
     'SUPER ADMIN',
-
     'Management',
-
     true
-
 )
-
-on conflict (id)
-
-do update set
-
-    full_name =
-        excluded.full_name,
-
-    email =
-        excluded.email,
-
-    role =
-        excluded.role,
-
-    team_name =
-        excluded.team_name,
-
-    is_active =
-        excluded.is_active,
-
-    updated_at =
-        now();
+ON CONFLICT (id) 
+DO UPDATE SET
+    full_name = EXCLUDED.full_name,
+    email = EXCLUDED.email,
+    role = EXCLUDED.role,
+    team_name = EXCLUDED.team_name,
+    is_active = EXCLUDED.is_active,
+    updated_at = NOW();
