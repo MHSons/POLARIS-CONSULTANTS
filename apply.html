@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Apply Now | Polaris Consultants</title>
+
+    <meta
+        name="description"
+        content="Apply for Study Visa, Work Visa or Visit Visa with Polaris Consultants."
+    >
+
+    <link
+        rel="stylesheet"
+        href="apply.css"
+    >
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="apply-header">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+            <img
+                src="logo.png"
+                alt="Polaris Consultants Logo"
+                class="brand-logo"
+            >
+
+            <div class="brand-text">
+                <strong>POLARIS</strong>
+                <span>CONSULTANTS</span>
+            </div>
+        </a>
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="apply-container">
+
+        <section class="apply-intro">
+
+            <span class="badge">
+                START YOUR JOURNEY
+            </span>
+
+            <h1>
+                Apply With
+                <span>Polaris Consultants</span>
+            </h1>
+
+            <p>
+                Fill in your details below. Our team will review
+                your information and contact you regarding your
+                visa application.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             APPLICATION FORM
+        ================================================== -->
+
+        <section class="form-card">
+
+            <form
+                id="visaApplicationForm"
+                novalidate
+            >
+
+                <!-- =========================================
+                     PERSONAL INFORMATION
+                ========================================== -->
+
+                <div class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            01
+                        </span>
+
+                        <div>
+                            <h2>Personal Information</h2>
+
+                            <p>
+                                Please enter your basic personal details.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label for="fullName">
+                                Full Name
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="cnic">
+                                CNIC
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cnic"
+                                name="cnic"
+                                placeholder="XXXXX-XXXXXXX-X"
+                                maxlength="15"
+                                required
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="passportNumber">
+                                Passport Number
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="passportNumber"
+                                name="passportNumber"
+                                placeholder="Enter passport number"
+                                required
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="passportExpiry">
+                                Passport Expiry
+                            </label>
+
+                            <input
+                                type="date"
+                                id="passportExpiry"
+                                name="passportExpiry"
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="dateOfBirth">
+                                Date of Birth
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dateOfBirth"
+                                name="dateOfBirth"
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="gender">
+                                Gender
+                            </label>
+
+                            <select
+                                id="gender"
+                                name="gender"
+                            >
+
+                                <option value="">
+                                    Select Gender
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="nationality">
+                                Nationality
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nationality"
+                                name="nationality"
+                                value="Pakistani"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CONTACT INFORMATION
+                ========================================== -->
+
+                <div class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            02
+                        </span>
+
+                        <div>
+                            <h2>Contact Information</h2>
+
+                            <p>
+                                How can our team contact you?
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                                <span>*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="+92 300 1234567"
+                                autocomplete="tel"
+                                required
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="whatsappNumber">
+                                WhatsApp Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="whatsappNumber"
+                                name="whatsappNumber"
+                                placeholder="+92 300 1234567"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="your@email.com"
+                                autocomplete="email"
+                            >
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                placeholder="Enter your city"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="address">
+                                Complete Address
+                                <span>*</span>
+                            </label>
+
+                            <textarea
+                                id="address"
+                                name="address"
+                                rows="3"
+                                placeholder="Enter your complete address"
+                                required
+                            ></textarea>
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     VISA INFORMATION
+                ========================================== -->
+
+                <div class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            03
+                        </span>
+
+                        <div>
+                            <h2>Visa Information</h2>
+
+                            <p>
+                                Tell us about your travel plans.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="country">
+                                Destination Country
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="country"
+                                name="country"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Country
+                                </option>
+
+                                <option value="United Kingdom">
+                                    United Kingdom
+                                </option>
+
+                                <option value="United States">
+                                    United States
+                                </option>
+
+                                <option value="Canada">
+                                    Canada
+                                </option>
+
+                                <option value="Australia">
+                                    Australia
+                                </option>
+
+                                <option value="New Zealand">
+                                    New Zealand
+                                </option>
+
+                                <option value="Germany">
+                                    Germany
+                                </option>
+
+                                <option value="France">
+                                    France
+                                </option>
+
+                                <option value="Italy">
+                                    Italy
+                                </option>
+
+                                <option value="Spain">
+                                    Spain
+                                </option>
+
+                                <option value="Ireland">
+                                    Ireland
+                                </option>
+
+                                <option value="Netherlands">
+                                    Netherlands
+                                </option>
+
+                                <option value="Sweden">
+                                    Sweden
+                                </option>
+
+                                <option value="Finland">
+                                    Finland
+                                </option>
+
+                                <option value="Denmark">
+                                    Denmark
+                                </option>
+
+                                <option value="Norway">
+                                    Norway
+                                </option>
+
+                                <option value="Switzerland">
+                                    Switzerland
+                                </option>
+
+                                <option value="Austria">
+                                    Austria
+                                </option>
+
+                                <option value="Poland">
+                                    Poland
+                                </option>
+
+                                <option value="Portugal">
+                                    Portugal
+                                </option>
+
+                                <option value="Hungary">
+                                    Hungary
+                                </option>
+
+                                <option value="Malta">
+                                    Malta
+                                </option>
+
+                                <option value="Cyprus">
+                                    Cyprus
+                                </option>
+
+                                <option value="UAE">
+                                    UAE
+                                </option>
+
+                                <option value="Saudi Arabia">
+                                    Saudi Arabia
+                                </option>
+
+                                <option value="Qatar">
+                                    Qatar
+                                </option>
+
+                                <option value="Turkey">
+                                    Turkey
+                                </option>
+
+                                <option value="Malaysia">
+                                    Malaysia
+                                </option>
+
+                                <option value="China">
+                                    China
+                                </option>
+
+                                <option value="Japan">
+                                    Japan
+                                </option>
+
+                                <option value="South Korea">
+                                    South Korea
+                                </option>
+
+                            </select>
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="visaType">
+                                Visa Type
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="visaType"
+                                name="visaType"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Visa Type
+                                </option>
+
+                                <option value="Study Visa">
+                                    Study Visa
+                                </option>
+
+                                <option value="Work Visa">
+                                    Work Visa
+                                </option>
+
+                                <option value="Visit Visa">
+                                    Visit Visa
+                                </option>
+
+                                <option value="Business Visa">
+                                    Business Visa
+                                </option>
+
+                                <option value="Family Visa">
+                                    Family Visa
+                                </option>
+
+                                <option value="Transit Visa">
+                                    Transit Visa
+                                </option>
+
+                            </select>
+
+                            <small class="error-message"></small>
+
+                        </div>
+
+
+                        <div
+                            class="form-group full"
+                            id="studyFields"
+                        >
+
+                            <label for="courseName">
+                                Course / Program
+                            </label>
+
+                            <input
+                                type="text"
+                                id="courseName"
+                                name="courseName"
+                                placeholder="e.g. MSc Computer Science"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="universityName">
+                                University / Institution
+                            </label>
+
+                            <input
+                                type="text"
+                                id="universityName"
+                                name="universityName"
+                                placeholder="University name"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="intake">
+                                Study Intake
+                            </label>
+
+                            <input
+                                type="text"
+                                id="intake"
+                                name="intake"
+                                placeholder="e.g. September 2027"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="employerName">
+                                Employer Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="employerName"
+                                name="employerName"
+                                placeholder="For work visa"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="jobTitle">
+                                Job Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="jobTitle"
+                                name="jobTitle"
+                                placeholder="For work visa"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="visitPurpose">
+                                Visit / Travel Purpose
+                            </label>
+
+                            <textarea
+                                id="visitPurpose"
+                                name="visitPurpose"
+                                rows="3"
+                                placeholder="Tell us why you want to travel..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     SOURCE
+                ========================================== -->
+
+                <div class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            04
+                        </span>
+
+                        <div>
+                            <h2>How Did You Find Us?</h2>
+
+                            <p>
+                                This helps us understand our leads.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label for="source">
+                                Lead Source
+                            </label>
+
+                            <select
+                                id="source"
+                                name="source"
+                            >
+
+                                <option value="">
+                                    Select Source
+                                </option>
+
+                                <option value="Website">
+                                    Website
+                                </option>
+
+                                <option value="WhatsApp">
+                                    WhatsApp
+                                </option>
+
+                                <option value="Facebook">
+                                    Facebook
+                                </option>
+
+                                <option value="Instagram">
+                                    Instagram
+                                </option>
+
+                                <option value="Google">
+                                    Google
+                                </option>
+
+                                <option value="Referral">
+                                    Referral
+                                </option>
+
+                                <option value="Walk In">
+                                    Walk In
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="notes">
+                                Additional Information
+                            </label>
+
+                            <textarea
+                                id="notes"
+                                name="notes"
+                                rows="5"
+                                placeholder="Write any additional information..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CONSENT
+                ========================================== -->
+
+                <div class="consent-box">
+
+                    <label class="checkbox-label">
+
+                        <input
+                            type="checkbox"
+                            id="consent"
+                            name="consent"
+                            required
+                        >
+
+                        <span>
+                            I confirm that the information provided
+                            by me is correct and I agree that
+                            Polaris Consultants may contact me
+                            regarding my visa inquiry.
+                        </span>
+
+                    </label>
+
+                    <small
+                        id="consentError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+                <!-- =========================================
+                     SUBMIT
+                ========================================== -->
+
+                <button
+                    type="submit"
+                    id="submitButton"
+                    class="submit-button"
+                >
+
+                    <span id="buttonText">
+                        Submit Application
+                    </span>
+
+                    <span
+                        id="buttonLoader"
+                        class="button-loader hidden"
+                    >
+                        Sending...
+                    </span>
+
+                </button>
+
+
+                <p
+                    id="formMessage"
+                    class="form-message"
+                ></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="apply-footer">
+
+        <p>
+            © <span id="currentYear"></span>
+            Polaris Consultants. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="apply.js"></script>
+
+</body>
+</html>
