@@ -1,29 +1,12 @@
 /* =========================================================
    POLARIS CONSULTANTS
-   APPLY FORM JAVASCRIPT
+   APPLY FORM
+   DATABASE CONNECTED VERSION
 ========================================================= */
-
-
-/*
-    IMPORTANT:
-
-    Supabase connection hum STEP 17 mein connect karenge.
-
-    Abhi ye file:
-    - Form validation
-    - CNIC formatting
-    - Form data collection
-    - Success/error handling
-    - WhatsApp message preparation
-
-    handle karti hai.
-*/
-
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
-
 
         /* =================================================
            ELEMENTS
@@ -34,36 +17,30 @@ document.addEventListener(
                 "visaApplicationForm"
             );
 
-
         const submitButton =
             document.getElementById(
                 "submitButton"
             );
-
 
         const buttonText =
             document.getElementById(
                 "buttonText"
             );
 
-
         const buttonLoader =
             document.getElementById(
                 "buttonLoader"
             );
-
 
         const formMessage =
             document.getElementById(
                 "formMessage"
             );
 
-
         const cnicInput =
             document.getElementById(
                 "cnic"
             );
-
 
         const currentYear =
             document.getElementById(
@@ -72,7 +49,7 @@ document.addEventListener(
 
 
         /* =================================================
-           YEAR
+           CURRENT YEAR
         ================================================= */
 
         if (currentYear) {
@@ -99,7 +76,6 @@ document.addEventListener(
                             ""
                         );
 
-
                     if (value.length > 13) {
 
                         value =
@@ -109,7 +85,6 @@ document.addEventListener(
                             );
 
                     }
-
 
                     if (value.length > 5) {
 
@@ -125,7 +100,6 @@ document.addEventListener(
 
                     }
 
-
                     if (value.length > 13) {
 
                         value =
@@ -140,7 +114,6 @@ document.addEventListener(
 
                     }
 
-
                     this.value = value;
 
                 }
@@ -150,7 +123,7 @@ document.addEventListener(
 
 
         /* =================================================
-           VALIDATION
+           ERROR FUNCTIONS
         ================================================= */
 
         function showError(
@@ -158,27 +131,27 @@ document.addEventListener(
             message
         ) {
 
+            if (!input) {
+                return;
+            }
+
             input.classList.add(
                 "input-error"
             );
-
 
             const parent =
                 input.closest(
                     ".form-group"
                 );
 
-
             if (!parent) {
                 return;
             }
-
 
             const error =
                 parent.querySelector(
                     ".error-message"
                 );
-
 
             if (error) {
 
@@ -190,38 +163,45 @@ document.addEventListener(
         }
 
 
-        function clearError(input) {
+        function clearError(
+            input
+        ) {
+
+            if (!input) {
+                return;
+            }
 
             input.classList.remove(
                 "input-error"
             );
-
 
             const parent =
                 input.closest(
                     ".form-group"
                 );
 
-
             if (!parent) {
                 return;
             }
-
 
             const error =
                 parent.querySelector(
                     ".error-message"
                 );
 
-
             if (error) {
 
-                error.textContent = "";
+                error.textContent =
+                    "";
 
             }
 
         }
 
+
+        /* =================================================
+           REQUIRED FIELD VALIDATION
+        ================================================= */
 
         function validateRequired(
             input,
@@ -242,13 +222,16 @@ document.addEventListener(
 
             }
 
-
             clearError(input);
 
             return true;
 
         }
 
+
+        /* =================================================
+           FORM VALIDATION
+        ================================================= */
 
         function validateForm() {
 
@@ -260,48 +243,43 @@ document.addEventListener(
                     "fullName"
                 );
 
-
             const cnic =
                 document.getElementById(
                     "cnic"
                 );
-
 
             const passportNumber =
                 document.getElementById(
                     "passportNumber"
                 );
 
-
             const phone =
                 document.getElementById(
                     "phone"
                 );
-
 
             const address =
                 document.getElementById(
                     "address"
                 );
 
-
             const country =
                 document.getElementById(
                     "country"
                 );
-
 
             const visaType =
                 document.getElementById(
                     "visaType"
                 );
 
-
             const consent =
                 document.getElementById(
                     "consent"
                 );
 
+
+            /* FULL NAME */
 
             if (
                 !validateRequired(
@@ -314,6 +292,8 @@ document.addEventListener(
 
             }
 
+
+            /* CNIC */
 
             if (
                 !validateRequired(
@@ -339,6 +319,8 @@ document.addEventListener(
             }
 
 
+            /* PASSPORT */
+
             if (
                 !validateRequired(
                     passportNumber,
@@ -350,6 +332,8 @@ document.addEventListener(
 
             }
 
+
+            /* PHONE */
 
             if (
                 !validateRequired(
@@ -363,6 +347,8 @@ document.addEventListener(
             }
 
 
+            /* ADDRESS */
+
             if (
                 !validateRequired(
                     address,
@@ -374,6 +360,8 @@ document.addEventListener(
 
             }
 
+
+            /* COUNTRY */
 
             if (
                 !validateRequired(
@@ -387,6 +375,8 @@ document.addEventListener(
             }
 
 
+            /* VISA TYPE */
+
             if (
                 !validateRequired(
                     visaType,
@@ -399,15 +389,16 @@ document.addEventListener(
             }
 
 
+            /* CONSENT */
+
+            const consentError =
+                document.getElementById(
+                    "consentError"
+                );
+
             if (
                 !consent.checked
             ) {
-
-                const consentError =
-                    document.getElementById(
-                        "consentError"
-                    );
-
 
                 if (consentError) {
 
@@ -416,17 +407,10 @@ document.addEventListener(
 
                 }
 
-
                 valid = false;
 
             }
             else {
-
-                const consentError =
-                    document.getElementById(
-                        "consentError"
-                    );
-
 
                 if (consentError) {
 
@@ -469,17 +453,17 @@ document.addEventListener(
                 passportExpiry:
                     document.getElementById(
                         "passportExpiry"
-                    ).value,
+                    ).value || null,
 
                 dateOfBirth:
                     document.getElementById(
                         "dateOfBirth"
-                    ).value,
+                    ).value || null,
 
                 gender:
                     document.getElementById(
                         "gender"
-                    ).value,
+                    ).value || null,
 
                 nationality:
                     document.getElementById(
@@ -554,7 +538,7 @@ document.addEventListener(
                 source:
                     document.getElementById(
                         "source"
-                    ).value,
+                    ).value || "Website",
 
                 notes:
                     document.getElementById(
@@ -562,6 +546,261 @@ document.addEventListener(
                     ).value.trim()
 
             };
+
+        }
+
+
+        /* =================================================
+           SAVE CUSTOMER
+        ================================================= */
+
+        async function createCustomer(
+            data
+        ) {
+
+            const {
+                data: customer,
+                error
+            } =
+                await supabaseClient
+                    .from("customers")
+                    .insert([
+                        {
+
+                            full_name:
+                                data.fullName,
+
+                            cnic:
+                                data.cnic,
+
+                            passport_number:
+                                data.passportNumber,
+
+                            phone:
+                                data.phone,
+
+                            whatsapp_number:
+                                data.whatsappNumber,
+
+                            email:
+                                data.email,
+
+                            date_of_birth:
+                                data.dateOfBirth,
+
+                            gender:
+                                data.gender,
+
+                            nationality:
+                                data.nationality,
+
+                            city:
+                                data.city,
+
+                            address:
+                                data.address
+
+                        }
+                    ])
+                    .select()
+                    .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Customer Error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            return customer;
+
+        }
+
+
+        /* =================================================
+           SAVE LEAD
+        ================================================= */
+
+        async function createLead(
+            data,
+            customerId
+        ) {
+
+            const {
+                data: lead,
+                error
+            } =
+                await supabaseClient
+                    .from("leads")
+                    .insert([
+                        {
+
+                            customer_id:
+                                customerId,
+
+                            country:
+                                data.country,
+
+                            visa_type:
+                                data.visaType,
+
+                            source:
+                                data.source,
+
+                            status:
+                                "New",
+
+                            assigned_team:
+                                null,
+
+                            assigned_staff:
+                                null,
+
+                            notes:
+                                data.notes
+
+                        }
+                    ])
+                    .select()
+                    .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Lead Error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            return lead;
+
+        }
+
+
+        /* =================================================
+           SAVE APPLICATION
+        ================================================= */
+
+        async function createApplication(
+            data,
+            customerId,
+            leadId
+        ) {
+
+            const {
+                data: application,
+                error
+            } =
+                await supabaseClient
+                    .from("applications")
+                    .insert([
+                        {
+
+                            customer_id:
+                                customerId,
+
+                            lead_id:
+                                leadId,
+
+                            full_name:
+                                data.fullName,
+
+                            cnic:
+                                data.cnic,
+
+                            passport_number:
+                                data.passportNumber,
+
+                            passport_expiry:
+                                data.passportExpiry,
+
+                            date_of_birth:
+                                data.dateOfBirth,
+
+                            gender:
+                                data.gender,
+
+                            nationality:
+                                data.nationality,
+
+                            phone:
+                                data.phone,
+
+                            whatsapp_number:
+                                data.whatsappNumber,
+
+                            email:
+                                data.email,
+
+                            city:
+                                data.city,
+
+                            address:
+                                data.address,
+
+                            country:
+                                data.country,
+
+                            visa_type:
+                                data.visaType,
+
+                            course_name:
+                                data.courseName,
+
+                            university_name:
+                                data.universityName,
+
+                            intake:
+                                data.intake,
+
+                            employer_name:
+                                data.employerName,
+
+                            job_title:
+                                data.jobTitle,
+
+                            visit_purpose:
+                                data.visitPurpose,
+
+                            source:
+                                data.source,
+
+                            notes:
+                                data.notes,
+
+                            status:
+                                "New"
+
+                        }
+                    ])
+                    .select()
+                    .single();
+
+
+            if (error) {
+
+                console.error(
+                    "Application Error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            return application;
 
         }
 
@@ -576,7 +815,8 @@ document.addEventListener(
 
             return `
 *NEW VISA INQUIRY*
-*Polaris Consultants*
+
+*POLARIS CONSULTANTS*
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -591,22 +831,6 @@ ${data.cnic}
 Passport:
 ${data.passportNumber}
 
-Passport Expiry:
-${data.passportExpiry || "Not provided"}
-
-Date of Birth:
-${data.dateOfBirth || "Not provided"}
-
-Gender:
-${data.gender || "Not provided"}
-
-Nationality:
-${data.nationality || "Not provided"}
-
-━━━━━━━━━━━━━━━━━━
-
-*CONTACT INFORMATION*
-
 Phone:
 ${data.phone}
 
@@ -614,10 +838,10 @@ WhatsApp:
 ${data.whatsappNumber || data.phone}
 
 Email:
-${data.email || "Not provided"}
+${data.email || "Not Provided"}
 
 City:
-${data.city || "Not provided"}
+${data.city || "Not Provided"}
 
 Address:
 ${data.address}
@@ -654,25 +878,25 @@ ${data.visitPurpose || "N/A"}
 
 *LEAD SOURCE*
 
-${data.source || "Website"}
+${data.source}
 
 ━━━━━━━━━━━━━━━━━━
 
-*ADDITIONAL INFORMATION*
+*ADDITIONAL NOTES*
 
 ${data.notes || "None"}
 
 ━━━━━━━━━━━━━━━━━━
 
-Polaris Consultants
-New Website Application
+POLARIS CONSULTANTS
+Website Application
             `.trim();
 
         }
 
 
         /* =================================================
-           SUBMIT
+           SUBMIT FORM
         ================================================= */
 
         form.addEventListener(
@@ -682,12 +906,16 @@ New Website Application
                 event.preventDefault();
 
 
+                /* CLEAR MESSAGE */
+
                 formMessage.textContent =
                     "";
 
                 formMessage.className =
                     "form-message";
 
+
+                /* VALIDATE */
 
                 if (
                     !validateForm()
@@ -705,18 +933,20 @@ New Website Application
                 }
 
 
+                /* GET DATA */
+
                 const data =
                     getFormData();
 
 
+                /* BUTTON LOADING */
+
                 submitButton.disabled =
                     true;
-
 
                 buttonText.classList.add(
                     "hidden"
                 );
-
 
                 buttonLoader.classList.remove(
                     "hidden"
@@ -725,24 +955,58 @@ New Website Application
 
                 try {
 
+                    /* =====================================
+                       CHECK SUPABASE
+                    ====================================== */
 
-                    /*
-                        STEP 17 MEIN:
-                        Supabase database insert
-                        yahan connect hoga.
-                    */
+                    if (
+                        typeof supabaseClient ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "Supabase is not configured."
+                        );
+
+                    }
 
 
-                    console.log(
-                        "Application Data:",
-                        data
-                    );
+                    /* =====================================
+                       1. CUSTOMER
+                    ====================================== */
+
+                    const customer =
+                        await createCustomer(
+                            data
+                        );
 
 
-                    /*
-                        WhatsApp message
-                        currently prepared.
-                    */
+                    /* =====================================
+                       2. LEAD
+                    ====================================== */
+
+                    const lead =
+                        await createLead(
+                            data,
+                            customer.id
+                        );
+
+
+                    /* =====================================
+                       3. APPLICATION
+                    ====================================== */
+
+                    const application =
+                        await createApplication(
+                            data,
+                            customer.id,
+                            lead.id
+                        );
+
+
+                    /* =====================================
+                       WHATSAPP MESSAGE
+                    ====================================== */
 
                     const whatsappMessage =
                         createWhatsAppMessage(
@@ -751,65 +1015,69 @@ New Website Application
 
 
                     console.log(
+                        "Customer:",
+                        customer
+                    );
+
+                    console.log(
+                        "Lead:",
+                        lead
+                    );
+
+                    console.log(
+                        "Application:",
+                        application
+                    );
+
+                    console.log(
                         "WhatsApp Message:",
                         whatsappMessage
                     );
 
 
-                    /*
-                        Temporary success.
-
-                        STEP 17 mein:
-                        1. Lead database mein save hoga.
-                        2. Customer record create hoga.
-                        3. Application create hogi.
-                        4. WhatsApp integration connect hogi.
-                    */
-
-
-                    await new Promise(
-                        function (resolve) {
-
-                            setTimeout(
-                                resolve,
-                                700
-                            );
-
-                        }
-                    );
-
+                    /* =====================================
+                       SUCCESS
+                    ====================================== */
 
                     formMessage.textContent =
-                        "Your application has been received. Our team will contact you shortly.";
+                        "Application submitted successfully! Our team will contact you shortly.";
 
                     formMessage.classList.add(
                         "success"
                     );
 
 
+                    /* RESET FORM */
+
                     form.reset();
 
 
-                    /*
-                        Restore default nationality
-                    */
+                    /* DEFAULT NATIONALITY */
 
-                    document.getElementById(
-                        "nationality"
-                    ).value =
-                        "Pakistani";
+                    const nationality =
+                        document.getElementById(
+                            "nationality"
+                        );
+
+                    if (nationality) {
+
+                        nationality.value =
+                            "Pakistani";
+
+                    }
 
 
                 }
                 catch (error) {
 
                     console.error(
+                        "SUBMISSION ERROR:",
                         error
                     );
 
 
                     formMessage.textContent =
-                        "Something went wrong. Please try again.";
+                        "We could not submit your application. Please try again or contact Polaris Consultants.";
 
                     formMessage.classList.add(
                         "error"
@@ -818,14 +1086,14 @@ New Website Application
                 }
                 finally {
 
+                    /* RESTORE BUTTON */
+
                     submitButton.disabled =
                         false;
-
 
                     buttonText.classList.remove(
                         "hidden"
                     );
-
 
                     buttonLoader.classList.add(
                         "hidden"
