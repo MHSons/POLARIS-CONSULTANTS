@@ -1,7 +1,376 @@
 /* =========================================================
    POLARIS CONSULTANTS
    REAL ADMIN DASHBOARD
-   SUPABASE DATA
+   SUPABASE /* =========================================================
+   POLARIS CONSULTANTS
+   REAL ADMIN DASHBOARD - SUPABASE INTEGRATION
+========================================================= */
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+document.addEventListener("DOMContentLoaded", async function () {
+    await waitForSupabase();
+    await loadDashboard();
+    setupMobileMenu();
+});
+
+/* =========================================================
+   WAIT FOR SUPABASE CONNECTION
+========================================================= */
+async function waitForSupabase() {
+    let attempts = 0;
+    while ((typeof polarisSupabase === "undefined" || !polarisSupabase) && attempts < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+    return typeof polarisSupabase !== "undefined" && !!polarisSupabase;
+}
+
+/* =========================================================
+   LOAD DASHBOARD DATA
+========================================================= */
+async function loadDashboard() {
+    const loading = document.getElementById("dashboardLoading");
+    const errorBox = document.getElementById("dashboardError");
+
+    try {
+        const isReady = await waitForSupabase();
+
+        if (!isReady) {
+            throw new Error("Supabase connection could not be established.");
+        }
+
+        // Parallel data fetching for optimal performance
+        await Promise.all([
+            loadCustomerCount(),
+            loadLeadCount(),
+            loadApplicationStats(),
+            loadFinanceStats(),
+            loadFollowupCount(),
+            loadRecentApplications(),
+            loadRecentTransactions(),
+            loadUpcomingFollowups()
+        ]);
+
+        if (loading) loading.classList.add("hidden");
+
+    } catch (error) {
+        console.error("Dashboard Loading Error:", error);
+
+        if (loading) loading.classList.add("hidden");
+        if (errorBox) {
+            errorBox.textContent = "Dashboard data could not be loaded. Please check your Supabase connection, tables, and RLS policies.";
+            errorBox.classList.remove("hidden");
+        }
+    }
+}
+
+/* =========================================================
+   CUSTOMER COUNT
+========================================================= */
+async function loadCustomerCount() {
+    const { count, error } = await polarisSupabase
+        .from("customers")
+        .select("*", { count: "exact", head: true });
+
+    if (error) {
+        console.error("Error fetching customer count:", error);
+        return;
+    }
+
+    const element = document.getElementById("totalCustomers");
+    if (element) element.textContent = formatNumber(count || 0);
+}
+
+/* =========================================================
+   LEAD COUNT
+========================================================= */
+async function loadLeadCount() {
+    const { count, error } = await polarisSupabase
+        .from("leads")
+        .select("*", { count: "exact", head: true });
+
+    if (error) {
+        console.error("Error fetching lead count:", error);
+        return;
+    }
+
+    const element = document.getElementById("totalLeads");
+    if (element) element.textContent = formatNumber(count || 0);
+}
+
+/* =========================================================
+   APPLICATION STATS
+========================================================= */
+async function loadApplicationStats() {
+    const { data, error } = await polarisSupabase
+        .from("applications")
+        .select("id, status");
+
+    if (error) {
+        console.error("Error fetching application stats:", error);
+        return;
+    }
+
+    const applications = data || [];
+    const pendingStatuses = ["pending", "in progress", "processing", "under review", "submitted"];
+    
+    const pending = applications.filter(item => {
+        const status = String(item.status || "").toLowerCase();
+        return pendingStatuses.includes(status);
+    });
+
+    const totalElem = document.getElementById("totalApplications");
+    const pendingElem = document.getElementById("pendingApplications");
+
+    if (totalElem) totalElem.textContent = formatNumber(applications.length);
+    if (pendingElem) pendingElem.textContent = formatNumber(pending.length);
+}
+
+/* =========================================================
+   FINANCE STATS
+========================================================= */
+async function loadFinanceStats() {
+    const { data, error } = await polarisSupabase
+        .from("transactions")
+        .select("amount, transaction_type");
+
+    if (error) {
+        console.error("Error fetching finance stats:", error);
+        return;
+    }
+
+    let received = 0;
+    let expenses = 0;
+
+    (data || []).forEach(transaction => {
+        const amount = Number(transaction.amount) || 0;
+        const type = String(transaction.transaction_type || "").toLowerCase();
+
+        if (["received", "income", "payment_received"].includes(type)) {
+            received += amount;
+        } else if (["expense", "paid", "payment"].includes(type)) {
+            expenses += amount;
+        }
+    });
+
+    const balance = received - expenses;
+
+    const receivedElem = document.getElementById("totalReceived");
+    const expensesElem = document.getElementById("totalExpenses");
+    const balanceElem = document.getElementById("netBalance");
+
+    if (receivedElem) receivedElem.textContent = formatCurrency(received);
+    if (expensesElem) expensesElem.textContent = formatCurrency(expenses);
+    if (balanceElem) balanceElem.textContent = formatCurrency(balance);
+}
+
+/* =========================================================
+   FOLLOW-UP COUNT
+========================================================= */
+async function loadFollowupCount() {
+    const { count, error } = await polarisSupabase
+        .from("followups")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending");
+
+    if (error) {
+        console.error("Error fetching follow-up count:", error);
+        return;
+    }
+
+    const element = document.getElementById("totalFollowups");
+    if (element) element.textContent = formatNumber(count || 0);
+}
+
+/* =========================================================
+   RECENT APPLICATIONS
+========================================================= */
+async function loadRecentApplications() {
+    const tbody = document.getElementById("recentApplications");
+    if (!tbody) return;
+
+    const { data, error } = await polarisSupabase
+        .from("applications")
+        .select(`
+            id,
+            visa_type,
+            status,
+            created_at,
+            customers ( full_name ),
+            countries ( name )
+        `)
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+    if (error) {
+        console.error("Error loading recent applications:", error);
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center">Unable to load applications.</td></tr>`;
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center">No recent applications found.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = data.map(application => {
+        const customer = application.customers?.full_name || "Unknown";
+        const country = application.countries?.name || "Unknown";
+        const visa = application.visa_type || "-";
+        const status = application.status || "Pending";
+
+        return `
+            <tr>
+                <td>${escapeHtml(customer)}</td>
+                <td>${escapeHtml(country)}</td>
+                <td>${escapeHtml(visa)}</td>
+                <td><span class="status ${escapeHtml(status.toLowerCase())}">${escapeHtml(status)}</span></td>
+            </tr>
+        `;
+    }).join("");
+}
+
+/* =========================================================
+   RECENT TRANSACTIONS
+========================================================= */
+async function loadRecentTransactions() {
+    const tbody = document.getElementById("recentTransactions");
+    if (!tbody) return;
+
+    const { data, error } = await polarisSupabase
+        .from("transactions")
+        .select(`
+            id,
+            amount,
+            transaction_type,
+            created_at,
+            customers ( full_name )
+        `)
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+    if (error) {
+        console.error("Error loading recent transactions:", error);
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center">Unable to load transactions.</td></tr>`;
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center">No recent transactions found.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = data.map(transaction => {
+        const customer = transaction.customers?.full_name || "General";
+        const type = transaction.transaction_type || "-";
+        const amount = Number(transaction.amount) || 0;
+
+        return `
+            <tr>
+                <td>${escapeHtml(customer)}</td>
+                <td>${escapeHtml(type)}</td>
+                <td>${formatCurrency(amount)}</td>
+            </tr>
+        `;
+    }).join("");
+}
+
+/* =========================================================
+   UPCOMING FOLLOW-UPS
+========================================================= */
+async function loadUpcomingFollowups() {
+    const container = document.getElementById("upcomingFollowups");
+    if (!container) return;
+
+    const { data, error } = await polarisSupabase
+        .from("followups")
+        .select(`
+            id,
+            followup_date,
+            notes,
+            status,
+            customers ( full_name )
+        `)
+        .eq("status", "pending")
+        .order("followup_date", { ascending: true })
+        .limit(5);
+
+    if (error) {
+        console.error("Error loading follow-ups:", error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        container.innerHTML = `<div class="empty-state">No upcoming follow-ups.</div>`;
+        return;
+    }
+
+    container.innerHTML = data.map(item => {
+        const name = item.customers?.full_name || "Unknown Customer";
+        const date = formatDate(item.followup_date);
+
+        return `
+            <div class="followup-item">
+                <div>
+                    <div class="followup-name">${escapeHtml(name)}</div>
+                    <div class="followup-notes">${escapeHtml(item.notes || "Follow-up required")}</div>
+                </div>
+                <strong class="followup-date">${date}</strong>
+            </div>
+        `;
+    }).join("");
+}
+
+/* =========================================================
+   UTILITY & FORMATTING FUNCTIONS
+========================================================= */
+function formatNumber(number) {
+    return Number(number || 0).toLocaleString("en-PK");
+}
+
+function formatCurrency(amount) {
+    return "₨ " + Number(amount || 0).toLocaleString("en-PK", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return "-";
+    const parsed = new Date(dateStr);
+    if (Number.isNaN(parsed.getTime())) return "-";
+
+    return parsed.toLocaleDateString("en-PK", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* =========================================================
+   MOBILE MENU TOGGLE
+========================================================= */
+function setupMobileMenu() {
+    const button = document.getElementById("mobileMenuButton");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (!button || !sidebar) return;
+
+    button.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+    });
+}
 ========================================================= */
 
 
