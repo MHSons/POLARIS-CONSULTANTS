@@ -1,1880 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Admin Dashboard | Polaris Consultants
-    </title>
-
-    <meta
-        name="description"
-        content="Polaris Consultants administration dashboard"
-    >
-
-    <link
-        rel="stylesheet"
-        href="admin.css"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Polaris Consultants</title>
+    <meta name="description" content="Polaris Consultants administration dashboard">
+    <link rel="stylesheet" href="admin.css">
 </head>
-
-
 <body>
 
+    <!-- MOBILE OVERLAY -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-    <!-- =====================================================
-         MOBILE OVERLAY
-    ====================================================== -->
-
-    <div
-        id="sidebarOverlay"
-        class="sidebar-overlay"
-    ></div>
-
-
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
-    <aside
-        id="sidebar"
-        class="sidebar"
-    >
-
-
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
         <!-- LOGO -->
-
         <div class="sidebar-logo">
-
             <div class="logo-circle">
-
-                <span>
-                    PC
-                </span>
-
+                <span>PC</span>
             </div>
-
             <div>
-
-                <h1>
-                    POLARIS
-                </h1>
-
-                <span>
-                    CONSULTANTS
-                </span>
-
+                <h1>POLARIS</h1>
+                <span>CONSULTANTS</span>
             </div>
-
         </div>
-
 
         <!-- NAVIGATION -->
-
         <nav class="sidebar-nav">
-
-
-            <button
-                class="nav-item active"
-                data-section="dashboard"
-            >
-
-                <span class="nav-icon">
-                    ▦
-                </span>
-
-                <span>
-                    Dashboard
-                </span>
-
+            <button class="nav-item active" data-section="dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="customers"
-            >
-
-                <span class="nav-icon">
-                    👥
-                </span>
-
-                <span>
-                    Customers
-                </span>
-
+            <button class="nav-item" data-section="customers">
+                <span class="nav-icon">👥</span>
+                <span>Customers</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="leads"
-            >
-
-                <span class="nav-icon">
-                    🎯
-                </span>
-
-                <span>
-                    Leads
-                </span>
-
+            <button class="nav-item" data-section="leads">
+                <span class="nav-icon">🎯</span>
+                <span>Leads</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="applications"
-            >
-
-                <span class="nav-icon">
-                    📄
-                </span>
-
-                <span>
-                    Applications
-                </span>
-
+            <button class="nav-item" data-section="applications">
+                <span class="nav-icon">📄</span>
+                <span>Applications</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="countries"
-            >
-
-                <span class="nav-icon">
-                    🌍
-                </span>
-
-                <span>
-                    Countries
-                </span>
-
+            <button class="nav-item" data-section="countries">
+                <span class="nav-icon">🌍</span>
+                <span>Countries</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="teams"
-            >
-
-                <span class="nav-icon">
-                    👨‍💼
-                </span>
-
-                <span>
-                    Teams
-                </span>
-
+            <button class="nav-item" data-section="teams">
+                <span class="nav-icon">👨‍💼</span>
+                <span>Teams</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="staff"
-            >
-
-                <span class="nav-icon">
-                    👤
-                </span>
-
-                <span>
-                    Staff
-                </span>
-
+            <button class="nav-item" data-section="staff">
+                <span class="nav-icon">👤</span>
+                <span>Staff</span>
             </button>
-
 
             <div class="nav-divider"></div>
 
-
-            <button
-                class="nav-item"
-                data-section="finance"
-            >
-
-                <span class="nav-icon">
-                    💰
-                </span>
-
-                <span>
-                    Finance
-                </span>
-
+            <button class="nav-item" data-section="finance">
+                <span class="nav-icon">💰</span>
+                <span>Finance</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="transactions"
-            >
-
-                <span class="nav-icon">
-                    💳
-                </span>
-
-                <span>
-                    Transactions
-                </span>
-
+            <button class="nav-item" data-section="transactions">
+                <span class="nav-icon">💳</span>
+                <span>Transactions</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="slips"
-            >
-
-                <span class="nav-icon">
-                    🧾
-                </span>
-
-                <span>
-                    Payment Slips
-                </span>
-
+            <button class="nav-item" data-section="slips">
+                <span class="nav-icon">🧾</span>
+                <span>Payment Slips</span>
             </button>
-
-
-            <button
-                class="nav-item"
-                data-section="reports"
-            >
-
-                <span class="nav-icon">
-                    📈
-                </span>
-
-                <span>
-                    Reports
-                </span>
-
+            <button class="nav-item" data-section="reports">
+                <span class="nav-icon">📈</span>
+                <span>Reports</span>
             </button>
-
 
             <div class="nav-divider"></div>
 
-
-            <button
-                class="nav-item"
-                data-section="settings"
-            >
-
-                <span class="nav-icon">
-                    ⚙️
-                </span>
-
-                <span>
-                    Settings
-                </span>
-
+            <button class="nav-item" data-section="settings">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
             </button>
-
-
         </nav>
 
-
         <!-- SIDEBAR BOTTOM -->
-
         <div class="sidebar-bottom">
-
-            <button
-                id="logoutButton"
-                class="logout-button"
-            >
-
-                <span>
-                    🚪
-                </span>
-
+            <button id="logoutButton" class="logout-button">
+                <span>🚪</span>
                 Logout
-
             </button>
-
         </div>
-
-
     </aside>
 
-
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
-
+    <!-- MAIN CONTENT -->
     <main class="main-content">
-
-
-        <!-- =================================================
-             TOPBAR
-        ================================================== -->
-
+        <!-- TOPBAR -->
         <header class="topbar">
-
-
             <div class="topbar-left">
-
-                <button
-                    id="menuButton"
-                    class="menu-button"
-                    aria-label="Open menu"
-                >
-                    ☰
-                </button>
-
-
+                <button id="menuButton" class="menu-button" aria-label="Open menu">☰</button>
                 <div>
-
-                    <h2 id="pageTitle">
-                        Dashboard
-                    </h2>
-
-                    <p id="pageSubtitle">
-                        Welcome to Polaris Consultants
-                    </p>
-
+                    <h2 id="pageTitle">Dashboard</h2>
+                    <p id="pageSubtitle">Welcome to Polaris Consultants</p>
                 </div>
-
             </div>
-
 
             <div class="topbar-right">
-
-
                 <!-- NOTIFICATIONS -->
-
-                <button
-                    id="notificationButton"
-                    class="icon-button"
-                    aria-label="Notifications"
-                >
+                <button id="notificationButton" class="icon-button" aria-label="Notifications">
                     🔔
-
-                    <span
-                        id="notificationBadge"
-                        class="notification-badge"
-                    >
-                        0
-                    </span>
-
+                    <span id="notificationBadge" class="notification-badge">0</span>
                 </button>
 
-
-                <!-- ADMIN -->
-
+                <!-- ADMIN PROFILE -->
                 <div class="admin-profile">
-
-                    <div class="admin-avatar">
-                        A
-                    </div>
-
+                    <div class="admin-avatar">A</div>
                     <div class="admin-info">
-
-                        <strong
-                            id="adminName"
-                        >
-                            Administrator
-                        </strong>
-
-                        <span>
-                            Admin
-                        </span>
-
+                        <strong id="adminName">Administrator</strong>
+                        <span>Admin</span>
                     </div>
-
                 </div>
-
-
             </div>
-
         </header>
 
-
-        <!-- =================================================
-             CONTENT
-        ================================================== -->
-
+        <!-- CONTENT AREA -->
         <div class="content-area">
 
-
-            <!-- =============================================
-                 DASHBOARD
-            ============================================== -->
-
-            <section
-                id="dashboardSection"
-                class="dashboard-section page-section active-section"
-            >
-
-
+            <!-- DASHBOARD SECTION -->
+            <section id="dashboardSection" class="dashboard-section page-section active-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Business Overview
-                        </h3>
-
-                        <p>
-                            Monitor your visa consultancy business.
-                        </p>
-
+                        <h3>Business Overview</h3>
+                        <p>Monitor your visa consultancy business.</p>
                     </div>
-
                 </div>
-
 
                 <!-- STAT CARDS -->
-
                 <div class="stats-grid">
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon customers">
-                            👥
-                        </div>
-
+                        <div class="stat-icon customers">👥</div>
                         <div>
-
-                            <span>
-                                Total Customers
-                            </span>
-
-                            <strong id="totalCustomers">
-                                0
-                            </strong>
-
+                            <span>Total Customers</span>
+                            <strong id="totalCustomers">0</strong>
                         </div>
-
                     </div>
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon leads">
-                            🎯
-                        </div>
-
+                        <div class="stat-icon leads">🎯</div>
                         <div>
-
-                            <span>
-                                New Leads
-                            </span>
-
-                            <strong id="totalLeads">
-                                0
-                            </strong>
-
+                            <span>New Leads</span>
+                            <strong id="totalLeads">0</strong>
                         </div>
-
                     </div>
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon applications">
-                            📄
-                        </div>
-
+                        <div class="stat-icon applications">📄</div>
                         <div>
-
-                            <span>
-                                Applications
-                            </span>
-
-                            <strong id="totalApplications">
-                                0
-                            </strong>
-
+                            <span>Applications</span>
+                            <strong id="totalApplications">0</strong>
                         </div>
-
                     </div>
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon countries">
-                            🌍
-                        </div>
-
+                        <div class="stat-icon countries">🌍</div>
                         <div>
-
-                            <span>
-                                Countries
-                            </span>
-
-                            <strong id="totalCountries">
-                                0
-                            </strong>
-
+                            <span>Countries</span>
+                            <strong id="totalCountries">0</strong>
                         </div>
-
                     </div>
-
-
                 </div>
-
 
                 <!-- FINANCE CARDS -->
-
                 <div class="finance-grid">
-
-
                     <div class="finance-card">
-
-                        <span>
-                            Total Received
-                        </span>
-
-                        <strong id="totalReceived">
-                            PKR 0
-                        </strong>
-
-                        <small>
-                            Money received from customers
-                        </small>
-
+                        <span>Total Received</span>
+                        <strong id="totalReceived">PKR 0</strong>
+                        <small>Money received from customers</small>
                     </div>
-
-
                     <div class="finance-card">
-
-                        <span>
-                            Total Paid
-                        </span>
-
-                        <strong id="totalPaid">
-                            PKR 0
-                        </strong>
-
-                        <small>
-                            Business payments
-                        </small>
-
+                        <span>Total Paid</span>
+                        <strong id="totalPaid">PKR 0</strong>
+                        <small>Business payments</small>
                     </div>
-
-
                     <div class="finance-card">
-
-                        <span>
-                            Net Balance
-                        </span>
-
-                        <strong id="netBalance">
-                            PKR 0
-                        </strong>
-
-                        <small>
-                            Received minus paid
-                        </small>
-
+                        <span>Net Balance</span>
+                        <strong id="netBalance">PKR 0</strong>
+                        <small>Received minus paid</small>
                     </div>
-
-
                 </div>
-
 
                 <!-- QUICK ACTIONS -->
-
                 <div class="content-card">
-
                     <div class="card-header">
-
                         <div>
-
-                            <h3>
-                                Quick Actions
-                            </h3>
-
-                            <p>
-                                Frequently used management tools.
-                            </p>
-
+                            <h3>Quick Actions</h3>
+                            <p>Frequently used management tools.</p>
                         </div>
-
                     </div>
-
-
                     <div class="quick-actions">
-
-
-                        <button
-                            class="quick-action"
-                            data-section="customers"
-                        >
-
-                            <span>
-                                👥
-                            </span>
-
-                            Add Customer
-
+                        <button class="quick-action" data-section="customers">
+                            <span>👥</span> Add Customer
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="leads"
-                        >
-
-                            <span>
-                                🎯
-                            </span>
-
-                            Manage Leads
-
+                        <button class="quick-action" data-section="leads">
+                            <span>🎯</span> Manage Leads
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="applications"
-                        >
-
-                            <span>
-                                📄
-                            </span>
-
-                            Applications
-
+                        <button class="quick-action" data-section="applications">
+                            <span>📄</span> Applications
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="transactions"
-                        >
-
-                            <span>
-                                💳
-                            </span>
-
-                            Add Transaction
-
+                        <button class="quick-action" data-section="transactions">
+                            <span>💳</span> Add Transaction
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="slips"
-                        >
-
-                            <span>
-                                🧾
-                            </span>
-
-                            Generate Slip
-
+                        <button class="quick-action" data-section="slips">
+                            <span>🧾</span> Generate Slip
                         </button>
-
-
                     </div>
-
                 </div>
-
 
                 <!-- RECENT LEADS -->
-
                 <div class="content-card">
-
                     <div class="card-header">
-
                         <div>
-
-                            <h3>
-                                Recent Leads
-                            </h3>
-
-                            <p>
-                                Latest customer inquiries.
-                            </p>
-
+                            <h3>Recent Leads</h3>
+                            <p>Latest customer inquiries.</p>
                         </div>
-
-                        <button
-                            class="view-all-button"
-                            data-section="leads"
-                        >
-                            View All
-                        </button>
-
+                        <button class="view-all-button" data-section="leads">View All</button>
                     </div>
-
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Customer
-                                    </th>
-
-                                    <th>
-                                        Country
-                                    </th>
-
-                                    <th>
-                                        Visa
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
+                                    <th>Customer</th>
+                                    <th>Country</th>
+                                    <th>Visa</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="recentLeadsTable"
-                            >
-
+                            <tbody id="recentLeadsTable">
                                 <tr>
-
-                                    <td
-                                        colspan="5"
-                                        class="empty-table"
-                                    >
-                                        No leads found.
-                                    </td>
-
+                                    <td colspan="5" class="empty-table">No leads found.</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
-
             </section>
 
-
-            <!-- =============================================
-                 CUSTOMERS
-            ============================================== -->
-
-            <section
-                id="customersSection"
-                class="page-section"
-            >
-
+            <!-- CUSTOMERS SECTION -->
+            <section id="customersSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Customers
-                        </h3>
-
-                        <p>
-                            Manage all customer records.
-                        </p>
-
+                        <h3>Customers</h3>
+                        <p>Manage all customer records.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addCustomerButton"
-                    >
-                        + Add Customer
-                    </button>
-
+                    <button class="primary-button" id="addCustomerButton">+ Add Customer</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="toolbar">
-
-                        <input
-                            type="search"
-                            id="customerSearch"
-                            placeholder="Search customer..."
-                        >
-
+                        <input type="search" id="customerSearch" placeholder="Search customer...">
                     </div>
-
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Name
-                                    </th>
-
-                                    <th>
-                                        CNIC
-                                    </th>
-
-                                    <th>
-                                        Passport
-                                    </th>
-
-                                    <th>
-                                        Phone
-                                    </th>
-
-                                    <th>
-                                        City
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
+                                    <th>Name</th>
+                                    <th>CNIC</th>
+                                    <th>Passport</th>
+                                    <th>Phone</th>
+                                    <th>City</th>
+                                    <th>Date</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="customersTable"
-                            >
-
+                            <tbody id="customersTable">
                                 <tr>
-
-                                    <td
-                                        colspan="6"
-                                        class="empty-table"
-                                    >
-                                        Loading customers...
-                                    </td>
-
+                                    <td colspan="6" class="empty-table">Loading customers...</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 LEADS
-            ============================================== -->
-
-            <section
-                id="leadsSection"
-                class="page-section"
-            >
-
+            <!-- LEADS SECTION -->
+            <section id="leadsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Lead Management
-                        </h3>
-
-                        <p>
-                            Track and manage customer leads.
-                        </p>
-
+                        <h3>Lead Management</h3>
+                        <p>Track and manage customer leads.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addLeadButton"
-                    >
-                        + Add Lead
-                    </button>
-
+                    <button class="primary-button" id="addLeadButton">+ Add Lead</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="toolbar">
-
-                        <input
-                            type="search"
-                            id="leadSearch"
-                            placeholder="Search leads..."
-                        >
-
-                        <select
-                            id="leadStatusFilter"
-                        >
-
-                            <option value="">
-                                All Status
-                            </option>
-
-                            <option value="New">
-                                New
-                            </option>
-
-                            <option value="Contacted">
-                                Contacted
-                            </option>
-
-                            <option value="Processing">
-                                Processing
-                            </option>
-
-                            <option value="Converted">
-                                Converted
-                            </option>
-
-                            <option value="Lost">
-                                Lost
-                            </option>
-
+                        <input type="search" id="leadSearch" placeholder="Search leads...">
+                        <select id="leadStatusFilter">
+                            <option value="">All Status</option>
+                            <option value="New">New</option>
+                            <option value="Contacted">Contacted</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Converted">Converted</option>
+                            <option value="Lost">Lost</option>
                         </select>
-
                     </div>
-
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Customer
-                                    </th>
-
-                                    <th>
-                                        Country
-                                    </th>
-
-                                    <th>
-                                        Visa
-                                    </th>
-
-                                    <th>
-                                        Source
-                                    </th>
-
-                                    <th>
-                                        Team
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
+                                    <th>Customer</th>
+                                    <th>Country</th>
+                                    <th>Visa</th>
+                                    <th>Source</th>
+                                    <th>Team</th>
+                                    <th>Status</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="leadsTable"
-                            >
-
+                            <tbody id="leadsTable">
                                 <tr>
-
-                                    <td
-                                        colspan="6"
-                                        class="empty-table"
-                                    >
-                                        Loading leads...
-                                    </td>
-
+                                    <td colspan="6" class="empty-table">Loading leads...</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 APPLICATIONS
-            ============================================== -->
-
-            <section
-                id="applicationsSection"
-                class="page-section"
-            >
-
+            <!-- APPLICATIONS SECTION -->
+            <section id="applicationsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Visa Applications
-                        </h3>
-
-                        <p>
-                            Manage customer visa applications.
-                        </p>
-
+                        <h3>Visa Applications</h3>
+                        <p>Manage customer visa applications.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addApplicationButton"
-                    >
-                        + New Application
-                    </button>
-
+                    <button class="primary-button" id="addApplicationButton">+ New Application</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="toolbar">
-
-                        <input
-                            type="search"
-                            id="applicationSearch"
-                            placeholder="Search applications..."
-                        >
-
-                        <select
-                            id="applicationVisaFilter"
-                        >
-
-                            <option value="">
-                                All Visa Types
-                            </option>
-
-                            <option value="Study Visa">
-                                Study Visa
-                            </option>
-
-                            <option value="Work Visa">
-                                Work Visa
-                            </option>
-
-                            <option value="Visit Visa">
-                                Visit Visa
-                            </option>
-
+                        <input type="search" id="applicationSearch" placeholder="Search applications...">
+                        <select id="applicationVisaFilter">
+                            <option value="">All Visa Types</option>
+                            <option value="Study Visa">Study Visa</option>
+                            <option value="Work Visa">Work Visa</option>
+                            <option value="Visit Visa">Visit Visa</option>
                         </select>
-
                     </div>
-
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Applicant
-                                    </th>
-
-                                    <th>
-                                        Country
-                                    </th>
-
-                                    <th>
-                                        Visa Type
-                                    </th>
-
-                                    <th>
-                                        Passport
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
+                                    <th>Applicant</th>
+                                    <th>Country</th>
+                                    <th>Visa Type</th>
+                                    <th>Passport</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="applicationsTable"
-                            >
-
+                            <tbody id="applicationsTable">
                                 <tr>
-
-                                    <td
-                                        colspan="6"
-                                        class="empty-table"
-                                    >
-                                        Loading applications...
-                                    </td>
-
+                                    <td colspan="6" class="empty-table">Loading applications...</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 COUNTRIES
-            ============================================== -->
-
-            <section
-                id="countriesSection"
-                class="page-section"
-            >
-
+            <!-- COUNTRIES SECTION -->
+            <section id="countriesSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Countries & Visa Services
-                        </h3>
-
-                        <p>
-                            Manage country-specific visa information.
-                        </p>
-
+                        <h3>Countries & Visa Services</h3>
+                        <p>Manage country-specific visa information.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addCountryButton"
-                    >
-                        + Add Country
-                    </button>
-
+                    <button class="primary-button" id="addCountryButton">+ Add Country</button>
                 </div>
-
-
-                <div
-                    id="countriesGrid"
-                    class="countries-grid"
-                >
-
-                    <div class="loading-card">
-                        Loading countries...
-                    </div>
-
+                <div id="countriesGrid" class="countries-grid">
+                    <div class="loading-card">Loading countries...</div>
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 TEAMS
-            ============================================== -->
-
-            <section
-                id="teamsSection"
-                class="page-section"
-            >
-
+            <!-- TEAMS SECTION -->
+            <section id="teamsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Teams
-                        </h3>
-
-                        <p>
-                            Manage consultancy teams.
-                        </p>
-
+                        <h3>Teams</h3>
+                        <p>Manage consultancy teams.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addTeamButton"
-                    >
-                        + Add Team
-                    </button>
-
+                    <button class="primary-button" id="addTeamButton">+ Add Team</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Team
-                                    </th>
-
-                                    <th>
-                                        Team Leader
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Created
-                                    </th>
-
+                                    <th>Team</th>
+                                    <th>Team Leader</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="teamsTable"
-                            >
-
+                            <tbody id="teamsTable">
                                 <tr>
-
-                                    <td
-                                        colspan="4"
-                                        class="empty-table"
-                                    >
-                                        No teams found.
-                                    </td>
-
+                                    <td colspan="4" class="empty-table">No teams found.</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 STAFF
-            ============================================== -->
-
-            <section
-                id="staffSection"
-                class="page-section"
-            >
-
+            <!-- STAFF SECTION -->
+            <section id="staffSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Staff
-                        </h3>
-
-                        <p>
-                            Manage employees and team assignments.
-                        </p>
-
+                        <h3>Staff</h3>
+                        <p>Manage employees and team assignments.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addStaffButton"
-                    >
-                        + Add Staff
-                    </button>
-
+                    <button class="primary-button" id="addStaffButton">+ Add Staff</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Name
-                                    </th>
-
-                                    <th>
-                                        Email
-                                    </th>
-
-                                    <th>
-                                        Phone
-                                    </th>
-
-                                    <th>
-                                        Role
-                                    </th>
-
-                                    <th>
-                                        Team
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Role</th>
+                                    <th>Team</th>
+                                    <th>Status</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="staffTable"
-                            >
-
+                            <tbody id="staffTable">
                                 <tr>
-
-                                    <td
-                                        colspan="6"
-                                        class="empty-table"
-                                    >
-                                        No staff found.
-                                    </td>
-
+                                    <td colspan="6" class="empty-table">No staff found.</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 FINANCE
-            ============================================== -->
-
-            <section
-                id="financeSection"
-                class="page-section"
-            >
-
+            <!-- FINANCE SECTION -->
+            <section id="financeSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Finance
-                        </h3>
-
-                        <p>
-                            Financial overview and accounting.
-                        </p>
-
+                        <h3>Finance</h3>
+                        <p>Financial overview and accounting.</p>
                     </div>
-
                 </div>
-
-
                 <div class="finance-grid">
-
                     <div class="finance-card">
-
-                        <span>
-                            Total Received
-                        </span>
-
-                        <strong
-                            id="financeReceived"
-                        >
-                            PKR 0
-                        </strong>
-
+                        <span>Total Received</span>
+                        <strong id="financeReceived">PKR 0</strong>
                     </div>
-
-
                     <div class="finance-card">
-
-                        <span>
-                            Total Paid
-                        </span>
-
-                        <strong
-                            id="financePaid"
-                        >
-                            PKR 0
-                        </strong>
-
+                        <span>Total Paid</span>
+                        <strong id="financePaid">PKR 0</strong>
                     </div>
-
-
                     <div class="finance-card">
-
-                        <span>
-                            Net Balance
-                        </span>
-
-                        <strong
-                            id="financeBalance"
-                        >
-                            PKR 0
-                        </strong>
-
+                        <span>Net Balance</span>
+                        <strong id="financeBalance">PKR 0</strong>
                     </div>
-
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="card-header">
-
                         <div>
-
-                            <h3>
-                                Financial Summary
-                            </h3>
-
-                            <p>
-                                All business transactions will appear here.
-                            </p>
-
+                            <h3>Financial Summary</h3>
+                            <p>All business transactions will appear here.</p>
                         </div>
-
-                        <button
-                            class="primary-button"
-                            data-section="transactions"
-                        >
-                            View Transactions
-                        </button>
-
+                        <button class="primary-button" data-section="transactions">View Transactions</button>
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 TRANSACTIONS
-            ============================================== -->
-
-            <section
-                id="transactionsSection"
-                class="page-section"
-            >
-
+            <!-- TRANSACTIONS SECTION -->
+            <section id="transactionsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Transactions
-                        </h3>
-
-                        <p>
-                            Track money received and money paid.
-                        </p>
-
+                        <h3>Transactions</h3>
+                        <p>Track money received and money paid.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="addTransactionButton"
-                    >
-                        + Add Transaction
-                    </button>
-
+                    <button class="primary-button" id="addTransactionButton">+ Add Transaction</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="table-wrapper">
-
                         <table>
-
                             <thead>
-
                                 <tr>
-
-                                    <th>
-                                        Type
-                                    </th>
-
-                                    <th>
-                                        Amount
-                                    </th>
-
-                                    <th>
-                                        Method
-                                    </th>
-
-                                    <th>
-                                        Description
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
                                 </tr>
-
                             </thead>
-
-                            <tbody
-                                id="transactionsTable"
-                            >
-
+                            <tbody id="transactionsTable">
                                 <tr>
-
-                                    <td
-                                        colspan="5"
-                                        class="empty-table"
-                                    >
-                                        No transactions found.
-                                    </td>
-
+                                    <td colspan="5" class="empty-table">No transactions found.</td>
                                 </tr>
-
                             </tbody>
-
                         </table>
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 SLIPS
-            ============================================== -->
-
-            <section
-                id="slipsSection"
-                class="page-section"
-            >
-
+            <!-- SLIPS SECTION -->
+            <section id="slipsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Payment Slips
-                        </h3>
-
-                        <p>
-                            Generate and manage QR payment slips.
-                        </p>
-
+                        <h3>Payment Slips</h3>
+                        <p>Generate and manage QR payment slips.</p>
                     </div>
-
-                    <button
-                        class="primary-button"
-                        id="generateSlipButton"
-                    >
-                        + Generate Slip
-                    </button>
-
+                    <button class="primary-button" id="generateSlipButton">+ Generate Slip</button>
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="empty-state">
-
-                        <div class="empty-icon">
-                            🧾
-                        </div>
-
-                        <h3>
-                            Payment Slips
-                        </h3>
-
-                        <p>
-                            Your generated slips will appear here.
-                        </p>
-
+                        <div class="empty-icon">🧾</div>
+                        <h3>Payment Slips</h3>
+                        <p>Your generated slips will appear here.</p>
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 REPORTS
-            ============================================== -->
-
-            <section
-                id="reportsSection"
-                class="page-section"
-            >
-
+            <!-- REPORTS SECTION -->
+            <section id="reportsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Reports
-                        </h3>
-
-                        <p>
-                            Business performance and financial reports.
-                        </p>
-
+                        <h3>Reports</h3>
+                        <p>Business performance and financial reports.</p>
                     </div>
-
                 </div>
-
-
                 <div class="stats-grid">
-
                     <div class="stat-card">
-
-                        <div class="stat-icon leads">
-                            🎯
-                        </div>
-
+                        <div class="stat-icon leads">🎯</div>
                         <div>
-
-                            <span>
-                                Lead Conversion
-                            </span>
-
-                            <strong>
-                                0%
-                            </strong>
-
+                            <span>Lead Conversion</span>
+                            <strong>0%</strong>
                         </div>
-
                     </div>
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon applications">
-                            📄
-                        </div>
-
+                        <div class="stat-icon applications">📄</div>
                         <div>
-
-                            <span>
-                                Applications
-                            </span>
-
-                            <strong id="reportApplications">
-                                0
-                            </strong>
-
+                            <span>Applications</span>
+                            <strong id="reportApplications">0</strong>
                         </div>
-
                     </div>
-
-
                     <div class="stat-card">
-
-                        <div class="stat-icon customers">
-                            👥
-                        </div>
-
+                        <div class="stat-icon customers">👥</div>
                         <div>
-
-                            <span>
-                                Customers
-                            </span>
-
-                            <strong id="reportCustomers">
-                                0
-                            </strong>
-
+                            <span>Customers</span>
+                            <strong id="reportCustomers">0</strong>
                         </div>
-
                     </div>
-
-
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="empty-state">
-
-                        <div class="empty-icon">
-                            📈
-                        </div>
-
-                        <h3>
-                            Reports Center
-                        </h3>
-
-                        <p>
-                            Detailed reports and analytics will be connected next.
-                        </p>
-
+                        <div class="empty-icon">📈</div>
+                        <h3>Reports Center</h3>
+                        <p>Detailed reports and analytics will be connected next.</p>
                     </div>
-
                 </div>
-
             </section>
 
-
-            <!-- =============================================
-                 SETTINGS
-            ============================================== -->
-
-            <section
-                id="settingsSection"
-                class="page-section"
-            >
-
+            <!-- SETTINGS SECTION -->
+            <section id="settingsSection" class="page-section">
                 <div class="section-header">
-
                     <div>
-
-                        <h3>
-                            Settings
-                        </h3>
-
-                        <p>
-                            Manage Polaris Consultants system settings.
-                        </p>
-
+                        <h3>Settings</h3>
+                        <p>Manage Polaris Consultants system settings.</p>
                     </div>
-
                 </div>
-
-
                 <div class="content-card">
-
                     <div class="settings-list">
-
-
                         <div class="setting-row">
-
                             <div>
-
-                                <strong>
-                                    Company Name
-                                </strong>
-
-                                <p>
-                                    Polaris Consultants
-                                </p>
-
+                                <strong>Company Name</strong>
+                                <p>Polaris Consultants</p>
                             </div>
-
                         </div>
-
-
                         <div class="setting-row">
-
                             <div>
-
-                                <strong>
-                                    WhatsApp
-                                </strong>
-
-                                <p>
-                                    WhatsApp Business integration
-                                </p>
-
+                                <strong>WhatsApp</strong>
+                                <p>WhatsApp Business integration</p>
                             </div>
-
-                            <span class="status-badge pending">
-                                Pending
-                            </span>
-
+                            <span class="status-badge pending">Pending</span>
                         </div>
-
-
                         <div class="setting-row">
-
                             <div>
-
-                                <strong>
-                                    Database
-                                </strong>
-
-                                <p>
-                                    Supabase
-                                </p>
-
+                                <strong>Database</strong>
+                                <p>Supabase</p>
                             </div>
-
-                            <span class="status-badge active">
-                                Connected
-                            </span>
-
+                            <span class="status-badge active">Connected</span>
                         </div>
-
-
                     </div>
-
                 </div>
-
             </section>
-
 
         </div>
-
     </main>
 
-
-    <!-- =====================================================
-         SUPABASE
-    ====================================================== -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
-
-
-    <script
-        src="supabase-config.js"
-    ></script>
-
-
-    <script
-        src="supabase-db.js"
-    ></script>
-
-
-    <script
-        src="admin.js"
-    ></script>
-
-
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-db.js"></script>
+    <script src="admin.js"></script>
 </body>
-
 </html>
