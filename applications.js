@@ -1,10 +1,6 @@
 /* =========================================
    POLARIS CONSULTANTS
-   APPLICATION MANAGEMENT
-========================================= */
-
-/* =========================================
-   DEMO APPLICATION DATA
+   APPLICATION MANAGEMENT JAVASCRIPT
 ========================================= */
 
 let applications = [
@@ -200,448 +196,364 @@ let applications = [
     }
 ];
 
-/* =========================================
-   ELEMENTS
-========================================= */
+document.addEventListener("DOMContentLoaded", function () {
+    const tableBody = document.getElementById("applicationTableBody");
+    const searchInput = document.getElementById("searchInput");
+    const countryFilter = document.getElementById("countryFilter");
+    const visaFilter = document.getElementById("visaFilter");
+    const officerFilter = document.getElementById("officerFilter");
+    const resultText = document.getElementById("resultText");
+    const modal = document.getElementById("applicationModal");
+    const menuButton = document.getElementById("menuButton");
+    const sidebar = document.getElementById("sidebar");
 
-const tableBody = document.getElementById("applicationTableBody");
-const searchInput = document.getElementById("searchInput");
-const countryFilter = document.getElementById("countryFilter");
-const visaFilter = document.getElementById("visaFilter");
-const officerFilter = document.getElementById("officerFilter");
-const resultText = document.getElementById("resultText");
+    function getFlag(country) {
+        const flags = {
+            "United Kingdom": "🇬🇧",
+            "Canada": "🇨🇦",
+            "Australia": "🇦🇺",
+            "USA": "🇺🇸",
+            "Germany": "🇩🇪",
+            "UAE": "🇦🇪"
+        };
+        return flags[country] || "🌍";
+    }
 
-/* =========================================
-   FLAG
-========================================= */
+    function getStatusClass(status) {
+        const classes = {
+            "Draft": "status-draft",
+            "Documents Pending": "status-documents",
+            "Submitted": "status-submitted",
+            "Processing": "status-processing",
+            "Approved": "status-approved",
+            "Rejected": "status-rejected"
+        };
+        return classes[status] || "status-draft";
+    }
 
-function getFlag(country) {
-    const flags = {
-        "United Kingdom": "🇬🇧",
-        "Canada": "🇨🇦",
-        "Australia": "🇦🇺",
-        "USA": "🇺🇸",
-        "Germany": "🇩🇪",
-        "UAE": "🇦🇪"
-    };
-    return flags[country] || "🌍";
-}
+    function getDocumentClass(status) {
+        const classes = {
+            "Pending": "document-pending",
+            "Partial": "document-partial",
+            "Complete": "document-complete"
+        };
+        return classes[status] || "document-pending";
+    }
 
-/* =========================================
-   STATUS CLASS
-========================================= */
+    function formatDate(date) {
+        if (!date) return "-";
+        const parts = date.split("-");
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
 
-function getStatusClass(status) {
-    const classes = {
-        "Draft": "status-draft",
-        "Documents Pending": "status-documents",
-        "Submitted": "status-submitted",
-        "Processing": "status-processing",
-        "Approved": "status-approved",
-        "Rejected": "status-rejected"
-    };
-    return classes[status] || "status-draft";
-}
+    function renderApplications(data = applications) {
+        if (!tableBody) return;
+        tableBody.innerHTML = "";
 
-/* =========================================
-   DOCUMENT CLASS
-========================================= */
+        if (!data.length) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="10" style="text-align:center; padding:40px; color:#718096;">
+                        No applications found.
+                    </td>
+                </tr>
+            `;
+            if (resultText) resultText.textContent = "Showing 0 applications";
+            return;
+        }
 
-function getDocumentClass(status) {
-    const classes = {
-        "Pending": "document-pending",
-        "Partial": "document-partial",
-        "Complete": "document-complete"
-    };
-    return classes[status] || "document-pending";
-}
+        data.forEach(function(application) {
+            const row = document.createElement("tr");
 
-/* =========================================
-   PRIORITY CLASS
-========================================= */
-
-function getPriorityClass(priority) {
-    return "priority-" + priority.toLowerCase().replace(" ", "-");
-}
-
-/* =========================================
-   FORMAT DATE
-========================================= */
-
-function formatDate(date) {
-    if (!date) return "-";
-    const parts = date.split("-");
-    return parts[2] + "-" + parts[1] + "-" + parts[0];
-}
-
-/* =========================================
-   RENDER APPLICATIONS
-========================================= */
-
-function renderApplications(data = applications) {
-    tableBody.innerHTML = "";
-
-    if (!data.length) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="10" style="text-align:center; padding:40px; color:#718096;">
-                    No applications found.
+            row.innerHTML = `
+                <td>
+                    <input type="checkbox" class="application-checkbox" value="${application.id}">
                 </td>
-            </tr>
-        `;
-        resultText.textContent = "Showing 0 applications";
-        return;
+                <td>
+                    <div class="application-cell">
+                        <strong>${application.id}</strong>
+                        <small>${application.priority} Priority</small>
+                    </div>
+                </td>
+                <td>
+                    <div class="customer-cell">
+                        <strong>${application.customer}</strong>
+                        <small>${application.customerId}</small>
+                    </div>
+                </td>
+                <td>
+                    <div class="country-cell">
+                        ${getFlag(application.country)} ${application.country}
+                    </div>
+                </td>
+                <td>${application.visa}</td>
+                <td>${application.officer}</td>
+                <td>${formatDate(application.submission)}</td>
+                <td>
+                    <span class="document-status ${getDocumentClass(application.documents)}">
+                        ${application.documents}
+                    </span>
+                </td>
+                <td>
+                    <span class="application-status ${getStatusClass(application.status)}">
+                        ${application.status}
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-button view-btn" title="View" data-id="${application.id}">👁</button>
+                        <button class="action-button edit-btn" title="Edit" data-id="${application.id}">✎</button>
+                        <button class="action-button wa-btn" title="WhatsApp" data-phone="${application.phone}">W</button>
+                    </div>
+                </td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+
+        if (resultText) resultText.textContent = `Showing ${data.length} applications`;
     }
 
-    data.forEach(function(application) {
-        const row = document.createElement("tr");
+    function filterApplications() {
+        const search = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const country = countryFilter ? countryFilter.value : "";
+        const visa = visaFilter ? visaFilter.value : "";
+        const officer = officerFilter ? officerFilter.value : "";
+        const activeStatus = document.querySelector(".pipeline-item.active")?.dataset.status || "";
 
-        row.innerHTML = `
-            <td>
-                <input type="checkbox" class="application-checkbox" value="${application.id}">
-            </td>
-            <td>
-                <div class="application-cell">
-                    <strong>${application.id}</strong>
-                    <small>${application.priority} Priority</small>
-                </div>
-            </td>
-            <td>
-                <div class="customer-cell">
-                    <strong>${application.customer}</strong>
-                    <small>${application.customerId}</small>
-                </div>
-            </td>
-            <td>
-                <div class="country-cell">
-                    ${getFlag(application.country)} ${application.country}
-                </div>
-            </td>
-            <td>${application.visa}</td>
-            <td>${application.officer}</td>
-            <td>${formatDate(application.submission)}</td>
-            <td>
-                <span class="document-status ${getDocumentClass(application.documents)}">
-                    ${application.documents}
-                </span>
-            </td>
-            <td>
-                <span class="application-status ${getStatusClass(application.status)}">
-                    ${application.status}
-                </span>
-            </td>
-            <td>
-                <div class="action-buttons">
-                    <button class="action-button" title="View" onclick="viewApplication('${application.id}')">👁</button>
-                    <button class="action-button" title="Edit" onclick="editApplication('${application.id}')">✎</button>
-                    <button class="action-button" title="WhatsApp" onclick="openWhatsApp('${application.phone}')">W</button>
-                </div>
-            </td>
-        `;
+        const filtered = applications.filter(function(application) {
+            const searchMatch = !search ||
+                application.id.toLowerCase().includes(search) ||
+                application.customer.toLowerCase().includes(search) ||
+                application.passport.toLowerCase().includes(search) ||
+                application.phone.toLowerCase().includes(search);
 
-        tableBody.appendChild(row);
-    });
+            const countryMatch = !country || application.country === country;
+            const visaMatch = !visa || application.visa === visa;
+            const officerMatch = !officer || application.officer === officer;
+            const statusMatch = !activeStatus || application.status === activeStatus;
 
-    resultText.textContent = `Showing ${data.length} applications`;
-}
+            return searchMatch && countryMatch && visaMatch && officerMatch && statusMatch;
+        });
 
-/* =========================================
-   FILTER
-========================================= */
-
-function filterApplications() {
-    const search = searchInput.value.toLowerCase().trim();
-    const country = countryFilter.value;
-    const visa = visaFilter.value;
-    const officer = officerFilter.value;
-    const activeStatus = document.querySelector(".pipeline-item.active")?.dataset.status || "";
-
-    const filtered = applications.filter(function(application) {
-        const searchMatch = !search ||
-            application.id.toLowerCase().includes(search) ||
-            application.customer.toLowerCase().includes(search) ||
-            application.passport.toLowerCase().includes(search) ||
-            application.phone.toLowerCase().includes(search);
-
-        const countryMatch = !country || application.country === country;
-        const visaMatch = !visa || application.visa === visa;
-        const officerMatch = !officer || application.officer === officer;
-        const statusMatch = !activeStatus || application.status === activeStatus;
-
-        return searchMatch && countryMatch && visaMatch && officerMatch && statusMatch;
-    });
-
-    renderApplications(filtered);
-}
-
-/* =========================================
-   SEARCH / FILTER EVENTS
-========================================= */
-
-searchInput.addEventListener("input", filterApplications);
-countryFilter.addEventListener("change", filterApplications);
-visaFilter.addEventListener("change", filterApplications);
-officerFilter.addEventListener("change", filterApplications);
-
-/* =========================================
-   PIPELINE
-========================================= */
-
-document.querySelectorAll(".pipeline-item").forEach(function(button) {
-    button.addEventListener("click", function() {
-        document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
-        this.classList.add("active");
-        filterApplications();
-    });
-});
-
-/* =========================================
-   RESET
-========================================= */
-
-document.getElementById("resetFilters").addEventListener("click", function() {
-    searchInput.value = "";
-    countryFilter.value = "";
-    visaFilter.value = "";
-    officerFilter.value = "";
-
-    document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
-    document.querySelector('.pipeline-item[data-status=""]').classList.add("active");
-
-    renderApplications();
-});
-
-/* =========================================
-   UPDATE STATISTICS
-========================================= */
-
-function updateStats() {
-    const total = applications.length;
-    const processing = applications.filter(app => app.status === "Processing").length;
-    const approved = applications.filter(app => app.status === "Approved").length;
-    const rejected = applications.filter(app => app.status === "Rejected").length;
-
-    document.getElementById("totalApplications").textContent = total;
-    document.getElementById("processingApplications").textContent = processing;
-    document.getElementById("approvedApplications").textContent = approved;
-    document.getElementById("rejectedApplications").textContent = rejected;
-
-    updatePipelineCounts();
-}
-
-/* =========================================
-   PIPELINE COUNTS
-========================================= */
-
-function updatePipelineCounts() {
-    const count = function(status) {
-        if (!status) return applications.length;
-        return applications.filter(app => app.status === status).length;
-    };
-
-    document.getElementById("allCount").textContent = count("");
-    document.getElementById("draftCount").textContent = count("Draft");
-    document.getElementById("documentsCount").textContent = count("Documents Pending");
-    document.getElementById("submittedCount").textContent = count("Submitted");
-    document.getElementById("processingCount").textContent = count("Processing");
-    document.getElementById("approvedCount").textContent = count("Approved");
-    document.getElementById("rejectedCount").textContent = count("Rejected");
-}
-
-/* =========================================
-   MODAL
-========================================= */
-
-const modal = document.getElementById("applicationModal");
-
-document.getElementById("addApplicationButton").addEventListener("click", function() {
-    modal.classList.add("show");
-    document.body.style.overflow = "hidden";
-});
-
-function closeApplicationModal() {
-    modal.classList.remove("show");
-    document.body.style.overflow = "";
-}
-
-document.getElementById("closeModal").addEventListener("click", closeApplicationModal);
-document.getElementById("cancelModal").addEventListener("click", closeApplicationModal);
-
-modal.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        closeApplicationModal();
+        renderApplications(filtered);
     }
-});
 
-/* =========================================
-   CREATE APPLICATION
-========================================= */
+    if (searchInput) searchInput.addEventListener("input", filterApplications);
+    if (countryFilter) countryFilter.addEventListener("change", filterApplications);
+    if (visaFilter) visaFilter.addEventListener("change", filterApplications);
+    if (officerFilter) officerFilter.addEventListener("change", filterApplications);
 
-document.getElementById("applicationForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+    document.querySelectorAll(".pipeline-item").forEach(function(button) {
+        button.addEventListener("click", function() {
+            document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
+            this.classList.add("active");
+            filterApplications();
+        });
+    });
 
-    const newNumber = applications.length + 1;
+    const resetBtn = document.getElementById("resetFilters");
+    if (resetBtn) {
+        resetBtn.addEventListener("click", function() {
+            if (searchInput) searchInput.value = "";
+            if (countryFilter) countryFilter.value = "";
+            if (visaFilter) visaFilter.value = "";
+            if (officerFilter) officerFilter.value = "";
 
-    const newApplication = {
-        id: "APP-" + String(newNumber).padStart(6, "0"),
-        customerId: document.getElementById("customerId").value,
-        customer: document.getElementById("customerName").value,
-        passport: document.getElementById("passport").value,
-        phone: document.getElementById("phone").value,
-        country: document.getElementById("country").value,
-        visa: document.getElementById("visa").value,
-        officer: document.getElementById("officer").value,
-        submission: document.getElementById("submissionDate").value,
-        appointment: document.getElementById("appointmentDate").value,
-        decision: document.getElementById("decisionDate").value,
-        documents: document.getElementById("documentsStatus").value,
-        status: document.getElementById("applicationStatus").value,
-        priority: document.getElementById("priority").value,
-        fee: Number(document.getElementById("fee").value) || 0,
-        paid: Number(document.getElementById("paid").value) || 0,
-        notes: document.getElementById("notes").value
-    };
+            document.querySelectorAll(".pipeline-item").forEach(item => item.classList.remove("active"));
+            const allPipeline = document.querySelector('.pipeline-item[data-status=""]');
+            if (allPipeline) allPipeline.classList.add("active");
 
-    applications.unshift(newApplication);
+            renderApplications();
+        });
+    }
 
-    document.getElementById("applicationForm").reset();
-    closeApplicationModal();
+    function updateStats() {
+        const total = applications.length;
+        const processing = applications.filter(app => app.status === "Processing").length;
+        const approved = applications.filter(app => app.status === "Approved").length;
+        const rejected = applications.filter(app => app.status === "Rejected").length;
+
+        const totalEl = document.getElementById("totalApplications");
+        const procEl = document.getElementById("processingApplications");
+        const appEl = document.getElementById("approvedApplications");
+        const rejEl = document.getElementById("rejectedApplications");
+
+        if (totalEl) totalEl.textContent = total;
+        if (procEl) procEl.textContent = processing;
+        if (appEl) appEl.textContent = approved;
+        if (rejEl) rejEl.textContent = rejected;
+
+        updatePipelineCounts();
+    }
+
+    function updatePipelineCounts() {
+        const count = function(status) {
+            if (!status) return applications.length;
+            return applications.filter(app => app.status === status).length;
+        };
+
+        const elements = {
+            "allCount": "",
+            "draftCount": "Draft",
+            "documentsCount": "Documents Pending",
+            "submittedCount": "Submitted",
+            "processingCount": "Processing",
+            "approvedCount": "Approved",
+            "rejectedCount": "Rejected"
+        };
+
+        Object.keys(elements).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = count(elements[id]);
+        });
+    }
+
+    function toggleModal(show) {
+        if (!modal) return;
+        if (show) {
+            modal.classList.add("active", "show");
+            document.body.style.overflow = "hidden";
+        } else {
+            modal.classList.remove("active", "show");
+            document.body.style.overflow = "";
+        }
+    }
+
+    const addAppBtn = document.getElementById("addApplicationButton");
+    const closeBtn = document.getElementById("closeModal");
+    const cancelBtn = document.getElementById("cancelModal");
+
+    if (addAppBtn) addAppBtn.addEventListener("click", () => toggleModal(true));
+    if (closeBtn) closeBtn.addEventListener("click", () => toggleModal(false));
+    if (cancelBtn) cancelBtn.addEventListener("click", () => toggleModal(false));
+
+    if (modal) {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) toggleModal(false);
+        });
+    }
+
+    const appForm = document.getElementById("applicationForm");
+    if (appForm) {
+        appForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const newNumber = applications.length + 1;
+            const newApplication = {
+                id: "APP-" + String(newNumber).padStart(6, "0"),
+                customerId: document.getElementById("customerId")?.value || "",
+                customer: document.getElementById("customerName")?.value || "",
+                passport: document.getElementById("passport")?.value || "",
+                phone: document.getElementById("phone")?.value || "",
+                country: document.getElementById("country")?.value || "",
+                visa: document.getElementById("visa")?.value || "",
+                officer: document.getElementById("officer")?.value || "",
+                submission: document.getElementById("submissionDate")?.value || "",
+                appointment: document.getElementById("appointmentDate")?.value || "",
+                decision: document.getElementById("decisionDate")?.value || "",
+                documents: document.getElementById("documentsStatus")?.value || "Pending",
+                status: document.getElementById("applicationStatus")?.value || "Draft",
+                priority: document.getElementById("priority")?.value || "Normal",
+                fee: Number(document.getElementById("fee")?.value) || 0,
+                paid: Number(document.getElementById("paid")?.value) || 0,
+                notes: document.getElementById("notes")?.value || ""
+            };
+
+            applications.unshift(newApplication);
+            appForm.reset();
+            toggleModal(false);
+            renderApplications();
+            updateStats();
+            alert(`Application ${newApplication.id} created successfully.`);
+        });
+    }
+
+    if (tableBody) {
+        tableBody.addEventListener("click", function(e) {
+            const btn = e.target.closest(".action-button");
+            if (!btn) return;
+
+            if (btn.classList.contains("view-btn")) {
+                const id = btn.getAttribute("data-id");
+                const app = applications.find(item => item.id === id);
+                if (app) {
+                    const remaining = app.fee - app.paid;
+                    alert(
+                        "APPLICATION DETAILS\n\n" +
+                        "Application ID: " + app.id +
+                        "\nCustomer: " + app.customer +
+                        "\nCustomer ID: " + app.customerId +
+                        "\nCountry: " + app.country +
+                        "\nVisa: " + app.visa +
+                        "\nOfficer: " + app.officer +
+                        "\nStatus: " + app.status +
+                        "\nDocuments: " + app.documents +
+                        "\nPriority: " + app.priority +
+                        "\nSubmission: " + formatDate(app.submission) +
+                        "\nAppointment: " + formatDate(app.appointment) +
+                        "\nDecision: " + formatDate(app.decision) +
+                        "\n\nFee: PKR " + app.fee.toLocaleString() +
+                        "\nPaid: PKR " + app.paid.toLocaleString() +
+                        "\nRemaining: PKR " + remaining.toLocaleString()
+                    );
+                }
+            } else if (btn.classList.contains("edit-btn")) {
+                alert("Application editing will be connected to the secure CRM database.");
+            } else if (btn.classList.contains("wa-btn")) {
+                const phone = btn.getAttribute("data-phone");
+                const cleanPhone = phone ? phone.replace(/[^0-9]/g, "") : "";
+                if (!cleanPhone) {
+                    alert("Customer WhatsApp number is not available.");
+                } else {
+                    window.open("https://wa.me/" + cleanPhone, "_blank");
+                }
+            }
+        });
+    }
+
+    const selectAll = document.getElementById("selectAll");
+    if (selectAll) {
+        selectAll.addEventListener("change", function() {
+            document.querySelectorAll(".application-checkbox").forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    }
+
+    const exportBtn = document.getElementById("exportButton");
+    if (exportBtn) {
+        exportBtn.addEventListener("click", function() {
+            let csv = "Application ID,Customer ID,Customer,Passport,Phone,Country,Visa,Officer,Submission,Appointment,Documents,Status,Priority,Fee,Paid,Remaining\n";
+
+            applications.forEach(function(app) {
+                const remaining = app.fee - app.paid;
+                csv += `"${app.id}","${app.customerId}","${app.customer}","${app.passport}","${app.phone}","${app.country}","${app.visa}","${app.officer}","${app.submission}","${app.appointment}","${app.documents}","${app.status}","${app.priority}","${app.fee}","${app.paid}","${remaining}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "polaris-applications.csv";
+            link.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
+    if (menuButton && sidebar) {
+        menuButton.addEventListener("click", function() {
+            sidebar.classList.toggle("mobile-open");
+        });
+    }
+
+    const logoutBtn = document.getElementById("logoutButton");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", function() {
+            alert("Secure logout will be connected with Supabase Authentication.");
+        });
+    }
 
     renderApplications();
     updateStats();
-
-    alert(`Application ${newApplication.id} created successfully.`);
 });
-
-/* =========================================
-   VIEW APPLICATION
-========================================= */
-
-function viewApplication(id) {
-    const application = applications.find(item => item.id === id);
-    if (!application) return;
-
-    const remaining = application.fee - application.paid;
-
-    alert(
-        "APPLICATION DETAILS\n\n" +
-        "Application ID: " + application.id +
-        "\nCustomer: " + application.customer +
-        "\nCustomer ID: " + application.customerId +
-        "\nCountry: " + application.country +
-        "\nVisa: " + application.visa +
-        "\nOfficer: " + application.officer +
-        "\nStatus: " + application.status +
-        "\nDocuments: " + application.documents +
-        "\nPriority: " + application.priority +
-        "\nSubmission: " + formatDate(application.submission) +
-        "\nAppointment: " + formatDate(application.appointment) +
-        "\nDecision: " + formatDate(application.decision) +
-        "\n\nFee: Rs. " + application.fee.toLocaleString() +
-        "\nPaid: Rs. " + application.paid.toLocaleString() +
-        "\nRemaining: Rs. " + remaining.toLocaleString()
-    );
-}
-
-/* =========================================
-   EDIT APPLICATION
-========================================= */
-
-function editApplication(id) {
-    const application = applications.find(item => item.id === id);
-    if (!application) return;
-
-    alert("Application editing will be connected to the secure CRM database.");
-}
-
-/* =========================================
-   WHATSAPP
-========================================= */
-
-function openWhatsApp(phone) {
-    const cleanPhone = phone.replace(/[^0-9]/g, "");
-
-    if (!cleanPhone) {
-        alert("Customer WhatsApp number is not available.");
-        return;
-    }
-
-    window.open("https://wa.me/" + cleanPhone, "_blank");
-}
-
-/* =========================================
-   SELECT ALL
-========================================= */
-
-document.getElementById("selectAll").addEventListener("change", function() {
-    document.querySelectorAll(".application-checkbox").forEach(checkbox => {
-        checkbox.checked = this.checked;
-    });
-});
-
-/* =========================================
-   EXPORT CSV
-========================================= */
-
-document.getElementById("exportButton").addEventListener("click", function() {
-    let csv = "Application ID,Customer ID,Customer,Passport,Phone,Country,Visa,Officer,Submission,Appointment,Documents,Status,Priority,Fee,Paid,Remaining\n";
-
-    applications.forEach(function(application) {
-        const remaining = application.fee - application.paid;
-
-        csv += `"${application.id}",` +
-            `"${application.customerId}",` +
-            `"${application.customer}",` +
-            `"${application.passport}",` +
-            `"${application.phone}",` +
-            `"${application.country}",` +
-            `"${application.visa}",` +
-            `"${application.officer}",` +
-            `"${application.submission}",` +
-            `"${application.appointment}",` +
-            `"${application.documents}",` +
-            `"${application.status}",` +
-            `"${application.priority}",` +
-            `"${application.fee}",` +
-            `"${application.paid}",` +
-            `"${remaining}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "polaris-applications.csv";
-    link.click();
-
-    URL.revokeObjectURL(url);
-});
-
-/* =========================================
-   MOBILE SIDEBAR
-========================================= */
-
-const menuButton = document.getElementById("menuButton");
-const sidebar = document.getElementById("sidebar");
-
-menuButton.addEventListener("click", function() {
-    sidebar.classList.toggle("mobile-open");
-});
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-document.getElementById("logoutButton").addEventListener("click", function() {
-    alert("Secure logout will be connected with Supabase Authentication.");
-});
-
-/* =========================================
-   INITIAL LOAD
-========================================= */
-
-renderApplications();
-updateStats();
-
-console.log("Polaris Consultants Application Management loaded.");
