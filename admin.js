@@ -6,13 +6,13 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // DOM ELEMENTS
-    const menuButton = document.getElementById("menuButton");
+    const menuButton = document.getElementById("menuButton") || document.getElementById("mobileMenuButton");
     const sidebar = document.getElementById("sidebar");
     const sidebarOverlay = document.getElementById("sidebarOverlay");
     const logoutButton = document.getElementById("logoutButton");
     const notificationButton = document.querySelector(".notification-button") || document.getElementById("notificationButton");
-    const navItems = document.querySelectorAll(".nav-item");
-    const quickActions = document.querySelectorAll(".quick-action");
+    const navItems = document.querySelectorAll(".nav-item, .sidebar-link");
+    const quickActions = document.querySelectorAll(".quick-action, .quick-card");
     const pageSections = document.querySelectorAll(".page-section");
     const pageTitle = document.getElementById("pageTitle");
 
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pageTitle.textContent = targetSectionId.charAt(0).toUpperCase() + targetSectionId.slice(1);
         }
 
-        // Close sidebar on mobile after clicking
+        // Close sidebar on mobile after selection
         if (window.innerWidth <= 900) {
             closeSidebar();
         }
@@ -101,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* =========================================
-       LOGOUT
+       LOGOUT HANDLER
     ========================================= */
     if (logoutButton) {
         logoutButton.addEventListener("click", function () {
             const confirmLogout = confirm("Are you sure you want to logout?");
             if (confirmLogout) {
-                alert("Authentication will be connected in the next security phase.");
+                alert("Authentication module will handle redirect upon Supabase integration.");
             }
         });
     }
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =========================================
-       DASHBOARD DEMO DATA INIT
+       DASHBOARD INITIAL DATA POPULATION
     ========================================= */
     const dashboardData = {
         totalCustomers: 48,
@@ -139,8 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalLeadsEl = document.getElementById("totalLeads");
         const totalAppsEl = document.getElementById("totalApplications");
         const totalCountEl = document.getElementById("totalCountries");
+        
+        // Financial Elements
         const totalRecEl = document.getElementById("totalReceived");
-        const totalPaidEl = document.getElementById("totalPaid");
+        const totalPaidEl = document.getElementById("totalPaid") || document.getElementById("totalExpenses");
         const netBalEl = document.getElementById("netBalance");
 
         if (totalCustEl) totalCustEl.textContent = dashboardData.totalCustomers;
