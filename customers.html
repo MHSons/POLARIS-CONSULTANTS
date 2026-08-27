@@ -1,384 +1,350 @@
-/* =========================================
+/* =========================================================
    POLARIS CONSULTANTS - CUSTOMER MANAGEMENT
-========================================= */
+========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initial Sample Data (اگر لوکل اسٹوریج خالی ہو)
-    const initialCustomers = [
-        {
-            id: "CUST-1001",
-            name: "Muhammad Ali",
-            fatherName: "Tariq Mahmood",
-            cnic: "35202-1234567-1",
-            passport: "PK123456",
-            dob: "1995-05-14",
-            gender: "Male",
-            phone: "+92 300 1234567",
-            whatsapp: "+92 300 1234567",
-            email: "ali@example.com",
-            city: "Lahore",
-            address: "Gulberg III, Lahore",
-            country: "United Kingdom",
-            visa: "Study",
-            education: "Bachelor in CS",
-            occupation: "Student",
-            assigned: "Asad",
-            status: "Active",
-            totalFee: 300000,
-            paidAmount: 200000,
-            applicationsCount: 1,
-            notes: "Initial deposit paid. Preparing documents."
-        },
-        {
-            id: "CUST-1002",
-            name: "Sara Khan",
-            fatherName: "Ahmed Khan",
-            cnic: "35201-7654321-2",
-            passport: "PK987654",
-            dob: "1998-11-20",
-            gender: "Female",
-            phone: "+92 321 9876543",
-            whatsapp: "+92 321 9876543",
-            email: "sara@example.com",
-            city: "Karachi",
-            address: "DHA Phase 5, Karachi",
-            country: "Canada",
-            visa: "Work",
-            education: "Master in Business",
-            occupation: "Manager",
-            assigned: "Bilal",
-            status: "Pending",
-            totalFee: 450000,
-            paidAmount: 150000,
-            applicationsCount: 2,
-            notes: "Awaiting employment letter."
-        }
-    ];
-
-    // LocalStorage سے ڈیٹا حاصل کریں
-    let customers = JSON.parse(localStorage.getItem('polaris_customers')) || initialCustomers;
+document.addEventListener("DOMContentLoaded", async () => {
+    // State management
+    let customers = [];
     let editingCustomerId = null;
 
-    // DOM العناصر (DOM Elements)
-    const sidebar = document.getElementById('sidebar');
-    const menuButton = document.getElementById('menuButton');
-    const customerModal = document.getElementById('customerModal');
-    const addCustomerBtn = document.getElementById('addCustomerButton');
-    const closeModalBtn = document.getElementById('closeModal');
-    const cancelModalBtn = document.getElementById('cancelModal');
-    const customerForm = document.getElementById('customerForm');
-    const customerTableBody = document.getElementById('customerTableBody');
-    const searchInput = document.getElementById('searchInput');
-    const countryFilter = document.getElementById('countryFilter');
-    const visaFilter = document.getElementById('visaFilter');
-    const statusFilter = document.getElementById('statusFilter');
-    const resetFiltersBtn = document.getElementById('resetFilters');
-    const exportButton = document.getElementById('exportButton');
-    const selectAllCheckbox = document.getElementById('selectAll');
+    // DOM Elements
+    const customerTableBody = document.getElementById("customersTableBody");
+    const searchInput = document.getElementById("searchInput");
+    const filterStatus = document.getElementById("filterStatus");
+    const filterGender = document.getElementById("filterGender");
+    const resetFiltersBtn = document.getElementById("resetFilters");
+
+    const customerModal = document.getElementById("customerModal");
+    const openAddModalBtn = document.getElementById("openAddCustomerModal");
+    const closeModalBtn = document.getElementById("closeModalButton");
+    const cancelModalBtn = document.getElementById("cancelModalButton");
+    const customerForm = document.getElementById("customerForm");
+    const modalTitle = document.getElementById("modalTitle");
+
+    const menuToggleBtn = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+
+    // Initialize Supabase Client
+    const supabase = typeof getPolarisSupabase === "function" ? getPolarisSupabase() : null;
+
+    // =========================================
+    // DATA FETCHING & SYNC
+    // =========================================
+    async function loadCustomers() {
+        if (!supabase) {
+            renderError("Supabase connection not established.");
+            return;
+        }
+
+        try {
+            renderLoading();
+            const { data, error } = await supabase
+                .from("customers")
+                .select("*")
+                .order("created_at", { ascending: false });
+
+            if (error) throw error;
+
+            customers = data || [];
+            render();
+        } catch (error) {
+            console.error("Error fetching customers:", error.message);
+            renderError("Failed to fetch customer data.");
+        }
+    }
 
     // =========================================
     // UI CORE FUNCTIONS
     // =========================================
-
-    // ڈیٹا محفوظ کریں
-    function saveData() {
-        localStorage.setItem('polaris_customers', JSON.stringify(customers));
-        render();
-    }
-
-    // تمام Stats اور Table کی رینڈرنگ
     function render() {
-        renderTable();
         renderStats();
+        renderTable();
     }
 
-    // 1. Stats کا حساب اور رینڈرنگ
+    function renderLoading() {
+        customerTableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading customer records...
+                </td>
+            </tr>`;
+    }
+
+    function renderError(message) {
+        customerTableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: var(--red);">
+                    <i class="fa-solid fa-triangle-exclamation"></i> ${message}
+                </td>
+            </tr>`;
+    }
+
+    // 1. Stats Calculation
     function renderStats() {
-        const totalCustomers = customers.length;
-        const activeCustomers = customers.filter(c => c.status === 'Active').length;
-        
-        const totalReceivable = customers.reduce((sum, c) => {
-            const balance = (Number(c.totalFee) || 0) - (Number(c.paidAmount) || 0);
-            return sum + (balance > 0 ? balance : 0);
-        }, 0);
+        const total = customers.length;
+        const active = customers.filter(c => (c.status || "").toLowerCase() === "active").length;
+        const pending = customers.filter(c => (c.status || "").toLowerCase() === "pending").length;
+        const completed = customers.filter(c => (c.status || "").toLowerCase() === "completed").length;
 
-        const totalApplications = customers.reduce((sum, c) => sum + (Number(c.applicationsCount) || 1), 0);
-
-        document.getElementById('totalCustomers').innerText = totalCustomers;
-        document.getElementById('activeCustomers').innerText = activeCustomers;
-        document.getElementById('totalReceivable').innerText = `Rs. ${totalReceivable.toLocaleString()}`;
-        document.getElementById('totalApplications').innerText = totalApplications;
+        document.getElementById("statTotalCustomers").innerText = total;
+        document.getElementById("statActiveCustomers").innerText = active;
+        document.getElementById("statPendingCustomers").innerText = pending;
+        document.getElementById("statCompletedCustomers").innerText = completed;
     }
 
-    // 2. ٹیبل رینڈرنگ (فلٹرنگ کے ساتھ)
+    // 2. Table Rendering & Filtering
     function renderTable() {
-        const query = searchInput.value.toLowerCase().trim();
-        const selectedCountry = countryFilter.value;
-        const selectedVisa = visaFilter.value;
-        const selectedStatus = statusFilter.value;
+        const query = (searchInput.value || "").toLowerCase().trim();
+        const selectedStatus = filterStatus.value;
+        const selectedGender = filterGender.value;
 
         const filtered = customers.filter(c => {
-            const matchesSearch = 
-                c.name.toLowerCase().includes(query) ||
-                (c.cnic && c.cnic.includes(query)) ||
-                (c.passport && c.passport.toLowerCase().includes(query)) ||
-                c.phone.includes(query) ||
-                c.id.toLowerCase().includes(query);
+            const matchesSearch =
+                (c.full_name || "").toLowerCase().includes(query) ||
+                (c.cnic || "").includes(query) ||
+                (c.passport_number || "").toLowerCase().includes(query) ||
+                (c.phone || "").includes(query);
 
-            const matchesCountry = !selectedCountry || c.country === selectedCountry;
-            const matchesVisa = !selectedVisa || c.visa === selectedVisa;
             const matchesStatus = !selectedStatus || c.status === selectedStatus;
+            const matchesGender = !selectedGender || c.gender === selectedGender;
 
-            return matchesSearch && matchesCountry && matchesVisa && matchesStatus;
+            return matchesSearch && matchesStatus && matchesGender;
         });
 
-        customerTableBody.innerHTML = '';
+        customerTableBody.innerHTML = "";
 
         if (filtered.length === 0) {
             customerTableBody.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align: center; padding: 30px; color: var(--muted);">
-                        No customer records found matching the criteria.
+                    <td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">
+                        No matching customer profiles found.
                     </td>
-                </tr>
-            `;
-            document.getElementById('resultText').innerText = 'Showing 0 customers';
+                </tr>`;
+            updatePaginationInfo(0, customers.length);
             return;
         }
 
-        document.getElementById('resultText').innerText = `Showing ${filtered.length} customers`;
+        filtered.forEach(c => {
+            const tr = document.createElement("tr");
+            const statusClass = getStatusBadgeClass(c.status);
 
-        filtered.forEach(customer => {
-            const totalFee = Number(customer.totalFee) || 0;
-            const paidAmount = Number(customer.paidAmount) || 0;
-            const remaining = totalFee - paidAmount;
-
-            const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><input type="checkbox" class="row-checkbox" value="${customer.id}"></td>
                 <td>
                     <div class="customer-cell">
-                        <div class="customer-avatar">${getInitials(customer.name)}</div>
+                        <div class="customer-avatar">${getInitials(c.full_name)}</div>
                         <div class="customer-name">
-                            <strong>${customer.name}</strong>
-                            <small>ID: ${customer.id}</small>
+                            <strong>${escapeHtml(c.full_name)}</strong>
+                            <small>${escapeHtml(c.gender || "N/A")}</small>
                         </div>
                     </div>
                 </td>
+                <td>${escapeHtml(c.cnic || "N/A")}</td>
+                <td>${escapeHtml(c.passport_number || "N/A")}</td>
                 <td>
                     <div class="contact-cell">
-                        <span>${customer.phone}</span>
-                        <small>${customer.email || 'N/A'}</small>
+                        <span>${escapeHtml(c.phone || "N/A")}</span>
+                        <small>${escapeHtml(c.email || "No Email")}</small>
                     </div>
                 </td>
-                <td>${customer.country}</td>
-                <td>${customer.visa}</td>
-                <td>${customer.assigned || 'Unassigned'}</td>
-                <td>${customer.applicationsCount || 1} App(s)</td>
+                <td>${escapeHtml(c.city || "N/A")}</td>
                 <td>
-                    <div class="finance-cell">
-                        <strong>Paid: Rs. ${paidAmount.toLocaleString()}</strong>
-                        <small>Due: Rs. ${remaining.toLocaleString()}</small>
-                    </div>
-                </td>
-                <td>
-                    <span class="customer-status status-${customer.status.toLowerCase()}">${customer.status}</span>
+                    <span class="customer-status ${statusClass}">${escapeHtml(c.status || "Active")}</span>
                 </td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-button edit-btn" data-id="${customer.id}" title="Edit">✎</button>
-                        <button class="action-button delete-btn" data-id="${customer.id}" title="Delete">🗑</button>
+                        <button class="action-button edit-btn" data-id="${c.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="action-button delete-btn" data-id="${c.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </td>
             `;
             customerTableBody.appendChild(tr);
         });
+
+        updatePaginationInfo(filtered.length, customers.length);
     }
 
-    // نام کے پہلے الفاظ حاصل کرنا (Avatar کے لیے)
-    function getInitials(name) {
-        if (!name) return 'C';
-        const parts = name.trim().split(' ');
-        if (parts.length >= 2) {
-            return (parts[0][0] + parts[1][0]).toUpperCase();
+    function updatePaginationInfo(showingCount, totalCount) {
+        const info = document.getElementById("paginationInfo");
+        if (info) {
+            info.innerText = `Showing 1 to ${showingCount} of ${totalCount} entries`;
         }
-        return parts[0][0].toUpperCase();
+    }
+
+    function getInitials(name) {
+        if (!name) return "C";
+        const parts = name.trim().split(" ");
+        return parts.length >= 2
+            ? (parts[0][0] + parts[1][0]).toUpperCase()
+            : parts[0][0].toUpperCase();
+    }
+
+    function getStatusBadgeClass(status) {
+        switch ((status || "").toLowerCase()) {
+            case "active": return "status-active";
+            case "pending": return "status-pending";
+            case "completed": return "status-completed";
+            case "closed": return "status-closed";
+            default: return "status-active";
+        }
+    }
+
+    function escapeHtml(str) {
+        return String(str || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
     }
 
     // =========================================
     // MODAL & FORM HANDLING
     // =========================================
-
     function openModal(isEdit = false) {
-        customerModal.classList.add('show');
+        customerModal.classList.add("show");
         if (!isEdit) {
             editingCustomerId = null;
             customerForm.reset();
-            document.querySelector('.modal-header h2').innerText = 'Add New Customer';
+            document.getElementById("customerId").value = "";
+            modalTitle.innerText = "Add New Customer";
         }
     }
 
     function closeModal() {
-        customerModal.classList.remove('show');
+        customerModal.classList.remove("show");
         customerForm.reset();
         editingCustomerId = null;
     }
 
-    // فارم سبمٹ (Add/Edit)
-    customerForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    function populateEditForm(customer) {
+        editingCustomerId = customer.id;
+        modalTitle.innerText = "Edit Customer Profile";
 
-        const formData = {
-            name: document.getElementById('customerName').value.trim(),
-            fatherName: document.getElementById('fatherName').value.trim(),
-            cnic: document.getElementById('customerCnic').value.trim(),
-            passport: document.getElementById('customerPassport').value.trim(),
-            dob: document.getElementById('dob').value,
-            gender: document.getElementById('gender').value,
-            phone: document.getElementById('customerPhone').value.trim(),
-            whatsapp: document.getElementById('customerWhatsapp').value.trim(),
-            email: document.getElementById('customerEmail').value.trim(),
-            city: document.getElementById('customerCity').value.trim(),
-            address: document.getElementById('customerAddress').value.trim(),
-            country: document.getElementById('customerCountry').value,
-            visa: document.getElementById('customerVisa').value,
-            education: document.getElementById('education').value.trim(),
-            occupation: document.getElementById('occupation').value.trim(),
-            assigned: document.getElementById('assigned').value,
-            status: document.getElementById('customerStatus').value,
-            totalFee: Number(document.getElementById('totalFee').value) || 0,
-            paidAmount: Number(document.getElementById('paidAmount').value) || 0,
-            notes: document.getElementById('customerNotes').value.trim()
-        };
-
-        if (editingCustomerId) {
-            // Edit Existing
-            const index = customers.findIndex(c => c.id === editingCustomerId);
-            if (index !== -1) {
-                customers[index] = { ...customers[index], ...formData };
-            }
-        } else {
-            // Add New
-            const newId = `CUST-${Math.floor(1000 + Math.random() * 9000)}`;
-            customers.unshift({
-                id: newId,
-                applicationsCount: 1,
-                ...formData
-            });
-        }
-
-        saveData();
-        closeModal();
-    });
-
-    // Edit کسٹمر کا فنکشن
-    function editCustomer(id) {
-        const customer = customers.find(c => c.id === id);
-        if (!customer) return;
-
-        editingCustomerId = id;
-        document.querySelector('.modal-header h2').innerText = 'Edit Customer Profile';
-
-        document.getElementById('customerName').value = customer.name || '';
-        document.getElementById('fatherName').value = customer.fatherName || '';
-        document.getElementById('customerCnic').value = customer.cnic || '';
-        document.getElementById('customerPassport').value = customer.passport || '';
-        document.getElementById('dob').value = customer.dob || '';
-        document.getElementById('gender').value = customer.gender || '';
-        document.getElementById('customerPhone').value = customer.phone || '';
-        document.getElementById('customerWhatsapp').value = customer.whatsapp || '';
-        document.getElementById('customerEmail').value = customer.email || '';
-        document.getElementById('customerCity').value = customer.city || '';
-        document.getElementById('customerAddress').value = customer.address || '';
-        document.getElementById('customerCountry').value = customer.country || '';
-        document.getElementById('customerVisa').value = customer.visa || '';
-        document.getElementById('education').value = customer.education || '';
-        document.getElementById('occupation').value = customer.occupation || '';
-        document.getElementById('assigned').value = customer.assigned || 'Asad';
-        document.getElementById('customerStatus').value = customer.status || 'Active';
-        document.getElementById('totalFee').value = customer.totalFee || 0;
-        document.getElementById('paidAmount').value = customer.paidAmount || 0;
-        document.getElementById('customerNotes').value = customer.notes || '';
+        document.getElementById("customerId").value = customer.id || "";
+        document.getElementById("fullName").value = customer.full_name || "";
+        document.getElementById("cnic").value = customer.cnic || "";
+        document.getElementById("passportNumber").value = customer.passport_number || "";
+        document.getElementById("dateOfBirth").value = customer.date_of_birth || "";
+        document.getElementById("gender").value = customer.gender || "Male";
+        document.getElementById("nationality").value = customer.nationality || "Pakistani";
+        document.getElementById("phone").value = customer.phone || "";
+        document.getElementById("whatsappNumber").value = customer.whatsapp_number || "";
+        document.getElementById("email").value = customer.email || "";
+        document.getElementById("city").value = customer.city || "";
+        document.getElementById("address").value = customer.address || "";
 
         openModal(true);
     }
 
-    // Delete کسٹمر
-    function deleteCustomer(id) {
-        if (confirm(`Are you sure you want to delete customer ID: ${id}?`)) {
-            customers = customers.filter(c => c.id !== id);
-            saveData();
+    // Handle Form Submit (Insert/Update)
+    customerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            full_name: document.getElementById("fullName").value.trim(),
+            cnic: document.getElementById("cnic").value.trim(),
+            passport_number: document.getElementById("passportNumber").value.trim(),
+            date_of_birth: document.getElementById("dateOfBirth").value || null,
+            gender: document.getElementById("gender").value,
+            nationality: document.getElementById("nationality").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            whatsapp_number: document.getElementById("whatsappNumber").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            city: document.getElementById("city").value.trim(),
+            address: document.getElementById("address").value.trim(),
+            status: "Active"
+        };
+
+        const saveButton = document.getElementById("saveCustomerButton");
+        const originalBtnText = saveButton.innerHTML;
+        saveButton.disabled = true;
+        saveButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+
+        try {
+            if (editingCustomerId) {
+                const { error } = await supabase
+                    .from("customers")
+                    .update(payload)
+                    .eq("id", editingCustomerId);
+
+                if (error) throw error;
+            } else {
+                const { error } = await supabase
+                    .from("customers")
+                    .insert([payload]);
+
+                if (error) throw error;
+            }
+
+            closeModal();
+            await loadCustomers();
+        } catch (error) {
+            console.error("Error saving customer:", error.message);
+            alert(`Failed to save customer record: ${error.message}`);
+        } finally {
+            saveButton.disabled = false;
+            saveButton.innerHTML = originalBtnText;
+        }
+    });
+
+    // Delete Customer Record
+    async function deleteCustomer(id) {
+        if (!confirm("Are you sure you want to delete this customer record?")) return;
+
+        try {
+            const { error } = await supabase
+                .from("customers")
+                .delete()
+                .eq("id", id);
+
+            if (error) throw error;
+
+            await loadCustomers();
+        } catch (error) {
+            console.error("Error deleting customer:", error.message);
+            alert(`Unable to delete record: ${error.message}`);
         }
     }
 
     // =========================================
     // EVENT LISTENERS
     // =========================================
+    if (openAddModalBtn) openAddModalBtn.addEventListener("click", () => openModal(false));
+    if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+    if (cancelModalBtn) cancelModalBtn.addEventListener("click", closeModal);
 
-    // Sidebar Mobile Toggle
-    if (menuButton) {
-        menuButton.addEventListener('click', () => {
-            sidebar.classList.toggle('mobile-open');
-        });
-    }
+    // Dynamic Delegate for Edit / Delete Buttons
+    customerTableBody.addEventListener("click", (e) => {
+        const btn = e.target.closest(".action-button");
+        if (!btn) return;
 
-    // Modal Actions
-    addCustomerBtn.addEventListener('click', () => openModal(false));
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelModalBtn.addEventListener('click', closeModal);
-
-    // Dynamic Actions on Table Buttons (Edit/Delete)
-    customerTableBody.addEventListener('click', (e) => {
-        const target = e.target;
-        const id = target.getAttribute('data-id');
-        
-        if (target.classList.contains('edit-btn')) {
-            editCustomer(id);
-        } else if (target.classList.contains('delete-btn')) {
+        const id = btn.getAttribute("data-id");
+        if (btn.classList.contains("edit-btn")) {
+            const customer = customers.find(c => String(c.id) === String(id));
+            if (customer) populateEditForm(customer);
+        } else if (btn.classList.contains("delete-btn")) {
             deleteCustomer(id);
         }
     });
 
-    // Filters & Search Events
-    searchInput.addEventListener('input', renderTable);
-    countryFilter.addEventListener('change', renderTable);
-    visaFilter.addEventListener('change', renderTable);
-    statusFilter.addEventListener('change', renderTable);
+    // Filter Controls
+    searchInput.addEventListener("input", renderTable);
+    filterStatus.addEventListener("change", renderTable);
+    filterGender.addEventListener("change", renderTable);
 
-    resetFiltersBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        countryFilter.value = '';
-        visaFilter.value = '';
-        statusFilter.value = '';
+    resetFiltersBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        filterStatus.value = "";
+        filterGender.value = "";
         renderTable();
     });
 
-    // Select All Checkbox
-    selectAllCheckbox.addEventListener('change', (e) => {
-        const checkboxes = customerTableBody.querySelectorAll('.row-checkbox');
-        checkboxes.forEach(cb => cb.checked = e.target.checked);
-    });
-
-    // Export Functionality (CSV)
-    exportButton.addEventListener('click', () => {
-        if (customers.length === 0) {
-            alert('No data to export!');
-            return;
-        }
-
-        let csv = 'Customer ID,Full Name,Phone,Email,Country,Visa Type,Status,Total Fee,Paid Amount\n';
-        customers.forEach(c => {
-            csv += `"${c.id}","${c.name}","${c.phone}","${c.email || ''}","${c.country}","${c.visa}","${c.status}",${c.totalFee},${c.paidAmount}\n`;
+    // Mobile Sidebar Toggle
+    if (menuToggleBtn && sidebar) {
+        menuToggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("mobile-open");
         });
+    }
 
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `customers_export_${new Date().toISOString().slice(0, 10)}.csv`;
-        a.click();
-    });
-
-    // Init Render
-    render();
+    // Initial Load
+    await loadCustomers();
 });
