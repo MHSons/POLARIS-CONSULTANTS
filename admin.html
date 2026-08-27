@@ -3,592 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Polaris Consultants</title>
-    <meta name="description" content="Polaris Consultants administration dashboard">
+    <title>Polaris Consultants | Dashboard & Portal</title>
+    <meta name="description" content="Polaris Consultants official administration dashboard and visa application portal.">
     <link rel="stylesheet" href="admin.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
+    <!-- FLOATING WHATSAPP & DIRECT CALL BUTTON -->
+    <a href="https://wa.me/923018067880" class="floating-contact-btn" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i>
+        <span>Contact: 0301-8067880</span>
+    </a>
 
     <!-- MOBILE OVERLAY -->
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR NAVIGATION -->
     <aside id="sidebar" class="sidebar">
-        <!-- LOGO -->
+        <!-- LOGO BRANDING -->
         <div class="sidebar-logo">
-            <div class="logo-circle">
+            <div class="logo-mark">
                 <span>PC</span>
             </div>
             <div>
-                <h1>POLARIS</h1>
+                <strong>POLARIS</strong>
                 <span>CONSULTANTS</span>
             </div>
         </div>
 
-        <!-- NAVIGATION -->
+        <!-- NAVIGATION MENU -->
         <nav class="sidebar-nav">
-            <button class="nav-item active" data-section="dashboard">
-                <span class="nav-icon">▦</span>
-                <span>Dashboard</span>
-            </button>
-            <button class="nav-item" data-section="customers">
-                <span class="nav-icon">👥</span>
-                <span>Customers</span>
-            </button>
-            <button class="nav-item" data-section="leads">
-                <span class="nav-icon">🎯</span>
-                <span>Leads</span>
-            </button>
-            <button class="nav-item" data-section="applications">
-                <span class="nav-icon">📄</span>
-                <span>Applications</span>
-            </button>
-            <button class="nav-item" data-section="countries">
-                <span class="nav-icon">🌍</span>
-                <span>Countries</span>
-            </button>
-            <button class="nav-item" data-section="teams">
-                <span class="nav-icon">👨‍💼</span>
-                <span>Teams</span>
-            </button>
-            <button class="nav-item" data-section="staff">
-                <span class="nav-icon">👤</span>
-                <span>Staff</span>
-            </button>
+            <div class="sidebar-section">
+                <span class="sidebar-title">Main Menu</span>
+                <button class="sidebar-link active" data-section="dashboard">
+                    <span><i class="fa-solid fa-chart-pie"></i></span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="sidebar-link" data-section="customers">
+                    <span><i class="fa-solid fa-users"></i></span>
+                    <span>Customers</span>
+                </button>
+                <button class="sidebar-link" data-section="leads">
+                    <span><i class="fa-solid fa-bullseye"></i></span>
+                    <span>Leads</span>
+                </button>
+                <button class="sidebar-link" data-section="applications">
+                    <span><i class="fa-solid fa-file-lines"></i></span>
+                    <span>Applications</span>
+                </button>
+                <button class="sidebar-link" data-section="countries">
+                    <span><i class="fa-solid fa-globe"></i></span>
+                    <span>Countries</span>
+                </button>
+                <button class="sidebar-link" data-section="teams">
+                    <span><i class="fa-solid fa-user-group"></i></span>
+                    <span>Teams</span>
+                </button>
+                <button class="sidebar-link" data-section="staff">
+                    <span><i class="fa-solid fa-id-card"></i></span>
+                    <span>Staff</span>
+                </button>
+            </div>
 
-            <div class="nav-divider"></div>
+            <div class="sidebar-section">
+                <span class="sidebar-title">Accounting</span>
+                <button class="sidebar-link" data-section="finance">
+                    <span><i class="fa-solid fa-wallet"></i></span>
+                    <span>Finance</span>
+                </button>
+                <button class="sidebar-link" data-section="transactions">
+                    <span><i class="fa-solid fa-receipt"></i></span>
+                    <span>Transactions</span>
+                </button>
+                <button class="sidebar-link" data-section="slips">
+                    <span><i class="fa-solid fa-file-invoice"></i></span>
+                    <span>Payment Slips</span>
+                </button>
+                <button class="sidebar-link" data-section="reports">
+                    <span><i class="fa-solid fa-chart-line"></i></span>
+                    <span>Reports</span>
+                </button>
+            </div>
 
-            <button class="nav-item" data-section="finance">
-                <span class="nav-icon">💰</span>
-                <span>Finance</span>
-            </button>
-            <button class="nav-item" data-section="transactions">
-                <span class="nav-icon">💳</span>
-                <span>Transactions</span>
-            </button>
-            <button class="nav-item" data-section="slips">
-                <span class="nav-icon">🧾</span>
-                <span>Payment Slips</span>
-            </button>
-            <button class="nav-item" data-section="reports">
-                <span class="nav-icon">📈</span>
-                <span>Reports</span>
-            </button>
-
-            <div class="nav-divider"></div>
-
-            <button class="nav-item" data-section="settings">
-                <span class="nav-icon">⚙️</span>
-                <span>Settings</span>
-            </button>
+            <div class="sidebar-section">
+                <span class="sidebar-title">System</span>
+                <button class="sidebar-link" data-section="settings">
+                    <span><i class="fa-solid fa-gear"></i></span>
+                    <span>Settings</span>
+                </button>
+            </div>
         </nav>
 
         <!-- SIDEBAR BOTTOM -->
         <div class="sidebar-bottom">
             <button id="logoutButton" class="logout-button">
-                <span>🚪</span>
-                Logout
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
             </button>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN DASHBOARD CONTENT -->
     <main class="main-content">
-        <!-- TOPBAR -->
-        <header class="topbar">
-            <div class="topbar-left">
-                <button id="menuButton" class="menu-button" aria-label="Open menu">☰</button>
+        
+        <!-- HEADER TOPBAR -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button id="mobileMenuButton" class="menu-button" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div>
-                    <h2 id="pageTitle">Dashboard</h2>
-                    <p id="pageSubtitle">Welcome to Polaris Consultants</p>
+                    <h1 id="pageTitle">Dashboard Overview</h1>
+                    <p id="pageSubtitle">Polaris Consultants | Support Helpline: <strong>0301-8067880</strong></p>
                 </div>
             </div>
 
-            <div class="topbar-right">
-                <!-- NOTIFICATIONS -->
-                <button id="notificationButton" class="icon-button" aria-label="Notifications">
-                    🔔
-                    <span id="notificationBadge" class="notification-badge">0</span>
+            <div class="header-right">
+                <button id="notificationButton" class="notification-button" aria-label="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span id="notificationBadge" class="notification-dot"></span>
                 </button>
 
-                <!-- ADMIN PROFILE -->
                 <div class="admin-profile">
-                    <div class="admin-avatar">A</div>
-                    <div class="admin-info">
+                    <div class="profile-avatar">P</div>
+                    <div class="profile-info">
                         <strong id="adminName">Administrator</strong>
-                        <span>Admin</span>
+                        <span>Polaris Admin</span>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- CONTENT AREA -->
-        <div class="content-area">
+        <!-- DYNAMIC CONTENT SECTIONS -->
+        <div class="dashboard-content">
 
-            <!-- DASHBOARD SECTION -->
-            <section id="dashboardSection" class="dashboard-section page-section active-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Business Overview</h3>
-                        <p>Monitor your visa consultancy business.</p>
-                    </div>
-                </div>
-
-                <!-- STAT CARDS -->
+            <!-- DASHBOARD HOME SECTION -->
+            <section id="dashboardSection" class="page-section active-section">
+                
+                <!-- TOP STATS GRID -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon customers">👥</div>
-                        <div>
+                        <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-information">
                             <span>Total Customers</span>
                             <strong id="totalCustomers">0</strong>
+                            <small class="positive">Registered Clients</small>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon leads">🎯</div>
-                        <div>
+                        <div class="stat-icon green"><i class="fa-solid fa-bullseye"></i></div>
+                        <div class="stat-information">
                             <span>New Leads</span>
                             <strong id="totalLeads">0</strong>
+                            <small class="positive">Active Opportunities</small>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon applications">📄</div>
-                        <div>
+                        <div class="stat-icon gold"><i class="fa-solid fa-passport"></i></div>
+                        <div class="stat-information">
                             <span>Applications</span>
                             <strong id="totalApplications">0</strong>
+                            <small class="warning"><span id="pendingApplications">0</span> Pending Review</small>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon countries">🌍</div>
-                        <div>
-                            <span>Countries</span>
-                            <strong id="totalCountries">0</strong>
+                        <div class="stat-icon red"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-information">
+                            <span>Follow-ups</span>
+                            <strong id="totalFollowups">0</strong>
+                            <small class="warning">Pending Action</small>
                         </div>
                     </div>
                 </div>
 
-                <!-- FINANCE CARDS -->
-                <div class="finance-grid">
-                    <div class="finance-card">
-                        <span>Total Received</span>
-                        <strong id="totalReceived">PKR 0</strong>
-                        <small>Money received from customers</small>
+                <!-- QUICK ACTIONS SECTION -->
+                <div class="quick-actions">
+                    <div class="quick-card" onclick="document.querySelector('[data-section=customers]').click()">
+                        <span><i class="fa-solid fa-user-plus text-blue"></i></span>
+                        <strong>Add Customer</strong>
+                        <small>Create new record</small>
                     </div>
-                    <div class="finance-card">
-                        <span>Total Paid</span>
-                        <strong id="totalPaid">PKR 0</strong>
-                        <small>Business payments</small>
+                    <div class="quick-card" onclick="document.querySelector('[data-section=leads]').click()">
+                        <span><i class="fa-solid fa-filter text-green"></i></span>
+                        <strong>Manage Leads</strong>
+                        <small>Update lead statuses</small>
                     </div>
-                    <div class="finance-card">
-                        <span>Net Balance</span>
-                        <strong id="netBalance">PKR 0</strong>
-                        <small>Received minus paid</small>
+                    <div class="quick-card" onclick="document.querySelector('[data-section=applications]').click()">
+                        <span><i class="fa-solid fa-file-export text-gold"></i></span>
+                        <strong>New Application</strong>
+                        <small>Submit visa request</small>
+                    </div>
+                    <div class="quick-card" onclick="document.querySelector('[data-section=transactions]').click()">
+                        <span><i class="fa-solid fa-credit-card text-purple"></i></span>
+                        <strong>Add Payment</strong>
+                        <small>Record transaction</small>
                     </div>
                 </div>
 
-                <!-- QUICK ACTIONS -->
-                <div class="content-card">
+                <!-- MAIN DASHBOARD GRID -->
+                <div class="dashboard-grid">
+                    
+                    <!-- RECENT APPLICATIONS TABLE CARD -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Recent Visa Applications</h3>
+                                <p>Latest customer application progress</p>
+                            </div>
+                            <a href="#" onclick="document.querySelector('[data-section=applications]').click(); return false;">View All</a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Country</th>
+                                        <th>Visa Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentApplications">
+                                    <tr>
+                                        <td colspan="4" class="text-center">Loading applications...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- UPCOMING FOLLOWUPS CARD -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Upcoming Follow-ups</h3>
+                                <p>Tasks & reminders queued for today</p>
+                            </div>
+                        </div>
+                        <div class="followup-list" id="upcomingFollowups">
+                            <div class="empty-state">Loading follow-ups...</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FINANCE OVERVIEW CARD -->
+                <div class="dashboard-card">
                     <div class="card-header">
                         <div>
-                            <h3>Quick Actions</h3>
-                            <p>Frequently used management tools.</p>
+                            <h3>Financial Overview</h3>
+                            <p>Income, expenses, and net profit balance</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <button class="quick-action" data-section="customers">
-                            <span>👥</span> Add Customer
-                        </button>
-                        <button class="quick-action" data-section="leads">
-                            <span>🎯</span> Manage Leads
-                        </button>
-                        <button class="quick-action" data-section="applications">
-                            <span>📄</span> Applications
-                        </button>
-                        <button class="quick-action" data-section="transactions">
-                            <span>💳</span> Add Transaction
-                        </button>
-                        <button class="quick-action" data-section="slips">
-                            <span>🧾</span> Generate Slip
-                        </button>
+                    <div class="stats-grid" style="margin-bottom: 0;">
+                        <div class="stat-card">
+                            <div class="stat-information">
+                                <span>Total Received</span>
+                                <strong id="totalReceived">₨ 0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-information">
+                                <span>Total Expenses</span>
+                                <strong id="totalExpenses">₨ 0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-information">
+                                <span>Net Balance</span>
+                                <strong id="netBalance">₨ 0</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- RECENT LEADS -->
-                <div class="content-card">
-                    <div class="card-header">
-                        <div>
-                            <h3>Recent Leads</h3>
-                            <p>Latest customer inquiries.</p>
-                        </div>
-                        <button class="view-all-button" data-section="leads">View All</button>
-                    </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Customer</th>
-                                    <th>Country</th>
-                                    <th>Visa</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentLeadsTable">
-                                <tr>
-                                    <td colspan="5" class="empty-table">No leads found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </section>
 
             <!-- CUSTOMERS SECTION -->
-            <section id="customersSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Customers</h3>
-                        <p>Manage all customer records.</p>
+            <section id="customersSection" class="page-section hidden">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Customer Database</h3>
+                            <p>Manage all client profiles</p>
+                        </div>
                     </div>
-                    <button class="primary-button" id="addCustomerButton">+ Add Customer</button>
-                </div>
-                <div class="content-card">
-                    <div class="toolbar">
-                        <input type="search" id="customerSearch" placeholder="Search customer...">
-                    </div>
-                    <div class="table-wrapper">
+                    <div class="table-container">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>CNIC</th>
-                                    <th>Passport</th>
                                     <th>Phone</th>
                                     <th>City</th>
-                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody id="customersTable">
-                                <tr>
-                                    <td colspan="6" class="empty-table">Loading customers...</td>
-                                </tr>
+                                <tr><td colspan="4" class="text-center">Customer records loading...</td></tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEADS SECTION -->
-            <section id="leadsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Lead Management</h3>
-                        <p>Track and manage customer leads.</p>
-                    </div>
-                    <button class="primary-button" id="addLeadButton">+ Add Lead</button>
-                </div>
-                <div class="content-card">
-                    <div class="toolbar">
-                        <input type="search" id="leadSearch" placeholder="Search leads...">
-                        <select id="leadStatusFilter">
-                            <option value="">All Status</option>
-                            <option value="New">New</option>
-                            <option value="Contacted">Contacted</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Converted">Converted</option>
-                            <option value="Lost">Lost</option>
-                        </select>
-                    </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Customer</th>
-                                    <th>Country</th>
-                                    <th>Visa</th>
-                                    <th>Source</th>
-                                    <th>Team</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="leadsTable">
-                                <tr>
-                                    <td colspan="6" class="empty-table">Loading leads...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- APPLICATIONS SECTION -->
-            <section id="applicationsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Visa Applications</h3>
-                        <p>Manage customer visa applications.</p>
-                    </div>
-                    <button class="primary-button" id="addApplicationButton">+ New Application</button>
-                </div>
-                <div class="content-card">
-                    <div class="toolbar">
-                        <input type="search" id="applicationSearch" placeholder="Search applications...">
-                        <select id="applicationVisaFilter">
-                            <option value="">All Visa Types</option>
-                            <option value="Study Visa">Study Visa</option>
-                            <option value="Work Visa">Work Visa</option>
-                            <option value="Visit Visa">Visit Visa</option>
-                        </select>
-                    </div>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Applicant</th>
-                                    <th>Country</th>
-                                    <th>Visa Type</th>
-                                    <th>Passport</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="applicationsTable">
-                                <tr>
-                                    <td colspan="6" class="empty-table">Loading applications...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- COUNTRIES SECTION -->
-            <section id="countriesSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Countries & Visa Services</h3>
-                        <p>Manage country-specific visa information.</p>
-                    </div>
-                    <button class="primary-button" id="addCountryButton">+ Add Country</button>
-                </div>
-                <div id="countriesGrid" class="countries-grid">
-                    <div class="loading-card">Loading countries...</div>
-                </div>
-            </section>
-
-            <!-- TEAMS SECTION -->
-            <section id="teamsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Teams</h3>
-                        <p>Manage consultancy teams.</p>
-                    </div>
-                    <button class="primary-button" id="addTeamButton">+ Add Team</button>
-                </div>
-                <div class="content-card">
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>Team Leader</th>
-                                    <th>Status</th>
-                                    <th>Created</th>
-                                </tr>
-                            </thead>
-                            <tbody id="teamsTable">
-                                <tr>
-                                    <td colspan="4" class="empty-table">No teams found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- STAFF SECTION -->
-            <section id="staffSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Staff</h3>
-                        <p>Manage employees and team assignments.</p>
-                    </div>
-                    <button class="primary-button" id="addStaffButton">+ Add Staff</button>
-                </div>
-                <div class="content-card">
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Role</th>
-                                    <th>Team</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="staffTable">
-                                <tr>
-                                    <td colspan="6" class="empty-table">No staff found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FINANCE SECTION -->
-            <section id="financeSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Finance</h3>
-                        <p>Financial overview and accounting.</p>
-                    </div>
-                </div>
-                <div class="finance-grid">
-                    <div class="finance-card">
-                        <span>Total Received</span>
-                        <strong id="financeReceived">PKR 0</strong>
-                    </div>
-                    <div class="finance-card">
-                        <span>Total Paid</span>
-                        <strong id="financePaid">PKR 0</strong>
-                    </div>
-                    <div class="finance-card">
-                        <span>Net Balance</span>
-                        <strong id="financeBalance">PKR 0</strong>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="card-header">
-                        <div>
-                            <h3>Financial Summary</h3>
-                            <p>All business transactions will appear here.</p>
-                        </div>
-                        <button class="primary-button" data-section="transactions">View Transactions</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TRANSACTIONS SECTION -->
-            <section id="transactionsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Transactions</h3>
-                        <p>Track money received and money paid.</p>
-                    </div>
-                    <button class="primary-button" id="addTransactionButton">+ Add Transaction</button>
-                </div>
-                <div class="content-card">
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Amount</th>
-                                    <th>Method</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transactionsTable">
-                                <tr>
-                                    <td colspan="5" class="empty-table">No transactions found.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SLIPS SECTION -->
-            <section id="slipsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Payment Slips</h3>
-                        <p>Generate and manage QR payment slips.</p>
-                    </div>
-                    <button class="primary-button" id="generateSlipButton">+ Generate Slip</button>
-                </div>
-                <div class="content-card">
-                    <div class="empty-state">
-                        <div class="empty-icon">🧾</div>
-                        <h3>Payment Slips</h3>
-                        <p>Your generated slips will appear here.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- REPORTS SECTION -->
-            <section id="reportsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Reports</h3>
-                        <p>Business performance and financial reports.</p>
-                    </div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon leads">🎯</div>
-                        <div>
-                            <span>Lead Conversion</span>
-                            <strong>0%</strong>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon applications">📄</div>
-                        <div>
-                            <span>Applications</span>
-                            <strong id="reportApplications">0</strong>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon customers">👥</div>
-                        <div>
-                            <span>Customers</span>
-                            <strong id="reportCustomers">0</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-card">
-                    <div class="empty-state">
-                        <div class="empty-icon">📈</div>
-                        <h3>Reports Center</h3>
-                        <p>Detailed reports and analytics will be connected next.</p>
                     </div>
                 </div>
             </section>
 
             <!-- SETTINGS SECTION -->
-            <section id="settingsSection" class="page-section">
-                <div class="section-header">
-                    <div>
-                        <h3>Settings</h3>
-                        <p>Manage Polaris Consultants system settings.</p>
+            <section id="settingsSection" class="page-section hidden">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Polaris System Settings</h3>
+                            <p>Manage company details and contacts</p>
+                        </div>
                     </div>
-                </div>
-                <div class="content-card">
-                    <div class="settings-list">
-                        <div class="setting-row">
-                            <div>
-                                <strong>Company Name</strong>
-                                <p>Polaris Consultants</p>
-                            </div>
-                        </div>
-                        <div class="setting-row">
-                            <div>
-                                <strong>WhatsApp</strong>
-                                <p>WhatsApp Business integration</p>
-                            </div>
-                            <span class="status-badge pending">Pending</span>
-                        </div>
-                        <div class="setting-row">
-                            <div>
-                                <strong>Database</strong>
-                                <p>Supabase</p>
-                            </div>
-                            <span class="status-badge active">Connected</span>
-                        </div>
+                    <div style="padding: 10px 0;">
+                        <p><strong>Company Name:</strong> Polaris Consultants</p>
+                        <p><strong>Official Phone / WhatsApp:</strong> 0301-8067880</p>
+                        <p><strong>Database Status:</strong> Connected to Supabase</p>
                     </div>
                 </div>
             </section>
@@ -596,10 +326,9 @@
         </div>
     </main>
 
-    <!-- SCRIPTS -->
+    <!-- JS SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
-    <script src="supabase-db.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
