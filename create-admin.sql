@@ -1,5 +1,5 @@
 /* =========================================================
-   POLARIS CONSULTANTS - ADMIN PROFILE SETUP
+   POLARIS CONSULTANTS - ADMIN STAFF PROFILE SETUP
 ========================================================= */
 
 /*
@@ -9,8 +9,8 @@
    3. Replace 'YOUR_ADMIN_EMAIL' with your actual admin email.
 */
 
-INSERT INTO public.profiles (
-    id,
+INSERT INTO public.staff_profiles (
+    user_id,
     full_name,
     email,
     role,
@@ -25,7 +25,7 @@ VALUES (
     'Management',
     true
 )
-ON CONFLICT (id) 
+ON CONFLICT (user_id) 
 DO UPDATE SET
     full_name = EXCLUDED.full_name,
     email = EXCLUDED.email,
