@@ -1,518 +1,350 @@
-/* =========================================
-   POLARIS CONSULTANTS
-   CUSTOMER MANAGEMENT
-========================================= */
+/* =========================================================
+   POLARIS CONSULTANTS - CUSTOMER MANAGEMENT
+========================================================= */
 
-/* =========================================
-   DEMO / INITIAL CUSTOMER DATA
-========================================= */
+document.addEventListener("DOMContentLoaded", async () => {
+    // State management
+    let customers = [];
+    let editingCustomerId = null;
 
-const initialCustomers = [
-    {
-        id: "CUS-000001",
-        name: "Muhammad Ali",
-        father: "Muhammad Aslam",
-        cnic: "35202-1234567-1",
-        passport: "AB1234567",
-        phone: "+92 300 1111111",
-        whatsapp: "+92 300 1111111",
-        email: "ali@example.com",
-        city: "Lahore",
-        address: "Gulberg III",
-        country: "United Kingdom",
-        visa: "Study",
-        assigned: "Asad",
-        applications: 1,
-        totalFee: 350000,
-        paid: 200000,
-        status: "Active"
-    },
-    {
-        id: "CUS-000002",
-        name: "Ahmed Khan",
-        father: "Rashid Khan",
-        cnic: "35202-2345678-2",
-        passport: "AB2345678",
-        phone: "+92 301 2222222",
-        whatsapp: "+92 301 2222222",
-        email: "ahmed@example.com",
-        city: "Karachi",
-        address: "DHA Phase 5",
-        country: "Canada",
-        visa: "Work",
-        assigned: "Bilal",
-        applications: 1,
-        totalFee: 450000,
-        paid: 300000,
-        status: "Active"
-    },
-    {
-        id: "CUS-000003",
-        name: "Usman Raza",
-        father: "Raza Hussain",
-        cnic: "35202-3456789-3",
-        passport: "AB3456789",
-        phone: "+92 302 3333333",
-        whatsapp: "+92 302 3333333",
-        email: "usman@example.com",
-        city: "Islamabad",
-        address: "F-8/2",
-        country: "Australia",
-        visa: "Study",
-        assigned: "Salman",
-        applications: 2,
-        totalFee: 500000,
-        paid: 500000,
-        status: "Completed"
-    },
-    {
-        id: "CUS-000004",
-        name: "Hassan Ahmed",
-        father: "Ahmed Raza",
-        cnic: "35202-4567890-4",
-        passport: "AB4567890",
-        phone: "+92 303 4444444",
-        whatsapp: "+92 303 4444444",
-        email: "hassan@example.com",
-        city: "Rawalpindi",
-        address: "Satellite Town",
-        country: "USA",
-        visa: "Visit",
-        assigned: "Asad",
-        applications: 1,
-        totalFee: 180000,
-        paid: 80000,
-        status: "Pending"
-    },
-    {
-        id: "CUS-000005",
-        name: "Bilal Hussain",
-        father: "Hussain Ahmed",
-        cnic: "35202-5678901-5",
-        passport: "AB5678901",
-        phone: "+92 304 5555555",
-        whatsapp: "+92 304 5555555",
-        email: "bilal@example.com",
-        city: "Multan",
-        address: "Cantt",
-        country: "Germany",
-        visa: "Study",
-        assigned: "Bilal",
-        applications: 1,
-        totalFee: 400000,
-        paid: 400000,
-        status: "Completed"
-    }
-];
+    // DOM Elements
+    const customerTableBody = document.getElementById("customersTableBody");
+    const searchInput = document.getElementById("searchInput");
+    const filterStatus = document.getElementById("filterStatus");
+    const filterGender = document.getElementById("filterGender");
+    const resetFiltersBtn = document.getElementById("resetFilters");
 
-// LocalStorage سے ڈیٹا حاصل کریں
-let customers = JSON.parse(localStorage.getItem("polaris_customers")) || initialCustomers;
-let editingCustomerId = null;
+    const customerModal = document.getElementById("customerModal");
+    const openAddModalBtn = document.getElementById("openAddCustomerModal");
+    const closeModalBtn = document.getElementById("closeModalButton");
+    const cancelModalBtn = document.getElementById("cancelModalButton");
+    const customerForm = document.getElementById("customerForm");
+    const modalTitle = document.getElementById("modalTitle");
 
-/* =========================================
-   ELEMENTS
-========================================= */
+    const menuToggleBtn = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
 
-const tableBody = document.getElementById("customerTableBody");
-const searchInput = document.getElementById("searchInput");
-const countryFilter = document.getElementById("countryFilter");
-const visaFilter = document.getElementById("visaFilter");
-const statusFilter = document.getElementById("statusFilter");
-const resultText = document.getElementById("resultText");
-const modal = document.getElementById("customerModal");
-const addCustomerButton = document.getElementById("addCustomerButton");
-const closeModal = document.getElementById("closeModal");
-const cancelModal = document.getElementById("cancelModal");
-const customerForm = document.getElementById("customerForm");
-const menuButton = document.getElementById("menuButton");
-const sidebar = document.getElementById("sidebar");
+    // Initialize Supabase Client
+    const supabase = typeof getPolarisSupabase === "function" ? getPolarisSupabase() : null;
 
-/* =========================================
-   UTILITY FUNCTIONS
-========================================= */
-
-function saveData() {
-    localStorage.setItem("polaris_customers", JSON.stringify(customers));
-}
-
-function formatMoney(amount) {
-    return "Rs. " + Number(amount || 0).toLocaleString("en-PK");
-}
-
-function getStatusClass(status) {
-    const statusClasses = {
-        "Active": "status-active",
-        "Pending": "status-pending",
-        "Completed": "status-completed",
-        "Closed": "status-closed"
-    };
-    return statusClasses[status] || "status-pending";
-}
-
-function getFlag(country) {
-    const flags = {
-        "United Kingdom": "🇬🇧",
-        "Canada": "🇨🇦",
-        "Australia": "🇦🇺",
-        "USA": "🇺🇸",
-        "Germany": "🇩🇪",
-        "UAE": "🇦🇪"
-    };
-    return flags[country] || "🌍";
-}
-
-/* =========================================
-   RENDER CUSTOMERS
-========================================= */
-
-function renderCustomers(data = customers) {
-    tableBody.innerHTML = "";
-
-    if (!data.length) {
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="10" style="text-align:center; padding:40px; color:#718096;">
-                    No customers found.
-                </td>
-            </tr>
-        `;
-        resultText.textContent = "Showing 0 customers";
-        return;
-    }
-
-    data.forEach(function(customer) {
-        const initials = customer.name
-            .split(" ")
-            .map(word => word.charAt(0))
-            .slice(0, 2)
-            .join("")
-            .toUpperCase();
-
-        const remaining = Math.max(0, customer.totalFee - customer.paid);
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>
-                <input type="checkbox" class="customer-checkbox" value="${customer.id}">
-            </td>
-            <td>
-                <div class="customer-cell">
-                    <div class="customer-avatar">${initials}</div>
-                    <div class="customer-name">
-                        <strong>${customer.name}</strong>
-                        <small>${customer.id}</small>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="contact-cell">
-                    <span>${customer.phone}</span>
-                    <small>${customer.email || "N/A"}</small>
-                </div>
-            </td>
-            <td>
-                ${getFlag(customer.country)} ${customer.country}
-            </td>
-            <td>${customer.visa}</td>
-            <td>${customer.assigned || "Unassigned"}</td>
-            <td><strong>${customer.applications || 1}</strong></td>
-            <td>
-                <div class="finance-cell">
-                    <strong>Paid: ${formatMoney(customer.paid)}</strong>
-                    <small>Due: ${formatMoney(remaining)}</small>
-                </div>
-            </td>
-            <td>
-                <span class="customer-status ${getStatusClass(customer.status)}">
-                    ${customer.status}
-                </span>
-            </td>
-            <td>
-                <div class="action-buttons">
-                    <button class="action-button" title="View" onclick="viewCustomer('${customer.id}')">👁</button>
-                    <button class="action-button" title="Edit" onclick="editCustomer('${customer.id}')">✎</button>
-                    <button class="action-button" title="WhatsApp" onclick="openWhatsApp('${customer.whatsapp}')">W</button>
-                    <button class="action-button" title="Delete" onclick="deleteCustomer('${customer.id}')">🗑</button>
-                </div>
-            </td>
-        `;
-
-        tableBody.appendChild(row);
-    });
-
-    resultText.textContent = `Showing ${data.length} customers`;
-}
-
-/* =========================================
-   FILTER CUSTOMERS
-========================================= */
-
-function filterCustomers() {
-    const search = searchInput.value.toLowerCase().trim();
-    const country = countryFilter.value;
-    const visa = visaFilter.value;
-    const status = statusFilter.value;
-
-    const filtered = customers.filter(function(customer) {
-        const searchMatch = !search ||
-            customer.id.toLowerCase().includes(search) ||
-            customer.name.toLowerCase().includes(search) ||
-            (customer.cnic && customer.cnic.toLowerCase().includes(search)) ||
-            (customer.passport && customer.passport.toLowerCase().includes(search)) ||
-            customer.phone.toLowerCase().includes(search);
-
-        const countryMatch = !country || customer.country === country;
-        const visaMatch = !visa || customer.visa === visa;
-        const statusMatch = !status || customer.status === status;
-
-        return searchMatch && countryMatch && visaMatch && statusMatch;
-    });
-
-    renderCustomers(filtered);
-}
-
-// Filter Event Listeners
-searchInput.addEventListener("input", filterCustomers);
-countryFilter.addEventListener("change", filterCustomers);
-visaFilter.addEventListener("change", filterCustomers);
-statusFilter.addEventListener("change", filterCustomers);
-
-// Reset Filters
-document.getElementById("resetFilters").addEventListener("click", function() {
-    searchInput.value = "";
-    countryFilter.value = "";
-    visaFilter.value = "";
-    statusFilter.value = "";
-    renderCustomers();
-});
-
-/* =========================================
-   UPDATE STATISTICS
-========================================= */
-
-function updateStats() {
-    const total = customers.length;
-    const active = customers.filter(c => c.status === "Active").length;
-    const applications = customers.reduce((sum, c) => sum + (c.applications || 1), 0);
-    const receivable = customers.reduce((sum, c) => sum + Math.max(0, c.totalFee - c.paid), 0);
-
-    document.getElementById("totalCustomers").textContent = total;
-    document.getElementById("activeCustomers").textContent = active;
-    document.getElementById("totalApplications").textContent = applications;
-    document.getElementById("totalReceivable").textContent = formatMoney(receivable);
-}
-
-/* =========================================
-   MODAL CONTROLS
-========================================= */
-
-function openCustomerModal(isEdit = false) {
-    modal.classList.add("show");
-    document.body.style.overflow = "hidden";
-    if (!isEdit) {
-        editingCustomerId = null;
-        customerForm.reset();
-        document.querySelector("#customerModal h2").textContent = "Add New Customer";
-    }
-}
-
-function closeCustomerModal() {
-    modal.classList.remove("show");
-    document.body.style.overflow = "";
-    customerForm.reset();
-    editingCustomerId = null;
-}
-
-addCustomerButton.addEventListener("click", () => openCustomerModal(false));
-closeModal.addEventListener("click", closeCustomerModal);
-cancelModal.addEventListener("click", closeCustomerModal);
-
-modal.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        closeCustomerModal();
-    }
-});
-
-/* =========================================
-   ADD / EDIT CUSTOMER FORM SUBMIT
-========================================= */
-
-customerForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const totalFee = Number(document.getElementById("totalFee").value) || 0;
-    const paidAmount = Number(document.getElementById("paidAmount").value) || 0;
-
-    const formData = {
-        name: document.getElementById("customerName").value,
-        father: document.getElementById("fatherName").value,
-        cnic: document.getElementById("customerCnic").value,
-        passport: document.getElementById("customerPassport").value,
-        dob: document.getElementById("dob") ? document.getElementById("dob").value : "",
-        gender: document.getElementById("gender") ? document.getElementById("gender").value : "",
-        phone: document.getElementById("customerPhone").value,
-        whatsapp: document.getElementById("customerWhatsapp").value || document.getElementById("customerPhone").value,
-        email: document.getElementById("customerEmail").value,
-        city: document.getElementById("customerCity") ? document.getElementById("customerCity").value : "",
-        address: document.getElementById("customerAddress") ? document.getElementById("customerAddress").value : "",
-        country: document.getElementById("customerCountry").value,
-        visa: document.getElementById("customerVisa").value,
-        education: document.getElementById("education") ? document.getElementById("education").value : "",
-        occupation: document.getElementById("occupation") ? document.getElementById("occupation").value : "",
-        assigned: document.getElementById("assigned").value,
-        totalFee: totalFee,
-        paid: paidAmount,
-        status: document.getElementById("customerStatus").value,
-        notes: document.getElementById("customerNotes") ? document.getElementById("customerNotes").value : ""
-    };
-
-    if (editingCustomerId) {
-        // Edit Customer
-        const index = customers.findIndex(c => c.id === editingCustomerId);
-        if (index !== -1) {
-            customers[index] = { ...customers[index], ...formData };
+    // =========================================
+    // DATA FETCHING & SYNC
+    // =========================================
+    async function loadCustomers() {
+        if (!supabase) {
+            renderError("Supabase connection not established.");
+            return;
         }
-    } else {
-        // New Customer
-        const newId = "CUS-" + String(customers.length + 1).padStart(6, "0");
-        customers.unshift({
-            id: newId,
-            applications: 1,
-            ...formData
+
+        try {
+            renderLoading();
+            const { data, error } = await supabase
+                .from("customers")
+                .select("*")
+                .order("created_at", { ascending: false });
+
+            if (error) throw error;
+
+            customers = data || [];
+            render();
+        } catch (error) {
+            console.error("Error fetching customers:", error.message);
+            renderError("Failed to fetch customer data.");
+        }
+    }
+
+    // =========================================
+    // UI CORE FUNCTIONS
+    // =========================================
+    function render() {
+        renderStats();
+        renderTable();
+    }
+
+    function renderLoading() {
+        customerTableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading customer records...
+                </td>
+            </tr>`;
+    }
+
+    function renderError(message) {
+        customerTableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 30px; color: var(--red);">
+                    <i class="fa-solid fa-triangle-exclamation"></i> ${message}
+                </td>
+            </tr>`;
+    }
+
+    // 1. Stats Calculation
+    function renderStats() {
+        const total = customers.length;
+        const active = customers.filter(c => (c.status || "").toLowerCase() === "active").length;
+        const pending = customers.filter(c => (c.status || "").toLowerCase() === "pending").length;
+        const completed = customers.filter(c => (c.status || "").toLowerCase() === "completed").length;
+
+        document.getElementById("statTotalCustomers").innerText = total;
+        document.getElementById("statActiveCustomers").innerText = active;
+        document.getElementById("statPendingCustomers").innerText = pending;
+        document.getElementById("statCompletedCustomers").innerText = completed;
+    }
+
+    // 2. Table Rendering & Filtering
+    function renderTable() {
+        const query = (searchInput.value || "").toLowerCase().trim();
+        const selectedStatus = filterStatus.value;
+        const selectedGender = filterGender.value;
+
+        const filtered = customers.filter(c => {
+            const matchesSearch =
+                (c.full_name || "").toLowerCase().includes(query) ||
+                (c.cnic || "").includes(query) ||
+                (c.passport_number || "").toLowerCase().includes(query) ||
+                (c.phone || "").includes(query);
+
+            const matchesStatus = !selectedStatus || c.status === selectedStatus;
+            const matchesGender = !selectedGender || c.gender === selectedGender;
+
+            return matchesSearch && matchesStatus && matchesGender;
+        });
+
+        customerTableBody.innerHTML = "";
+
+        if (filtered.length === 0) {
+            customerTableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">
+                        No matching customer profiles found.
+                    </td>
+                </tr>`;
+            updatePaginationInfo(0, customers.length);
+            return;
+        }
+
+        filtered.forEach(c => {
+            const tr = document.createElement("tr");
+            const statusClass = getStatusBadgeClass(c.status);
+
+            tr.innerHTML = `
+                <td>
+                    <div class="customer-cell">
+                        <div class="customer-avatar">${getInitials(c.full_name)}</div>
+                        <div class="customer-name">
+                            <strong>${escapeHtml(c.full_name)}</strong>
+                            <small>${escapeHtml(c.gender || "N/A")}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>${escapeHtml(c.cnic || "N/A")}</td>
+                <td>${escapeHtml(c.passport_number || "N/A")}</td>
+                <td>
+                    <div class="contact-cell">
+                        <span>${escapeHtml(c.phone || "N/A")}</span>
+                        <small>${escapeHtml(c.email || "No Email")}</small>
+                    </div>
+                </td>
+                <td>${escapeHtml(c.city || "N/A")}</td>
+                <td>
+                    <span class="customer-status ${statusClass}">${escapeHtml(c.status || "Active")}</span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-button edit-btn" data-id="${c.id}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <button class="action-button delete-btn" data-id="${c.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </td>
+            `;
+            customerTableBody.appendChild(tr);
+        });
+
+        updatePaginationInfo(filtered.length, customers.length);
+    }
+
+    function updatePaginationInfo(showingCount, totalCount) {
+        const info = document.getElementById("paginationInfo");
+        if (info) {
+            info.innerText = `Showing 1 to ${showingCount} of ${totalCount} entries`;
+        }
+    }
+
+    function getInitials(name) {
+        if (!name) return "C";
+        const parts = name.trim().split(" ");
+        return parts.length >= 2
+            ? (parts[0][0] + parts[1][0]).toUpperCase()
+            : parts[0][0].toUpperCase();
+    }
+
+    function getStatusBadgeClass(status) {
+        switch ((status || "").toLowerCase()) {
+            case "active": return "status-active";
+            case "pending": return "status-pending";
+            case "completed": return "status-completed";
+            case "closed": return "status-closed";
+            default: return "status-active";
+        }
+    }
+
+    function escapeHtml(str) {
+        return String(str || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    // =========================================
+    // MODAL & FORM HANDLING
+    // =========================================
+    function openModal(isEdit = false) {
+        customerModal.classList.add("show");
+        if (!isEdit) {
+            editingCustomerId = null;
+            customerForm.reset();
+            document.getElementById("customerId").value = "";
+            modalTitle.innerText = "Add New Customer";
+        }
+    }
+
+    function closeModal() {
+        customerModal.classList.remove("show");
+        customerForm.reset();
+        editingCustomerId = null;
+    }
+
+    function populateEditForm(customer) {
+        editingCustomerId = customer.id;
+        modalTitle.innerText = "Edit Customer Profile";
+
+        document.getElementById("customerId").value = customer.id || "";
+        document.getElementById("fullName").value = customer.full_name || "";
+        document.getElementById("cnic").value = customer.cnic || "";
+        document.getElementById("passportNumber").value = customer.passport_number || "";
+        document.getElementById("dateOfBirth").value = customer.date_of_birth || "";
+        document.getElementById("gender").value = customer.gender || "Male";
+        document.getElementById("nationality").value = customer.nationality || "Pakistani";
+        document.getElementById("phone").value = customer.phone || "";
+        document.getElementById("whatsappNumber").value = customer.whatsapp_number || "";
+        document.getElementById("email").value = customer.email || "";
+        document.getElementById("city").value = customer.city || "";
+        document.getElementById("address").value = customer.address || "";
+
+        openModal(true);
+    }
+
+    // Handle Form Submit (Insert/Update)
+    customerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            full_name: document.getElementById("fullName").value.trim(),
+            cnic: document.getElementById("cnic").value.trim(),
+            passport_number: document.getElementById("passportNumber").value.trim(),
+            date_of_birth: document.getElementById("dateOfBirth").value || null,
+            gender: document.getElementById("gender").value,
+            nationality: document.getElementById("nationality").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            whatsapp_number: document.getElementById("whatsappNumber").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            city: document.getElementById("city").value.trim(),
+            address: document.getElementById("address").value.trim(),
+            status: "Active"
+        };
+
+        const saveButton = document.getElementById("saveCustomerButton");
+        const originalBtnText = saveButton.innerHTML;
+        saveButton.disabled = true;
+        saveButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+
+        try {
+            if (editingCustomerId) {
+                const { error } = await supabase
+                    .from("customers")
+                    .update(payload)
+                    .eq("id", editingCustomerId);
+
+                if (error) throw error;
+            } else {
+                const { error } = await supabase
+                    .from("customers")
+                    .insert([payload]);
+
+                if (error) throw error;
+            }
+
+            closeModal();
+            await loadCustomers();
+        } catch (error) {
+            console.error("Error saving customer:", error.message);
+            alert(`Failed to save customer record: ${error.message}`);
+        } finally {
+            saveButton.disabled = false;
+            saveButton.innerHTML = originalBtnText;
+        }
+    });
+
+    // Delete Customer Record
+    async function deleteCustomer(id) {
+        if (!confirm("Are you sure you want to delete this customer record?")) return;
+
+        try {
+            const { error } = await supabase
+                .from("customers")
+                .delete()
+                .eq("id", id);
+
+            if (error) throw error;
+
+            await loadCustomers();
+        } catch (error) {
+            console.error("Error deleting customer:", error.message);
+            alert(`Unable to delete record: ${error.message}`);
+        }
+    }
+
+    // =========================================
+    // EVENT LISTENERS
+    // =========================================
+    if (openAddModalBtn) openAddModalBtn.addEventListener("click", () => openModal(false));
+    if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+    if (cancelModalBtn) cancelModalBtn.addEventListener("click", closeModal);
+
+    // Dynamic Delegate for Edit / Delete Buttons
+    customerTableBody.addEventListener("click", (e) => {
+        const btn = e.target.closest(".action-button");
+        if (!btn) return;
+
+        const id = btn.getAttribute("data-id");
+        if (btn.classList.contains("edit-btn")) {
+            const customer = customers.find(c => String(c.id) === String(id));
+            if (customer) populateEditForm(customer);
+        } else if (btn.classList.contains("delete-btn")) {
+            deleteCustomer(id);
+        }
+    });
+
+    // Filter Controls
+    searchInput.addEventListener("input", renderTable);
+    filterStatus.addEventListener("change", renderTable);
+    filterGender.addEventListener("change", renderTable);
+
+    resetFiltersBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        filterStatus.value = "";
+        filterGender.value = "";
+        renderTable();
+    });
+
+    // Mobile Sidebar Toggle
+    if (menuToggleBtn && sidebar) {
+        menuToggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("mobile-open");
         });
     }
 
-    saveData();
-    closeCustomerModal();
-    renderCustomers();
-    updateStats();
+    // Initial Load
+    await loadCustomers();
 });
-
-/* =========================================
-   CUSTOMER ACTIONS (VIEW, EDIT, DELETE, WHATSAPP)
-========================================= */
-
-function viewCustomer(id) {
-    const customer = customers.find(item => item.id === id);
-    if (!customer) return;
-
-    const remaining = customer.totalFee - customer.paid;
-
-    alert(
-        "CUSTOMER PROFILE\n\n" +
-        "Customer ID: " + customer.id +
-        "\nName: " + customer.name +
-        "\nPhone: " + customer.phone +
-        "\nCountry: " + customer.country +
-        "\nVisa: " + customer.visa +
-        "\nAssigned: " + customer.assigned +
-        "\nStatus: " + customer.status +
-        "\n\nTotal Fee: " + formatMoney(customer.totalFee) +
-        "\nPaid: " + formatMoney(customer.paid) +
-        "\nRemaining: " + formatMoney(remaining)
-    );
-}
-
-function editCustomer(id) {
-    const customer = customers.find(item => item.id === id);
-    if (!customer) return;
-
-    editingCustomerId = id;
-    document.querySelector("#customerModal h2").textContent = "Edit Customer";
-
-    document.getElementById("customerName").value = customer.name || "";
-    document.getElementById("fatherName").value = customer.father || "";
-    document.getElementById("customerCnic").value = customer.cnic || "";
-    document.getElementById("customerPassport").value = customer.passport || "";
-    if (document.getElementById("dob")) document.getElementById("dob").value = customer.dob || "";
-    if (document.getElementById("gender")) document.getElementById("gender").value = customer.gender || "";
-    document.getElementById("customerPhone").value = customer.phone || "";
-    document.getElementById("customerWhatsapp").value = customer.whatsapp || "";
-    document.getElementById("customerEmail").value = customer.email || "";
-    if (document.getElementById("customerCity")) document.getElementById("customerCity").value = customer.city || "";
-    if (document.getElementById("customerAddress")) document.getElementById("customerAddress").value = customer.address || "";
-    document.getElementById("customerCountry").value = customer.country || "";
-    document.getElementById("customerVisa").value = customer.visa || "";
-    if (document.getElementById("education")) document.getElementById("education").value = customer.education || "";
-    if (document.getElementById("occupation")) document.getElementById("occupation").value = customer.occupation || "";
-    document.getElementById("assigned").value = customer.assigned || "Asad";
-    document.getElementById("customerStatus").value = customer.status || "Active";
-    document.getElementById("totalFee").value = customer.totalFee || 0;
-    document.getElementById("paidAmount").value = customer.paid || 0;
-    if (document.getElementById("customerNotes")) document.getElementById("customerNotes").value = customer.notes || "";
-
-    openCustomerModal(true);
-}
-
-function deleteCustomer(id) {
-    if (confirm(`Are you sure you want to delete customer ID: ${id}?`)) {
-        customers = customers.filter(c => c.id !== id);
-        saveData();
-        renderCustomers();
-        updateStats();
-    }
-}
-
-function openWhatsApp(phone) {
-    if (!phone) {
-        alert("WhatsApp number not available.");
-        return;
-    }
-    const cleanPhone = phone.replace(/[^0-9]/g, "");
-    window.open("https://wa.me/" + cleanPhone, "_blank");
-}
-
-/* =========================================
-   SELECT ALL & EXPORT CSV
-========================================= */
-
-document.getElementById("selectAll").addEventListener("change", function() {
-    document.querySelectorAll(".customer-checkbox").forEach(checkbox => {
-        checkbox.checked = this.checked;
-    });
-});
-
-document.getElementById("exportButton").addEventListener("click", function() {
-    if (!customers.length) {
-        alert("No customers to export!");
-        return;
-    }
-
-    let csv = "Customer ID,Name,Phone,Country,Visa,Assigned,Applications,Total Fee,Paid,Remaining,Status\n";
-
-    customers.forEach(function(customer) {
-        const remaining = customer.totalFee - customer.paid;
-        csv += `"${customer.id}","${customer.name}","${customer.phone}","${customer.country}","${customer.visa}","${customer.assigned}","${customer.applications || 1}","${customer.totalFee}","${customer.paid}","${remaining}","${customer.status}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "polaris-customers.csv";
-    link.click();
-    URL.revokeObjectURL(url);
-});
-
-/* =========================================
-   MOBILE SIDEBAR & NAVIGATION
-========================================= */
-
-if (menuButton) {
-    menuButton.addEventListener("click", function() {
-        sidebar.classList.toggle("mobile-open");
-    });
-}
-
-document.getElementById("logoutButton").addEventListener("click", function() {
-    alert("Secure logout will be connected with Authentication.");
-});
-
-/* =========================================
-   INITIAL LOAD
-========================================= */
-
-renderCustomers();
-updateStats();
-
-console.log("Polaris Consultants Customer Management loaded successfully.");
