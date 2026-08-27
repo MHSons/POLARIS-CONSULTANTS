@@ -1,237 +1,265 @@
 /* =========================================================
-   POLARIS CONSULTANTS - REAL SUPABASE AUTHENTICATION
+   POLARIS CONSULTANTS - AUTHENTICATION GUARD
 ========================================================= */
 
 /* =========================================================
-   INITIALIZE SUPABASE
+   PAGE CONFIGURATION
 ========================================================= */
-function getPolarisSupabase() {
-    if (typeof polarisSupabase !== "undefined" && polarisSupabase) {
-        return polarisSupabase;
-    }
-    if (typeof initializeSupabase === "function") {
-        initializeSupabase();
-    }
-    if (typeof polarisSupabase !== "undefined") {
-        return polarisSupabase;
+const POLARIS_PAGE_PERMISSIONS = {
+    "admin.html": null,
+    "leads.html": "leads",
+    "customers.html": "customers",
+    "applications.html": "applications",
+    "documents.html": "documents",
+    "finance.html": "finance",
+    "receipts.html": "receipts",
+    "reports.html": "reports",
+    "team.html": "team",
+    "settings.html": "settings"
+};
+
+/* =========================================================
+   ROLE PERMISSIONS
+========================================================= */
+const POLARIS_ROLE_PERMISSIONS = {
+    "SUPER ADMIN": [
+        "dashboard", "leads", "customers", "applications",
+        "documents", "finance", "receipts", "reports", "team", "settings"
+    ],
+    "MANAGER": [
+        "dashboard", "leads", "customers", "applications",
+        "documents", "finance", "receipts", "reports", "team"
+    ],
+    "COUNSELLOR": [
+        "dashboard", "leads", "customers", "applications", "documents"
+    ],
+    "PROCESSING OFFICER": [
+        "dashboard", "customers", "applications", "documents"
+    ],
+    "FINANCE": [
+        "dashboard", "customers", "finance", "receipts", "reports"
+    ],
+    "RECEPTION": [
+        "dashboard", "leads", "customers"
+    ]
+};
+
+/* =========================================================
+   GET CURRENT PAGE & PERMISSIONS
+========================================================= */
+function getCurrentPageName() {
+    let path = window.location.pathname;
+    let page = path.substring(path.lastIndexOf("/") + 1);
+    return page || "index.html";
+}
+
+function getRequiredPermission() {
+    const page = getCurrentPageName();
+    return POLARIS_PAGE_PERMISSIONS[page] || null;
+}
+
+function roleHasPermission(role, permission) {
+    if (!role || !permission) return false;
+    const permissions = POLARIS_ROLE_PERMISSIONS[role];
+    if (!permissions) return false;
+    return permissions.includes(permission);
+}
+
+/* =========================================================
+   SUPABASE AUTH HELPER FALLBACKS
+========================================================= */
+async function getAuthenticatedSession() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        const { data: { session } } = await polarisSupabase.auth.getSession();
+        return session;
     }
     return null;
 }
 
-/* =========================================================
-   LOGIN
-========================================================= */
-async function loginWithSupabase(email, password) {
-    const supabase = getPolarisSupabase();
-
-    if (!supabase) {
-        return { success: false, message: "Supabase is not configured." };
+async function getAuthenticatedUser() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        const { data: { user } } = await polarisSupabase.auth.getUser();
+        return user;
     }
-    if (!email || !password) {
-        return { success: false, message: "Email and password are required." };
-    }
+    return null;
+}
 
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email.trim(),
-            password: password
-        });
+async function getStaffProfile(userId) {
+    if (typeof polarisSupabase !== "undefined") {
+        const { data, error } = await polarisSupabase
+            .from("staff_profiles")
+            .select("*")
+            .eq("user_id", userId)
+            .single();
 
         if (error) {
-            console.error("Supabase login error:", error);
-            return { success: false, message: getAuthErrorMessage(error) };
+            console.error("Staff Profile Error:", error);
+            return null;
         }
-
-        if (!data.user) {
-            return { success: false, message: "Login failed." };
-        }
-
-        /* Get staff profile */
-        const profile = await getStaffProfile(data.user.id);
-
-        if (!profile) {
-            await supabase.auth.signOut();
-            return {
-                success: false,
-                message: "Your account exists, but no staff profile has been assigned. Please contact the administrator."
-            };
-        }
-
-        if (!profile.is_active) {
-            await supabase.auth.signOut();
-            return {
-                success: false,
-                message: "Your Polaris staff account is currently inactive."
-            };
-        }
-
-        /* Store session info */
-        savePolarisSession(data.user, profile);
-
-        return { success: true, user: data.user, profile: profile };
-
-    } catch (error) {
-        console.error("Unexpected login error:", error);
-        return { success: false, message: "An unexpected error occurred while logging in." };
+        return data;
     }
+    return null;
+}
+
+async function logoutFromSupabase() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        await polarisSupabase.auth.signOut();
+    }
+    localStorage.removeItem("polaris_user");
+    localStorage.removeItem("polaris_profile");
+    redirectToLogin();
+}
+
+function savePolarisSession(user, profile) {
+    localStorage.setItem("polaris_user", JSON.stringify(user));
+    localStorage.setItem("polaris_profile", JSON.stringify(profile));
 }
 
 /* =========================================================
-   LOGOUT
+   PROTECT PAGE
 ========================================================= */
-async function logoutFromSupabase() {
-    const supabase = getPolarisSupabase();
+async function protectPolarisPage(requiredPermission = null) {
+    if (typeof initializeSupabase === "function") {
+        initializeSupabase();
+    }
 
-    if (!supabase) {
-        sessionStorage.removeItem("polarisSession");
+    let attempts = 0;
+    while (typeof polarisSupabase === "undefined" || !polarisSupabase) {
+        if (attempts >= 30) {
+            showAccessError("Unable to initialize secure authentication.");
+            return false;
+        }
+        await sleep(100);
+        attempts++;
+    }
+
+    const session = await getAuthenticatedSession();
+    if (!session) {
+        redirectToLogin();
+        return false;
+    }
+
+    const user = await getAuthenticatedUser();
+    if (!user) {
+        redirectToLogin();
+        return false;
+    }
+
+    const profile = await getStaffProfile(user.id);
+    if (!profile) {
+        showAccessError("Your account does not have a Polaris staff profile.");
+        await logoutFromSupabase();
+        return false;
+    }
+
+    if (!profile.is_active) {
+        showAccessError("Your Polaris staff account is inactive.");
+        await logoutFromSupabase();
+        return false;
+    }
+
+    savePolarisSession(user, profile);
+
+    const permission = requiredPermission || getRequiredPermission();
+
+    if (permission && !roleHasPermission(profile.role, permission)) {
+        showAccessError("Access denied. Your role does not have permission to open this module.");
+        setTimeout(() => {
+            window.location.href = "admin.html";
+        }, 1500);
+        return false;
+    }
+
+    updateAuthenticatedUI(profile);
+    return true;
+}
+
+/* =========================================================
+   UPDATE UI
+========================================================= */
+function updateAuthenticatedUI(profile) {
+    document.querySelectorAll("[data-user-name]").forEach(el => {
+        el.textContent = profile.full_name;
+    });
+
+    document.querySelectorAll("[data-user-role]").forEach(el => {
+        el.textContent = profile.role;
+    });
+
+    document.querySelectorAll("[data-user-team]").forEach(el => {
+        el.textContent = profile.team_name || "No Team";
+    });
+
+    /* Hide unauthorized menu items */
+    document.querySelectorAll("[data-permission]").forEach(el => {
+        const permission = el.getAttribute("data-permission");
+        if (!roleHasPermission(profile.role, permission)) {
+            el.style.display = "none";
+        }
+    });
+}
+
+/* =========================================================
+   LOGOUT & REDIRECT HELPER FUNCTIONS
+========================================================= */
+function setupLogoutButtons() {
+    document.querySelectorAll("[data-logout]").forEach(button => {
+        button.addEventListener("click", async function (e) {
+            e.preventDefault();
+            await logoutFromSupabase();
+        });
+    });
+}
+
+function redirectToLogin() {
+    if (!window.location.pathname.endsWith("login.html")) {
         window.location.href = "login.html";
+    }
+}
+
+function showAccessError(message) {
+    let box = document.getElementById("authError");
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "authError";
+        box.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 99999;
+            max-width: 90%;
+            padding: 14px 18px;
+            border-radius: 8px;
+            background: #fff1ef;
+            color: #a93226;
+            border: 1px solid #f1c7c1;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        `;
+        document.body.appendChild(box);
+    }
+    box.textContent = message;
+}
+
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+/* =========================================================
+   AUTOMATIC PROTECTION
+========================================================= */
+document.addEventListener("DOMContentLoaded", async function () {
+    const page = getCurrentPageName();
+
+    if (page === "login.html" || page === "index.html" || page === "" || page === "apply.html") {
         return;
     }
 
-    try {
-        await supabase.auth.signOut();
-    } catch (error) {
-        console.error("Logout error:", error);
+    if (POLARIS_PAGE_PERMISSIONS[page] !== undefined) {
+        await protectPolarisPage();
     }
 
-    sessionStorage.removeItem("polarisSession");
-    window.location.href = "login.html";
-}
-
-/* =========================================================
-   GET AUTHENTICATED USER & SESSION
-========================================================= */
-async function getAuthenticatedUser() {
-    const supabase = getPolarisSupabase();
-    if (!supabase) return null;
-
-    const { data, error } = await supabase.auth.getUser();
-    if (error) return null;
-
-    return data.user;
-}
-
-async function getAuthenticatedSession() {
-    const supabase = getPolarisSupabase();
-    if (!supabase) return null;
-
-    const { data, error } = await supabase.auth.getSession();
-    if (error) {
-        console.error("Session error:", error);
-        return null;
-    }
-
-    return data.session;
-}
-
-async function getAuthenticatedProfile() {
-    const user = await getAuthenticatedUser();
-    if (!user) return null;
-
-    return await getStaffProfile(user.id);
-}
-
-/* =========================================================
-   PASSWORD RESET & CHANGE
-========================================================= */
-async function sendPasswordReset(email) {
-    const supabase = getPolarisSupabase();
-
-    if (!supabase) {
-        return { success: false, message: "Supabase is not configured." };
-    }
-    if (!email) {
-        return { success: false, message: "Please enter your email address." };
-    }
-
-    try {
-        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-            redirectTo: window.location.origin + "/reset-password.html"
-        });
-
-        if (error) {
-            return { success: false, message: getAuthErrorMessage(error) };
-        }
-
-        return {
-            success: true,
-            message: "Password reset instructions have been sent if the account exists."
-        };
-    } catch (error) {
-        return { success: false, message: "Unable to process password reset." };
-    }
-}
-
-async function changePassword(newPassword) {
-    const supabase = getPolarisSupabase();
-
-    if (!supabase) {
-        return { success: false, message: "Supabase is not configured." };
-    }
-    if (!newPassword || newPassword.length < 8) {
-        return { success: false, message: "Password must contain at least 8 characters." };
-    }
-
-    const { data, error } = await supabase.auth.updateUser({ password: newPassword });
-
-    if (error) {
-        return { success: false, message: getAuthErrorMessage(error) };
-    }
-
-    return { success: true, user: data.user };
-}
-
-/* =========================================================
-   AUTH ERROR TRANSLATION
-========================================================= */
-function getAuthErrorMessage(error) {
-    if (!error) return "Authentication failed.";
-
-    const message = String(error.message || "").toLowerCase();
-
-    if (message.includes("invalid login credentials")) {
-        return "Email or password is incorrect.";
-    }
-    if (message.includes("email not confirmed")) {
-        return "Please confirm your email address before signing in.";
-    }
-    if (message.includes("too many requests")) {
-        return "Too many login attempts. Please wait and try again.";
-    }
-    if (message.includes("user not found")) {
-        return "No account was found with this email.";
-    }
-
-    return error.message || "Unable to authenticate your account.";
-}
-
-/* =========================================================
-   SESSION MANAGEMENT
-========================================================= */
-function savePolarisSession(user, profile) {
-    if (!user || !profile) return;
-
-    const session = {
-        userId: user.id,
-        email: user.email,
-        name: profile.full_name,
-        role: profile.role,
-        team: profile.team_name,
-        isActive: profile.is_active,
-        authenticated: true
-    };
-
-    sessionStorage.setItem("polarisSession", JSON.stringify(session));
-}
-
-function getLocalPolarisSession() {
-    const value = sessionStorage.getItem("polarisSession");
-    if (!value) return null;
-
-    try {
-        return JSON.parse(value);
-    } catch (error) {
-        sessionStorage.removeItem("polarisSession");
-        return null;
-    }
-}
+    setupLogoutButtons();
+});
