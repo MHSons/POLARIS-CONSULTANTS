@@ -1,22 +1,18 @@
 /* =========================================================
-   POLARIS CONSULTANTS
-   REAL ADMIN DASHBOARD
-   SUPABASE /* =========================================================
-   POLARIS CONSULTANTS
-   REAL ADMIN DASHBOARD - SUPABASE INTEGRATION
+   POLARIS CONSULTANTS - ADMIN DASHBOARD LOGIC
+   Contact Support: 0301-8067880
+   Supabase Integration
 ========================================================= */
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
 document.addEventListener("DOMContentLoaded", async function () {
+    console.log("Initializing Polaris Dashboard... Contact support: 0301-8067880");
     await waitForSupabase();
     await loadDashboard();
     setupMobileMenu();
 });
 
 /* =========================================================
-   WAIT FOR SUPABASE CONNECTION
+   SUPABASE CONNECTION HANDLER
 ========================================================= */
 async function waitForSupabase() {
     let attempts = 0;
@@ -28,7 +24,7 @@ async function waitForSupabase() {
 }
 
 /* =========================================================
-   LOAD DASHBOARD DATA
+   MAIN DASHBOARD LOADER
 ========================================================= */
 async function loadDashboard() {
     const loading = document.getElementById("dashboardLoading");
@@ -41,7 +37,7 @@ async function loadDashboard() {
             throw new Error("Supabase connection could not be established.");
         }
 
-        // Parallel data fetching for optimal performance
+        // Parallel execution for fast UI rendering
         await Promise.all([
             loadCustomerCount(),
             loadLeadCount(),
@@ -60,58 +56,41 @@ async function loadDashboard() {
 
         if (loading) loading.classList.add("hidden");
         if (errorBox) {
-            errorBox.textContent = "Dashboard data could not be loaded. Please check your Supabase connection, tables, and RLS policies.";
+            errorBox.textContent = "Dashboard data load nahi ho saka. Supabase connection aur RLS policies check karein.";
             errorBox.classList.remove("hidden");
         }
     }
 }
 
 /* =========================================================
-   CUSTOMER COUNT
+   DATA FETCHING FUNCTIONS
 ========================================================= */
 async function loadCustomerCount() {
     const { count, error } = await polarisSupabase
         .from("customers")
         .select("*", { count: "exact", head: true });
 
-    if (error) {
-        console.error("Error fetching customer count:", error);
-        return;
-    }
-
+    if (error) return console.error("Error fetching customers:", error);
     const element = document.getElementById("totalCustomers");
     if (element) element.textContent = formatNumber(count || 0);
 }
 
-/* =========================================================
-   LEAD COUNT
-========================================================= */
 async function loadLeadCount() {
     const { count, error } = await polarisSupabase
         .from("leads")
         .select("*", { count: "exact", head: true });
 
-    if (error) {
-        console.error("Error fetching lead count:", error);
-        return;
-    }
-
+    if (error) return console.error("Error fetching leads:", error);
     const element = document.getElementById("totalLeads");
     if (element) element.textContent = formatNumber(count || 0);
 }
 
-/* =========================================================
-   APPLICATION STATS
-========================================================= */
 async function loadApplicationStats() {
     const { data, error } = await polarisSupabase
         .from("applications")
         .select("id, status");
 
-    if (error) {
-        console.error("Error fetching application stats:", error);
-        return;
-    }
+    if (error) return console.error("Error fetching application stats:", error);
 
     const applications = data || [];
     const pendingStatuses = ["pending", "in progress", "processing", "under review", "submitted"];
@@ -128,18 +107,12 @@ async function loadApplicationStats() {
     if (pendingElem) pendingElem.textContent = formatNumber(pending.length);
 }
 
-/* =========================================================
-   FINANCE STATS
-========================================================= */
 async function loadFinanceStats() {
     const { data, error } = await polarisSupabase
         .from("transactions")
         .select("amount, transaction_type");
 
-    if (error) {
-        console.error("Error fetching finance stats:", error);
-        return;
-    }
+    if (error) return console.error("Error fetching finance stats:", error);
 
     let received = 0;
     let expenses = 0;
@@ -166,27 +139,17 @@ async function loadFinanceStats() {
     if (balanceElem) balanceElem.textContent = formatCurrency(balance);
 }
 
-/* =========================================================
-   FOLLOW-UP COUNT
-========================================================= */
 async function loadFollowupCount() {
     const { count, error } = await polarisSupabase
         .from("followups")
         .select("*", { count: "exact", head: true })
         .eq("status", "pending");
 
-    if (error) {
-        console.error("Error fetching follow-up count:", error);
-        return;
-    }
-
+    if (error) return console.error("Error fetching follow-ups:", error);
     const element = document.getElementById("totalFollowups");
     if (element) element.textContent = formatNumber(count || 0);
 }
 
-/* =========================================================
-   RECENT APPLICATIONS
-========================================================= */
 async function loadRecentApplications() {
     const tbody = document.getElementById("recentApplications");
     if (!tbody) return;
@@ -205,13 +168,12 @@ async function loadRecentApplications() {
         .limit(5);
 
     if (error) {
-        console.error("Error loading recent applications:", error);
-        tbody.innerHTML = `<tr><td colspan="4" class="text-center">Unable to load applications.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center">Data load karne mein masla hua.</td></tr>`;
         return;
     }
 
     if (!data || data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="text-center">No recent applications found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center">Koi application nahi mili.</td></tr>`;
         return;
     }
 
@@ -232,9 +194,6 @@ async function loadRecentApplications() {
     }).join("");
 }
 
-/* =========================================================
-   RECENT TRANSACTIONS
-========================================================= */
 async function loadRecentTransactions() {
     const tbody = document.getElementById("recentTransactions");
     if (!tbody) return;
@@ -252,13 +211,12 @@ async function loadRecentTransactions() {
         .limit(5);
 
     if (error) {
-        console.error("Error loading recent transactions:", error);
-        tbody.innerHTML = `<tr><td colspan="3" class="text-center">Unable to load transactions.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center">Transactions load nahi huin.</td></tr>`;
         return;
     }
 
     if (!data || data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" class="text-center">No recent transactions found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center">Koi transaction record nahi hai.</td></tr>`;
         return;
     }
 
@@ -277,9 +235,6 @@ async function loadRecentTransactions() {
     }).join("");
 }
 
-/* =========================================================
-   UPCOMING FOLLOW-UPS
-========================================================= */
 async function loadUpcomingFollowups() {
     const container = document.getElementById("upcomingFollowups");
     if (!container) return;
@@ -297,13 +252,10 @@ async function loadUpcomingFollowups() {
         .order("followup_date", { ascending: true })
         .limit(5);
 
-    if (error) {
-        console.error("Error loading follow-ups:", error);
-        return;
-    }
+    if (error) return;
 
     if (!data || data.length === 0) {
-        container.innerHTML = `<div class="empty-state">No upcoming follow-ups.</div>`;
+        container.innerHTML = `<div class="empty-state">Koi pending follow-up nahi hai.</div>`;
         return;
     }
 
@@ -324,7 +276,7 @@ async function loadUpcomingFollowups() {
 }
 
 /* =========================================================
-   UTILITY & FORMATTING FUNCTIONS
+   UTILITY FUNCTIONS
 ========================================================= */
 function formatNumber(number) {
     return Number(number || 0).toLocaleString("en-PK");
@@ -358,9 +310,6 @@ function escapeHtml(value) {
         .replace(/'/g, "&#039;");
 }
 
-/* =========================================================
-   MOBILE MENU TOGGLE
-========================================================= */
 function setupMobileMenu() {
     const button = document.getElementById("mobileMenuButton");
     const sidebar = document.querySelector(".sidebar");
@@ -370,1056 +319,4 @@ function setupMobileMenu() {
     button.addEventListener("click", function () {
         sidebar.classList.toggle("open");
     });
-}
-========================================================= */
-
-
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
-
-        await waitForSupabase();
-
-        await loadDashboard();
-
-        setupMobileMenu();
-
-    }
-);
-
-
-/* =========================================================
-   WAIT FOR SUPABASE
-========================================================= */
-
-async function waitForSupabase() {
-
-    let attempts = 0;
-
-
-    while (
-        (
-            typeof polarisSupabase ===
-                "undefined" ||
-            !polarisSupabase
-        ) &&
-        attempts < 50
-    ) {
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    100
-                )
-        );
-
-
-        attempts++;
-
-    }
-
-
-    return (
-        typeof polarisSupabase !==
-            "undefined" &&
-        !!polarisSupabase
-    );
-
-}
-
-
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard() {
-
-    const loading =
-        document.getElementById(
-            "dashboardLoading"
-        );
-
-
-    const errorBox =
-        document.getElementById(
-            "dashboardError"
-        );
-
-
-    try {
-
-        const isReady =
-            await waitForSupabase();
-
-
-        if (!isReady) {
-
-            throw new Error(
-                "Supabase connection is not ready."
-            );
-
-        }
-
-
-        /*
-           Authentication is already checked
-           by auth-guard.js.
-        */
-
-
-        await Promise.all([
-
-            loadCustomerCount(),
-
-            loadLeadCount(),
-
-            loadApplicationStats(),
-
-            loadFinanceStats(),
-
-            loadFollowupCount(),
-
-            loadRecentApplications(),
-
-            loadRecentTransactions(),
-
-            loadUpcomingFollowups()
-
-        ]);
-
-
-        loading.classList.add(
-            "hidden"
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Dashboard error:",
-            error
-        );
-
-
-        loading.classList.add(
-            "hidden"
-        );
-
-
-        errorBox.textContent =
-            "Dashboard data could not be loaded. Please check your Supabase tables and RLS policies.";
-
-
-        errorBox.classList.remove(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CUSTOMER COUNT
-========================================================= */
-
-async function loadCustomerCount() {
-
-    const {
-        count,
-        error
-    } =
-        await polarisSupabase
-            .from("customers")
-            .select(
-                "*",
-                {
-                    count: "exact",
-                    head: true
-                }
-            );
-
-
-    if (error) {
-
-        console.error(
-            "Customer count:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "totalCustomers"
-    ).textContent =
-        formatNumber(
-            count || 0
-        );
-
-}
-
-
-/* =========================================================
-   LEAD COUNT
-========================================================= */
-
-async function loadLeadCount() {
-
-    const {
-        count,
-        error
-    } =
-        await polarisSupabase
-            .from("leads")
-            .select(
-                "*",
-                {
-                    count: "exact",
-                    head: true
-                }
-            );
-
-
-    if (error) {
-
-        console.error(
-            "Lead count:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "totalLeads"
-    ).textContent =
-        formatNumber(
-            count || 0
-        );
-
-}
-
-
-/* =========================================================
-   APPLICATION STATS
-========================================================= */
-
-async function loadApplicationStats() {
-
-    const {
-        data,
-        error
-    } =
-        await polarisSupabase
-            .from("applications")
-            .select(
-                "id,status"
-            );
-
-
-    if (error) {
-
-        console.error(
-            "Application stats:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    const applications =
-        data || [];
-
-
-    const pending =
-        applications.filter(
-            item => {
-
-                const status =
-                    String(
-                        item.status ||
-                        ""
-                    ).toLowerCase();
-
-
-                return [
-
-                    "pending",
-
-                    "in progress",
-
-                    "processing",
-
-                    "under review",
-
-                    "submitted"
-
-                ].includes(
-                    status
-                );
-
-            }
-        );
-
-
-    document.getElementById(
-        "totalApplications"
-    ).textContent =
-        formatNumber(
-            applications.length
-        );
-
-
-    document.getElementById(
-        "pendingApplications"
-    ).textContent =
-        formatNumber(
-            pending.length
-        );
-
-}
-
-
-/* =========================================================
-   FINANCE STATS
-========================================================= */
-
-async function loadFinanceStats() {
-
-    const {
-        data,
-        error
-    } =
-        await polarisSupabase
-            .from("transactions")
-            .select(
-                "amount,transaction_type"
-            );
-
-
-    if (error) {
-
-        console.error(
-            "Finance stats:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    let received = 0;
-
-    let expenses = 0;
-
-
-    (data || [])
-        .forEach(
-            transaction => {
-
-                const amount =
-                    Number(
-                        transaction.amount
-                    ) || 0;
-
-
-                const type =
-                    String(
-                        transaction.transaction_type ||
-                        ""
-                    ).toLowerCase();
-
-
-                if (
-
-                    type ===
-                        "received" ||
-
-                    type ===
-                        "income" ||
-
-                    type ===
-                        "payment_received"
-
-                ) {
-
-                    received +=
-                        amount;
-
-                }
-
-
-                if (
-
-                    type ===
-                        "expense" ||
-
-                    type ===
-                        "paid" ||
-
-                    type ===
-                        "payment"
-
-                ) {
-
-                    expenses +=
-                        amount;
-
-                }
-
-            }
-        );
-
-
-    const balance =
-        received -
-        expenses;
-
-
-    document.getElementById(
-        "totalReceived"
-    ).textContent =
-        formatCurrency(
-            received
-        );
-
-
-    document.getElementById(
-        "totalExpenses"
-    ).textContent =
-        formatCurrency(
-            expenses
-        );
-
-
-    document.getElementById(
-        "netBalance"
-    ).textContent =
-        formatCurrency(
-            balance
-        );
-
-}
-
-
-/* =========================================================
-   FOLLOW-UP COUNT
-========================================================= */
-
-async function loadFollowupCount() {
-
-    const {
-        count,
-        error
-    } =
-        await polarisSupabase
-            .from("followups")
-            .select(
-                "*",
-                {
-                    count: "exact",
-                    head: true
-                }
-            )
-            .eq(
-                "status",
-                "pending"
-            );
-
-
-    if (error) {
-
-        console.error(
-            "Follow-up count:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "totalFollowups"
-    ).textContent =
-        formatNumber(
-            count || 0
-        );
-
-}
-
-
-/* =========================================================
-   RECENT APPLICATIONS
-========================================================= */
-
-async function loadRecentApplications() {
-
-    const tbody =
-        document.getElementById(
-            "recentApplications"
-        );
-
-
-    const {
-        data,
-        error
-    } =
-        await polarisSupabase
-            .from("applications")
-            .select(
-                `
-                id,
-                visa_type,
-                status,
-                created_at,
-                customers (
-                    full_name
-                ),
-                countries (
-                    name
-                )
-                `
-            )
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            )
-            .limit(5);
-
-
-    if (error) {
-
-        console.error(
-            "Recent applications:",
-            error
-        );
-
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="4">
-                    Unable to load applications.
-                </td>
-            </tr>
-            `;
-
-        return;
-
-    }
-
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="4">
-                    No applications found.
-                </td>
-            </tr>
-            `;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        data
-            .map(
-                application => {
-
-                    const customer =
-                        application.customers
-                            ?.full_name ||
-                        "Unknown";
-
-
-                    const country =
-                        application.countries
-                            ?.name ||
-                        "Unknown";
-
-
-                    const visa =
-                        application.visa_type ||
-                        "-";
-
-
-                    const status =
-                        application.status ||
-                        "Pending";
-
-
-                    return `
-                    <tr>
-
-                        <td>
-                            ${escapeHtml(customer)}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(country)}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(visa)}
-                        </td>
-
-                        <td>
-
-                            <span class="status">
-
-                                ${escapeHtml(status)}
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =========================================================
-   RECENT TRANSACTIONS
-========================================================= */
-
-async function loadRecentTransactions() {
-
-    const tbody =
-        document.getElementById(
-            "recentTransactions"
-        );
-
-
-    const {
-        data,
-        error
-    } =
-        await polarisSupabase
-            .from("transactions")
-            .select(
-                `
-                id,
-                amount,
-                transaction_type,
-                created_at,
-                customers (
-                    full_name
-                )
-                `
-            )
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            )
-            .limit(5);
-
-
-    if (error) {
-
-        console.error(
-            "Recent transactions:",
-            error
-        );
-
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="3">
-                    Unable to load transactions.
-                </td>
-            </tr>
-            `;
-
-        return;
-
-    }
-
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td colspan="3">
-                    No transactions found.
-                </td>
-            </tr>
-            `;
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        data
-            .map(
-                transaction => {
-
-                    const customer =
-                        transaction.customers
-                            ?.full_name ||
-                        "General";
-
-
-                    const type =
-                        transaction.transaction_type ||
-                        "-";
-
-
-                    const amount =
-                        Number(
-                            transaction.amount
-                        ) || 0;
-
-
-                    return `
-                    <tr>
-
-                        <td>
-                            ${escapeHtml(customer)}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(type)}
-                        </td>
-
-                        <td>
-                            ${formatCurrency(amount)}
-                        </td>
-
-                    </tr>
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =========================================================
-   UPCOMING FOLLOW UPS
-========================================================= */
-
-async function loadUpcomingFollowups() {
-
-    const container =
-        document.getElementById(
-            "upcomingFollowups"
-        );
-
-
-    const {
-        data,
-        error
-    } =
-        await polarisSupabase
-            .from("followups")
-            .select(
-                `
-                id,
-                followup_date,
-                notes,
-                status,
-                customers (
-                    full_name
-                )
-                `
-            )
-            .eq(
-                "status",
-                "pending"
-            )
-            .order(
-                "followup_date",
-                {
-                    ascending: true
-                }
-            )
-            .limit(5);
-
-
-    if (error) {
-
-        console.error(
-            "Followups:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !data ||
-        data.length === 0
-    ) {
-
-        container.innerHTML =
-            `
-            <div class="empty-state">
-                No upcoming follow-ups.
-            </div>
-            `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        data
-            .map(
-                item => {
-
-                    const name =
-                        item.customers
-                            ?.full_name ||
-                        "Unknown Customer";
-
-
-                    const date =
-                        formatDate(
-                            item.followup_date
-                        );
-
-
-                    return `
-                    <div
-                        class="followup-item"
-                    >
-
-                        <div>
-
-                            <div class="followup-name">
-
-                                ${escapeHtml(name)}
-
-                            </div>
-
-                            <div class="followup-date">
-
-                                ${escapeHtml(
-                                    item.notes ||
-                                    "Follow-up required"
-                                )}
-
-                            </div>
-
-                        </div>
-
-
-                        <strong>
-
-                            ${date}
-
-                        </strong>
-
-                    </div>
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =========================================================
-   FORMAT NUMBER
-========================================================= */
-
-function formatNumber(
-    number
-) {
-
-    return Number(
-        number || 0
-    ).toLocaleString(
-        "en-PK"
-    );
-
-}
-
-
-/* =========================================================
-   FORMAT CURRENCY
-========================================================= */
-
-function formatCurrency(
-    amount
-) {
-
-    return (
-        "₨ " +
-        Number(
-            amount || 0
-        ).toLocaleString(
-            "en-PK",
-            {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }
-        )
-    );
-
-}
-
-
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
-function formatDate(
-    date
-) {
-
-    if (!date) {
-
-        return "-";
-
-    }
-
-
-    const parsed =
-        new Date(date);
-
-
-    if (
-        Number.isNaN(
-            parsed.getTime()
-        )
-    ) {
-
-        return "-";
-
-    }
-
-
-    return parsed.toLocaleDateString(
-        "en-PK",
-        {
-
-            day: "2-digit",
-
-            month: "short",
-
-            year: "numeric"
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-function setupMobileMenu() {
-
-    const button =
-        document.getElementById(
-            "mobileMenuButton"
-        );
-
-
-    const sidebar =
-        document.querySelector(
-            ".sidebar"
-        );
-
-
-    if (
-        !button ||
-        !sidebar
-    ) {
-
-        return;
-
-    }
-
-
-    button.addEventListener(
-        "click",
-        function () {
-
-            sidebar.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
 }
