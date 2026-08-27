@@ -66,6 +66,56 @@ function roleHasPermission(role, permission) {
 }
 
 /* =========================================================
+   SUPABASE AUTH HELPER FALLBACKS
+========================================================= */
+async function getAuthenticatedSession() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        const { data: { session } } = await polarisSupabase.auth.getSession();
+        return session;
+    }
+    return null;
+}
+
+async function getAuthenticatedUser() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        const { data: { user } } = await polarisSupabase.auth.getUser();
+        return user;
+    }
+    return null;
+}
+
+async function getStaffProfile(userId) {
+    if (typeof polarisSupabase !== "undefined") {
+        const { data, error } = await polarisSupabase
+            .from("staff_profiles")
+            .select("*")
+            .eq("user_id", userId)
+            .single();
+
+        if (error) {
+            console.error("Staff Profile Error:", error);
+            return null;
+        }
+        return data;
+    }
+    return null;
+}
+
+async function logoutFromSupabase() {
+    if (typeof polarisSupabase !== "undefined" && polarisSupabase.auth) {
+        await polarisSupabase.auth.signOut();
+    }
+    localStorage.removeItem("polaris_user");
+    localStorage.removeItem("polaris_profile");
+    redirectToLogin();
+}
+
+function savePolarisSession(user, profile) {
+    localStorage.setItem("polaris_user", JSON.stringify(user));
+    localStorage.setItem("polaris_profile", JSON.stringify(profile));
+}
+
+/* =========================================================
    PROTECT PAGE
 ========================================================= */
 async function protectPolarisPage(requiredPermission = null) {
@@ -108,9 +158,7 @@ async function protectPolarisPage(requiredPermission = null) {
         return false;
     }
 
-    if (typeof savePolarisSession === "function") {
-        savePolarisSession(user, profile);
-    }
+    savePolarisSession(user, profile);
 
     const permission = requiredPermission || getRequiredPermission();
 
@@ -156,7 +204,8 @@ function updateAuthenticatedUI(profile) {
 ========================================================= */
 function setupLogoutButtons() {
     document.querySelectorAll("[data-logout]").forEach(button => {
-        button.addEventListener("click", async function () {
+        button.addEventListener("click", async function (e) {
+            e.preventDefault();
             await logoutFromSupabase();
         });
     });
@@ -204,7 +253,7 @@ function sleep(milliseconds) {
 document.addEventListener("DOMContentLoaded", async function () {
     const page = getCurrentPageName();
 
-    if (page === "login.html" || page === "index.html" || page === "") {
+    if (page === "login.html" || page === "index.html" || page === "" || page === "apply.html") {
         return;
     }
 
