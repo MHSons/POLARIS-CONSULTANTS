@@ -6,7 +6,7 @@
 const WHATSAPP_CONFIG = {
     enabled: true,
     backendEndpoint: "/api/send-whatsapp", // Set to your backend API route when active
-    defaultRecipient: "923001111111"       // Office default notification number
+    defaultRecipient: "923018067880"       // Office default notification number
 };
 
 /**
