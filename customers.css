@@ -1,781 +1,331 @@
-/* =========================================
-   POLARIS CONSULTANTS - CUSTOMER MANAGEMENT
-========================================= */
-
-:root {
-    --navy: #071a35;
-    --blue: #0b63ce;
-    --blue-light: #edf5ff;
-    --gold: #d7a936;
-    --green: #159447;
-    --green-light: #eaf8ef;
-    --red: #d64545;
-    --red-light: #fff0f0;
-    --yellow: #c28b16;
-    --yellow-light: #fff7df;
-    --purple: #7657d9;
-    --purple-light: #f1edff;
-    --white: #ffffff;
-    --background: #f5f7fb;
-    --text: #172235;
-    --muted: #718096;
-    --border: #e1e7ef;
-    --shadow: 0 8px 30px rgba(7, 26, 53, .07);
-}
-
-/* =========================================
-   RESET & BASE STYLES
-========================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
-    color: var(--text);
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button, input, select, textarea {
-    font-family: inherit;
-}
-
-/* =========================================
-   SIDEBAR
-========================================= */
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 260px;
-    background: linear-gradient(180deg, #071a35, #06162c);
-    color: white;
-    z-index: 1000;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-logo {
-    height: 82px;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-
-.logo-mark {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0b63ce, #073c80);
-    color: #f3d477;
-    font-size: 24px;
-}
-
-.sidebar-logo strong {
-    display: block;
-    font-size: 17px;
-    letter-spacing: 2px;
-}
-
-.sidebar-logo span {
-    display: block;
-    margin-top: 4px;
-    color: #d7a936;
-    font-size: 8px;
-    letter-spacing: 3px;
-}
-
-.sidebar-section {
-    padding: 22px 14px 0;
-}
-
-.sidebar-title {
-    display: block;
-    padding: 0 12px;
-    margin-bottom: 8px;
-    color: rgba(255, 255, 255, .35);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.8px;
-}
-
-.sidebar-link {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 11px 12px;
-    margin-bottom: 3px;
-    border-radius: 8px;
-    color: rgba(255, 255, 255, .65);
-    font-size: 13px;
-    transition: .2s;
-}
-
-.sidebar-link span {
-    width: 22px;
-    text-align: center;
-}
-
-.sidebar-link:hover {
-    color: white;
-    background: rgba(255, 255, 255, .07);
-}
-
-.sidebar-link.active {
-    color: white;
-    background: linear-gradient(90deg, rgba(11, 99, 206, .9), rgba(11, 99, 206, .45));
-    box-shadow: inset 3px 0 #d7a936;
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-    padding: 18px 14px;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.logout-button {
-    width: 100%;
-    padding: 11px;
-    border: 0;
-    border-radius: 8px;
-    text-align: left;
-    color: rgba(255, 255, 255, .65);
-    background: rgba(255, 255, 255, .06);
-    cursor: pointer;
-}
-
-/* =========================================
-   MAIN LAYOUT & HEADER
-========================================= */
-.main-content {
-    min-height: 100vh;
-    margin-left: 260px;
-}
-
-.top-header {
-    height: 82px;
-    padding: 0 30px;
-    background: white;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 900;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.header-left h1 {
-    color: var(--navy);
-    font-size: 22px;
-}
-
-.header-left p {
-    color: var(--muted);
-    font-size: 11px;
-}
-
-.menu-button {
-    display: none;
-    width: 38px;
-    height: 38px;
-    border: 0;
-    border-radius: 8px;
-    color: var(--blue);
-    background: var(--blue-light);
-    font-size: 19px;
-    cursor: pointer;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.notification-button {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--border);
-    background: white;
-    border-radius: 9px;
-    position: relative;
-    cursor: pointer;
-}
-
-.notification-button span {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    top: 8px;
-    right: 8px;
-    background: var(--red);
-    border-radius: 50%;
-}
-
-.admin-profile {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-.profile-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background: linear-gradient(135deg, var(--blue), var(--navy));
-    font-weight: 800;
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-info strong {
-    color: var(--navy);
-    font-size: 12px;
-}
-
-.profile-info small {
-    color: var(--muted);
-    font-size: 9px;
-}
-
-/* =========================================
-   CONTENT & PAGE HEADING
-========================================= */
-.content {
-    padding: 30px;
-}
-
-.page-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-}
-
-.page-heading h2 {
-    color: var(--navy);
-    font-size: 20px;
-}
-
-.page-heading p {
-    margin-top: 3px;
-    color: var(--muted);
-    font-size: 11px;
-}
-
-/* =========================================
-   BUTTONS
-========================================= */
-.primary-button {
-    border: 0;
-    border-radius: 8px;
-    padding: 11px 17px;
-    color: white;
-    background: var(--blue);
-    font-size: 11px;
-    font-weight: 700;
-    transition: .2s;
-    cursor: pointer;
-}
-
-.primary-button:hover {
-    background: #084eaa;
-    transform: translateY(-1px);
-}
-
-.secondary-button {
-    padding: 9px 13px;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    color: var(--navy);
-    background: white;
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.secondary-button:hover {
-    color: var(--blue);
-    border-color: var(--blue);
-}
-
-/* =========================================
-   STATISTICS CARDS
-========================================= */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.stat-card {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 18px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
-
-.stat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.stat-icon.blue { color: var(--blue); background: var(--blue-light); }
-.stat-icon.green { color: var(--green); background: var(--green-light); }
-.stat-icon.gold { color: var(--gold); background: #fff8e6; }
-.stat-icon.purple { color: var(--purple); background: var(--purple-light); }
-
-.stat-card > div:last-child {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-card span {
-    color: var(--muted);
-    font-size: 10px;
-}
-
-.stat-card strong {
-    margin: 2px 0;
-    color: var(--navy);
-    font-size: 21px;
-}
-
-.stat-card small {
-    color: var(--muted);
-    font-size: 8px;
-}
-
-/* =========================================
-   FILTERS & SEARCH
-========================================= */
-.filter-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px;
-    margin-bottom: 18px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    box-shadow: var(--shadow);
-}
-
-.search-box {
-    flex: 1;
-    min-width: 240px;
-    height: 38px;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-}
-
-.search-box span { color: var(--muted); }
-
-.search-box input {
-    width: 100%;
-    border: 0;
-    outline: 0;
-    color: var(--text);
-    font-size: 10px;
-}
-
-.filter-card select {
-    height: 38px;
-    padding: 0 10px;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    background: white;
-    color: var(--text);
-    font-size: 10px;
-    outline: none;
-}
-
-.reset-button {
-    height: 38px;
-    padding: 0 13px;
-    border: 0;
-    border-radius: 7px;
-    color: var(--blue);
-    background: var(--blue-light);
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* =========================================
-   DATA TABLE
-========================================= */
-.table-card {
-    overflow: hidden;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
-
-.table-header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-}
-
-.table-header h3 {
-    color: var(--navy);
-    font-size: 14px;
-}
-
-.table-header p {
-    margin-top: 3px;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    min-width: 1150px;
-    border-collapse: collapse;
-}
-
-th {
-    padding: 11px 12px;
-    background: #fafbfd;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    text-align: left;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: .4px;
-}
-
-td {
-    padding: 13px 12px;
-    border-bottom: 1px solid #edf0f5;
-    color: var(--text);
-    font-size: 10px;
-    vertical-align: middle;
-}
-
-tbody tr:hover {
-    background: #fafcff;
-}
-
-/* TABLE CELLS & BADGES */
-.customer-cell {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.customer-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--blue);
-    background: var(--blue-light);
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.customer-name {
-    display: flex;
-    flex-direction: column;
-}
-
-.customer-name strong { color: var(--navy); font-size: 10px; }
-.customer-name small { color: var(--muted); font-size: 8px; }
-
-.contact-cell, .finance-cell {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-cell span { font-size: 9px; }
-.contact-cell small { color: var(--muted); font-size: 8px; }
-
-.finance-cell strong { color: var(--green); font-size: 9px; }
-.finance-cell small { color: var(--red); font-size: 8px; }
-
-.customer-status {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 8px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.status-active { color: var(--green); background: var(--green-light); }
-.status-pending { color: var(--yellow); background: var(--yellow-light); }
-.status-completed { color: var(--blue); background: var(--blue-light); }
-.status-closed { color: var(--red); background: var(--red-light); }
-
-.action-buttons {
-    display: flex;
-    gap: 5px;
-}
-
-.action-button {
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: white;
-    color: var(--muted);
-    font-size: 11px;
-    cursor: pointer;
-}
-
-.action-button:hover {
-    color: var(--blue);
-    border-color: var(--blue);
-}
-
-/* =========================================
-   PAGINATION
-========================================= */
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    color: var(--muted);
-    font-size: 9px;
-}
-
-.pagination > div {
-    display: flex;
-    gap: 4px;
-}
-
-.page-button {
-    width: 29px;
-    height: 29px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: white;
-    color: var(--muted);
-    font-size: 9px;
-    cursor: pointer;
-}
-
-.page-button.active {
-    color: white;
-    background: var(--blue);
-    border-color: var(--blue);
-}
-
-/* =========================================
-   MODAL & FORM
-========================================= */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(3, 13, 28, .65);
-}
-
-.modal-overlay.show { display: flex; }
-
-.modal {
-    width: min(900px, 100%);
-    max-height: 92vh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 14px;
-    box-shadow: 0 25px 80px rgba(0, 0, 0, .25);
-}
-
-.modal-header {
-    padding: 22px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-}
-
-.modal-header h2 { color: var(--navy); font-size: 17px; }
-.modal-header p { margin-top: 3px; color: var(--muted); font-size: 10px; }
-
-.close-modal {
-    width: 32px;
-    height: 32px;
-    border: 0;
-    border-radius: 7px;
-    color: var(--muted);
-    background: #f5f7fb;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-#customerForm { padding: 22px; }
-
-.form-section-title {
-    margin: 5px 0 15px;
-    padding-bottom: 8px;
-    color: var(--navy);
-    border-bottom: 1px solid var(--border);
-    font-size: 11px;
-    font-weight: 800;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 22px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.form-group.full-width { grid-column: 1 / -1; }
-
-.form-group label {
-    color: var(--navy);
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    outline: none;
-    color: var(--text);
-    background: white;
-    font-size: 10px;
-}
-
-.form-group textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(11, 99, 206, .08);
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 9px;
-    padding-top: 8px;
-}
-
-.cancel-button {
-    padding: 11px 17px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--muted);
-    background: white;
-    font-size: 11px;
-    cursor: pointer;
-}
-
-/* =========================================
-   MEDIA QUERIES
-========================================= */
-@media(max-width: 1200px) {
-    .sidebar { width: 230px; }
-    .main-content { margin-left: 230px; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .filter-card { flex-wrap: wrap; }
-    .search-box { flex-basis: 100%; }
-}
-
-@media(max-width: 900px) {
-    .sidebar {
-        transform: translateX(-100%);
-        transition: .25s;
-    }
-    .sidebar.mobile-open { transform: translateX(0); }
-    .main-content { margin-left: 0; }
-    .menu-button { display: block; }
-    .page-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-    }
-}
-
-@media(max-width: 650px) {
-    .content { padding: 18px; }
-    .top-header { padding: 0 15px; }
-    .profile-info { display: none; }
-    .stats-grid { grid-template-columns: 1fr; }
-    .filter-card select { width: 100%; }
-    .form-grid { grid-template-columns: 1fr; }
-    .form-group.full-width { grid-column: auto; }
-    .modal-overlay { padding: 8px; }
-    .modal { max-height: 96vh; }
-    .pagination {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management - Polaris Consultants</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="customers.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-mark">
+                <i class="fa-solid => compass"></i>
+            </div>
+            <div>
+                <strong>POLARIS</strong>
+                <span>CONSULTANTS</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-section">
+            <span class="sidebar-title">NAVIGATION</span>
+            <a href="admin.html" class="sidebar-link" data-permission="dashboard">
+                <span><i class="fa-solid fa-chart-line"></i></span> Dashboard
+            </a>
+            <a href="leads.html" class="sidebar-link" data-permission="leads">
+                <span><i class="fa-solid fa-filter"></i></span> Leads
+            </a>
+            <a href="customers.html" class="sidebar-link active" data-permission="customers">
+                <span><i class="fa-solid fa-users"></i></span> Customers
+            </a>
+            <a href="applications.html" class="sidebar-link" data-permission="applications">
+                <span><i class="fa-solid fa-file-signature"></i></span> Applications
+            </a>
+            <a href="documents.html" class="sidebar-link" data-permission="documents">
+                <span><i class="fa-solid fa-folder-open"></i></span> Documents
+            </a>
+            <a href="finance.html" class="sidebar-link" data-permission="finance">
+                <span><i class="fa-solid fa-wallet"></i></span> Finance
+            </a>
+            <a href="receipts.html" class="sidebar-link" data-permission="receipts">
+                <span><i class="fa-solid fa-receipt"></i></span> Receipts
+            </a>
+            <a href="reports.html" class="sidebar-link" data-permission="reports">
+                <span><i class="fa-solid fa-chart-pie"></i></span> Reports
+            </a>
+            <a href="team.html" class="sidebar-link" data-permission="team">
+                <span><i class="fa-solid fa-user-shield"></i></span> Team
+            </a>
+            <a href="settings.html" class="sidebar-link" data-permission="settings">
+                <span><i class="fa-solid fa-gear"></i></span> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="logout-button" data-logout>
+                <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+            </button>
+        </div>
+    </aside>
+
+    <!-- =========================================
+         MAIN CONTENT AREA
+    ========================================= -->
+    <main class="main-content">
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-button" id="menuToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h1>Customer Directory</h1>
+                    <p>Manage customer profiles, contact info, and status updates.</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button class="notification-button">
+                    <i class="fa-regular fa-bell"></i>
+                    <span></span>
+                </button>
+
+                <div class="admin-profile">
+                    <div class="profile-avatar" id="userAvatar">PC</div>
+                    <div class="profile-info">
+                        <strong data-user-name>Polaris Staff</strong>
+                        <small data-user-role>Administrator</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <section class="content">
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
+                <div>
+                    <h2>Overview & Analytics</h2>
+                    <p>Track active customers, pending verification, and completed visas.</p>
+                </div>
+                <button class="primary-button" id="openAddCustomerModal">
+                    <i class="fa-solid fa-user-plus"></i> Add New Customer
+                </button>
+            </div>
+
+            <!-- STATS GRID -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <span>Total Customers</span>
+                        <strong id="statTotalCustomers">0</strong>
+                        <small>All registered profiles</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div>
+                        <span>Active Clients</span>
+                        <strong id="statActiveCustomers">0</strong>
+                        <small>In-progress visas</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon gold">
+                        <i class="fa-solid fa-user-clock"></i>
+                    </div>
+                    <div>
+                        <span>Pending Review</span>
+                        <strong id="statPendingCustomers">0</strong>
+                        <small>Requires action</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <span>Completed Cases</span>
+                        <strong id="statCompletedCustomers">0</strong>
+                        <small>Visas issued</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTERS & SEARCH BAR -->
+            <div class="filter-card">
+                <div class="search-box">
+                    <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" id="searchInput" placeholder="Search by name, CNIC, passport, or phone...">
+                </div>
+
+                <select id="filterStatus">
+                    <option value="">All Statuses</option>
+                    <option value="Active">Active</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Closed">Closed</option>
+                </select>
+
+                <select id="filterGender">
+                    <option value="">All Genders</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <button class="reset-button" id="resetFilters">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+            </div>
+
+            <!-- DATA TABLE CARD -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div>
+                        <h3>Customer Master Records</h3>
+                        <p>Real-time customer entries synchronized with Supabase.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>CNIC / ID</th>
+                                <th>Passport Number</th>
+                                <th>Contact Information</th>
+                                <th>City / Address</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px; color: var(--muted);">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="pagination">
+                    <span id="paginationInfo">Showing 0 to 0 of 0 entries</span>
+                    <div id="paginationButtons">
+                        <button class="page-button" disabled>&laquo;</button>
+                        <button class="page-button active">1</button>
+                        <button class="page-button" disabled>&raquo;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================
+         CUSTOMER MODAL (ADD / EDIT)
+    ========================================= -->
+    <div class="modal-overlay" id="customerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Add New Customer</h2>
+                    <p>Enter client credentials and personal information.</p>
+                </div>
+                <button class="close-modal" id="closeModalButton">&times;</button>
+            </div>
+
+            <form id="customerForm">
+                <input type="hidden" id="customerId">
+
+                <div class="form-section-title">PERSONAL INFORMATION</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required placeholder="e.g. Muhammad Ali">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cnic">CNIC Number *</label>
+                        <input type="text" id="cnic" required placeholder="12345-1234567-1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passportNumber">Passport Number *</label>
+                        <input type="text" id="passportNumber" required placeholder="e.g. AB1234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="date" id="dateOfBirth">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" id="nationality" value="Pakistani">
+                    </div>
+                </div>
+
+                <div class="form-section-title">CONTACT INFORMATION</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="text" id="phone" required placeholder="e.g. +92 300 1234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whatsappNumber">WhatsApp Number</label>
+                        <input type="text" id="whatsappNumber" placeholder="e.g. +92 300 1234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="client@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" placeholder="e.g. Lahore">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Complete Address *</label>
+                        <textarea id="address" required placeholder="Enter street, area, and residential address..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="cancel-button" id="cancelModalButton">Cancel</button>
+                    <button type="submit" class="primary-button" id="saveCustomerButton">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================
+         SUPABASE & JS SCRIPTS
+    ========================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="auth-guard.js"></script>
+    <script src="customers.js"></script>
+</body>
+</html>
