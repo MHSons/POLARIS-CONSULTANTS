@@ -1,378 +1,337 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polaris Consultants | Applications</title>
-    <link rel="stylesheet" href="applications.css">
-</head>
-<body>
+/* =========================================
+   POLARIS CONSULTANTS
+   APPLICATIONS MANAGEMENT JAVASCRIPT
+========================================= */
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo">
-            <div class="logo-mark">✦</div>
-            <div>
-                <strong>POLARIS</strong>
-                <span>CONSULTANTS</span>
-            </div>
-        </div>
+document.addEventListener("DOMContentLoaded", function () {
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">MAIN</span>
-            <a href="admin.html" class="sidebar-link">
-                <span>▦</span> Dashboard
-            </a>
-            <a href="leads.html" class="sidebar-link">
-                <span>◉</span> Leads
-            </a>
-            <a href="customers.html" class="sidebar-link">
-                <span>♙</span> Customers
-            </a>
-            <a href="applications.html" class="sidebar-link active">
-                <span>▤</span> Applications
-            </a>
-        </div>
+    // --- MOCK INITIAL DATA ---
+    let applicationsData = [
+        {
+            id: "APP-00101",
+            customerName: "Mohammad Ali",
+            customerId: "CUS-000012",
+            passport: "PK892301",
+            phone: "+92 300 1234567",
+            country: "United Kingdom",
+            visa: "Study",
+            officer: "Asad",
+            submissionDate: "2026-08-10",
+            appointmentDate: "2026-08-20",
+            decisionDate: "2026-09-15",
+            documentsStatus: "Complete",
+            status: "Submitted",
+            priority: "High",
+            fee: 150000,
+            paid: 100000,
+            notes: "CAS letter submitted."
+        },
+        {
+            id: "APP-00102",
+            customerName: "Sara Khan",
+            customerId: "CUS-000045",
+            passport: "PK110293",
+            phone: "+92 321 9876543",
+            country: "Canada",
+            visa: "Work",
+            officer: "Bilal",
+            submissionDate: "2026-07-22",
+            appointmentDate: "2026-08-01",
+            decisionDate: "2026-08-25",
+            documentsStatus: "Complete",
+            status: "Approved",
+            priority: "Normal",
+            fee: 200000,
+            paid: 200000,
+            notes: "Biometrics done."
+        },
+        {
+            id: "APP-00103",
+            customerName: "Usman Tariq",
+            customerId: "CUS-000089",
+            passport: "PK774012",
+            phone: "+92 333 4567890",
+            country: "Australia",
+            visa: "Visit",
+            officer: "Salman",
+            submissionDate: "2026-08-18",
+            appointmentDate: "",
+            decisionDate: "",
+            documentsStatus: "Partial",
+            status: "Documents Pending",
+            priority: "Urgent",
+            fee: 100000,
+            paid: 50000,
+            notes: "Awaiting bank statement."
+        }
+    ];
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">BUSINESS</span>
-            <a href="#" class="sidebar-link"><span>🌍</span> Countries</a>
-            <a href="#" class="sidebar-link"><span>🎓</span> Visa Services</a>
-            <a href="#" class="sidebar-link"><span>📁</span> Documents</a>
-            <a href="#" class="sidebar-link"><span>⏰</span> Follow-ups</a>
-        </div>
+    // --- DOM ELEMENTS ---
+    const addApplicationBtn = document.getElementById("addApplicationButton");
+    const applicationModal = document.getElementById("applicationModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const cancelModalBtn = document.getElementById("cancelModal");
+    const applicationForm = document.getElementById("applicationForm");
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">FINANCE</span>
-            <a href="#" class="sidebar-link"><span>💰</span> Finance</a>
-            <a href="#" class="sidebar-link"><span>🧾</span> Receipts</a>
-            <a href="#" class="sidebar-link"><span>📊</span> Reports</a>
-        </div>
+    const searchInput = document.getElementById("searchInput");
+    const countryFilter = document.getElementById("countryFilter");
+    const visaFilter = document.getElementById("visaFilter");
+    const officerFilter = document.getElementById("officerFilter");
+    const resetFiltersBtn = document.getElementById("resetFilters");
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">MANAGEMENT</span>
-            <a href="#" class="sidebar-link"><span>👥</span> Team</a>
-            <a href="#" class="sidebar-link"><span>⚙</span> Settings</a>
-        </div>
+    const pipelineItems = document.querySelectorAll(".pipeline-item");
+    const tableBody = document.getElementById("applicationTableBody");
+    const selectAllCheckbox = document.getElementById("selectAll");
+    const exportBtn = document.getElementById("exportButton");
 
-        <div class="sidebar-bottom">
-            <button class="logout-button" id="logoutButton">
-                ⇥ &nbsp; Logout
-            </button>
-        </div>
-    </aside>
+    const resultText = document.getElementById("resultText");
+    const paginationText = document.getElementById("paginationText");
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-        <header class="top-header">
-            <div class="header-left">
-                <button class="menu-button" id="menuButton">☰</button>
-                <div>
-                    <h1>Applications</h1>
-                    <p>Track and manage visa applications.</p>
-                </div>
-            </div>
+    // State Filter variables
+    let currentPipelineStatus = "";
 
-            <div class="header-right">
-                <button class="notification-button">
-                    🔔 <span></span>
-                </button>
-                <div class="admin-profile">
-                    <div class="profile-avatar">A</div>
-                    <div class="profile-info">
-                        <strong>Admin User</strong>
-                        <small>Super Admin</small>
-                    </div>
-                </div>
-            </div>
-        </header>
+    /* =========================================
+       1. MODAL MANAGEMENT
+    ========================================= */
+    function openModal() {
+        if (applicationModal) applicationModal.classList.add("active");
+    }
 
-        <section class="content">
-            <!-- PAGE HEADING -->
-            <div class="page-heading">
-                <div>
-                    <h2>Application Management</h2>
-                    <p>Monitor every visa case from preparation to final decision.</p>
-                </div>
-                <button class="primary-button" id="addApplicationButton">+ New Application</button>
-            </div>
+    function closeModal() {
+        if (applicationModal) {
+            applicationModal.classList.remove("active");
+            applicationForm.reset();
+        }
+    }
 
-            <!-- STATISTICS -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon blue">📄</div>
-                    <div>
-                        <span>Total Applications</span>
-                        <strong id="totalApplications">0</strong>
-                        <small>All visa cases</small>
-                    </div>
-                </div>
+    if (addApplicationBtn) addApplicationBtn.addEventListener("click", openModal);
+    if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+    if (cancelModalBtn) cancelModalBtn.addEventListener("click", closeModal);
 
-                <div class="stat-card">
-                    <div class="stat-icon orange">⏳</div>
-                    <div>
-                        <span>Processing</span>
-                        <strong id="processingApplications">0</strong>
-                        <small>Active applications</small>
-                    </div>
-                </div>
+    // Close modal when clicking outside form box
+    window.addEventListener("click", function (e) {
+        if (e.target === applicationModal) closeModal();
+    });
 
-                <div class="stat-card">
-                    <div class="stat-icon green">✓</div>
-                    <div>
-                        <span>Approved</span>
-                        <strong id="approvedApplications">0</strong>
-                        <small>Successful cases</small>
-                    </div>
-                </div>
+    /* =========================================
+       2. FORM SUBMISSION (NEW APPLICATION)
+    ========================================= */
+    if (applicationForm) {
+        applicationForm.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-                <div class="stat-card">
-                    <div class="stat-icon red">!</div>
-                    <div>
-                        <span>Rejected</span>
-                        <strong id="rejectedApplications">0</strong>
-                        <small>Decision received</small>
-                    </div>
-                </div>
-            </div>
+            const newApp = {
+                id: `APP-00${100 + applicationsData.length + 1}`,
+                customerName: document.getElementById("customerName").value,
+                customerId: document.getElementById("customerId").value || "N/A",
+                passport: document.getElementById("passport").value || "N/A",
+                phone: document.getElementById("phone").value || "N/A",
+                country: document.getElementById("country").value,
+                visa: document.getElementById("visa").value,
+                officer: document.getElementById("officer").value,
+                submissionDate: document.getElementById("submissionDate").value || "-",
+                appointmentDate: document.getElementById("appointmentDate").value || "-",
+                decisionDate: document.getElementById("decisionDate").value || "-",
+                documentsStatus: document.getElementById("documentsStatus").value,
+                status: document.getElementById("applicationStatus").value,
+                priority: document.getElementById("priority").value,
+                fee: parseFloat(document.getElementById("fee").value) || 0,
+                paid: parseFloat(document.getElementById("paid").value) || 0,
+                notes: document.getElementById("notes").value || ""
+            };
 
-            <!-- STATUS PIPELINE -->
-            <div class="pipeline-card">
-                <button class="pipeline-item active" data-status="">
-                    <strong id="allCount">0</strong>
-                    <span>All</span>
-                </button>
-                <button class="pipeline-item" data-status="Draft">
-                    <strong id="draftCount">0</strong>
-                    <span>Draft</span>
-                </button>
-                <button class="pipeline-item" data-status="Documents Pending">
-                    <strong id="documentsCount">0</strong>
-                    <span>Documents</span>
-                </button>
-                <button class="pipeline-item" data-status="Submitted">
-                    <strong id="submittedCount">0</strong>
-                    <span>Submitted</span>
-                </button>
-                <button class="pipeline-item" data-status="Processing">
-                    <strong id="processingCount">0</strong>
-                    <span>Processing</span>
-                </button>
-                <button class="pipeline-item" data-status="Approved">
-                    <strong id="approvedCount">0</strong>
-                    <span>Approved</span>
-                </button>
-                <button class="pipeline-item" data-status="Rejected">
-                    <strong id="rejectedCount">0</strong>
-                    <span>Rejected</span>
-                </button>
-            </div>
+            applicationsData.unshift(newApp); // Add to beginning of array
+            updateDashboard();
+            closeModal();
+            alert(`Application ${newApp.id} created successfully!`);
+        });
+    }
 
-            <!-- FILTERS -->
-            <div class="filter-card">
-                <div class="search-box">
-                    <span>🔎</span>
-                    <input type="text" id="searchInput" placeholder="Search Application ID, customer, passport or phone...">
-                </div>
+    /* =========================================
+       3. RENDER TABLE & UPDATE STATS
+    ========================================= */
+    function getFilteredData() {
+        const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const countryVal = countryFilter ? countryFilter.value : "";
+        const visaVal = visaFilter ? visaFilter.value : "";
+        const officerVal = officerFilter ? officerFilter.value : "";
 
-                <select id="countryFilter">
-                    <option value="">All Countries</option>
-                    <option>United Kingdom</option>
-                    <option>Canada</option>
-                    <option>Australia</option>
-                    <option>USA</option>
-                    <option>Germany</option>
-                    <option>UAE</option>
-                </select>
+        return applicationsData.filter(app => {
+            const matchesSearch = 
+                app.id.toLowerCase().includes(searchTerm) ||
+                app.customerName.toLowerCase().includes(searchTerm) ||
+                app.passport.toLowerCase().includes(searchTerm) ||
+                app.phone.toLowerCase().includes(searchTerm);
 
-                <select id="visaFilter">
-                    <option value="">All Visa Types</option>
-                    <option>Study</option>
-                    <option>Work</option>
-                    <option>Visit</option>
-                </select>
+            const matchesCountry = !countryVal || app.country === countryVal;
+            const matchesVisa = !visaVal || app.visa === visaVal;
+            const matchesOfficer = !officerVal || app.officer === officerVal;
+            const matchesPipeline = !currentPipelineStatus || app.status === currentPipelineStatus;
 
-                <select id="officerFilter">
-                    <option value="">All Officers</option>
-                    <option>Asad</option>
-                    <option>Bilal</option>
-                    <option>Salman</option>
-                </select>
+            return matchesSearch && matchesCountry && matchesVisa && matchesOfficer && matchesPipeline;
+        });
+    }
 
-                <button class="reset-button" id="resetFilters">Reset</button>
-            </div>
+    function renderTable() {
+        const filtered = getFilteredData();
+        if (!tableBody) return;
 
-            <!-- TABLE -->
-            <div class="table-card">
-                <div class="table-header">
-                    <div>
-                        <h3>Application Records</h3>
-                        <p id="resultText">Showing applications</p>
-                    </div>
-                    <button class="secondary-button" id="exportButton">↓ Export CSV</button>
-                </div>
+        tableBody.innerHTML = "";
 
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="selectAll"></th>
-                                <th>Application</th>
-                                <th>Customer</th>
-                                <th>Destination</th>
-                                <th>Visa</th>
-                                <th>Officer</th>
-                                <th>Submission</th>
-                                <th>Documents</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="applicationTableBody"></tbody>
-                    </table>
-                </div>
+        if (filtered.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding: 20px;">No application records found.</td></tr>`;
+        } else {
+            filtered.forEach(app => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><input type="checkbox" class="record-select"></td>
+                    <td><strong>${app.id}</strong></td>
+                    <td>
+                        <strong>${app.customerName}</strong><br>
+                        <small style="color: #666;">${app.phone}</small>
+                    </td>
+                    <td>${app.country}</td>
+                    <td>${app.visa}</td>
+                    <td>${app.officer}</td>
+                    <td>${app.submissionDate}</td>
+                    <td><span class="badge doc-${app.documentsStatus.toLowerCase()}">${app.documentsStatus}</span></td>
+                    <td><span class="badge status-${app.status.toLowerCase().replace(/\s+/g, '-')}">${app.status}</span></td>
+                    <td>
+                        <button class="action-btn view-btn" data-id="${app.id}">👁</button>
+                        <button class="action-btn delete-btn" data-id="${app.id}">🗑</button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
 
-                <div class="pagination">
-                    <span id="paginationText">Showing applications</span>
-                    <div>
-                        <button class="page-button active">1</button>
-                        <button class="page-button">2</button>
-                        <button class="page-button">3</button>
-                        <button class="page-button">→</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+        // Update Counter Texts
+        const countMsg = `Showing ${filtered.length} of ${applicationsData.length} applications`;
+        if (resultText) resultText.textContent = countMsg;
+        if (paginationText) paginationText.textContent = countMsg;
 
-    <!-- APPLICATION MODAL -->
-    <div class="modal-overlay" id="applicationModal">
-        <div class="modal">
-            <div class="modal-header">
-                <div>
-                    <h2>New Visa Application</h2>
-                    <p>Create a new application case.</p>
-                </div>
-                <button class="close-modal" id="closeModal">×</button>
-            </div>
+        // Reset Header Checkbox
+        if (selectAllCheckbox) selectAllCheckbox.checked = false;
+    }
 
-            <form id="applicationForm">
-                <div class="form-section-title">Customer & Visa Information</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Customer Name *</label>
-                        <input type="text" id="customerName" required placeholder="Customer name">
-                    </div>
-                    <div class="form-group">
-                        <label>Customer ID</label>
-                        <input type="text" id="customerId" placeholder="CUS-000001">
-                    </div>
-                    <div class="form-group">
-                        <label>Passport Number</label>
-                        <input type="text" id="passport" placeholder="Passport number">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="tel" id="phone" placeholder="+92 300 0000000">
-                    </div>
-                    <div class="form-group">
-                        <label>Country *</label>
-                        <select id="country" required>
-                            <option value="">Select Country</option>
-                            <option>United Kingdom</option>
-                            <option>Canada</option>
-                            <option>Australia</option>
-                            <option>USA</option>
-                            <option>Germany</option>
-                            <option>UAE</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Visa Type *</label>
-                        <select id="visa" required>
-                            <option value="">Select Visa Type</option>
-                            <option>Study</option>
-                            <option>Work</option>
-                            <option>Visit</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Assigned Officer</label>
-                        <select id="officer">
-                            <option>Asad</option>
-                            <option>Bilal</option>
-                            <option>Salman</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Priority</label>
-                        <select id="priority">
-                            <option>Normal</option>
-                            <option>High</option>
-                            <option>Urgent</option>
-                        </select>
-                    </div>
-                </div>
+    function updateStatsAndPipeline() {
+        const total = applicationsData.length;
+        const processing = applicationsData.filter(a => a.status === "Processing" || a.status === "Submitted").length;
+        const approved = applicationsData.filter(a => a.status === "Approved").length;
+        const rejected = applicationsData.filter(a => a.status === "Rejected").length;
 
-                <div class="form-section-title">Application Dates</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Submission Date</label>
-                        <input type="date" id="submissionDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Appointment Date</label>
-                        <input type="date" id="appointmentDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Expected Decision Date</label>
-                        <input type="date" id="decisionDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Application Status</label>
-                        <select id="applicationStatus">
-                            <option>Draft</option>
-                            <option>Documents Pending</option>
-                            <option>Submitted</option>
-                            <option>Processing</option>
-                            <option>Approved</option>
-                            <option>Rejected</option>
-                        </select>
-                    </div>
-                </div>
+        // Stat Cards
+        if (document.getElementById("totalApplications")) document.getElementById("totalApplications").textContent = total;
+        if (document.getElementById("processingApplications")) document.getElementById("processingApplications").textContent = processing;
+        if (document.getElementById("approvedApplications")) document.getElementById("approvedApplications").textContent = approved;
+        if (document.getElementById("rejectedApplications")) document.getElementById("rejectedApplications").textContent = rejected;
 
-                <div class="form-section-title">Financial & Documents</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Consultancy Fee</label>
-                        <input type="number" id="fee" value="0" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Paid Amount</label>
-                        <input type="number" id="paid" value="0" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Documents Status</label>
-                        <select id="documentsStatus">
-                            <option>Pending</option>
-                            <option>Partial</option>
-                            <option>Complete</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Application Notes</label>
-                        <textarea id="notes" placeholder="Application notes..."></textarea>
-                    </div>
-                </div>
+        // Pipeline Counts
+        if (document.getElementById("allCount")) document.getElementById("allCount").textContent = total;
+        if (document.getElementById("draftCount")) document.getElementById("draftCount").textContent = applicationsData.filter(a => a.status === "Draft").length;
+        if (document.getElementById("documentsCount")) document.getElementById("documentsCount").textContent = applicationsData.filter(a => a.status === "Documents Pending").length;
+        if (document.getElementById("submittedCount")) document.getElementById("submittedCount").textContent = applicationsData.filter(a => a.status === "Submitted").length;
+        if (document.getElementById("processingCount")) document.getElementById("processingCount").textContent = applicationsData.filter(a => a.status === "Processing").length;
+        if (document.getElementById("approvedCount")) document.getElementById("approvedCount").textContent = approved;
+        if (document.getElementById("rejectedCount")) document.getElementById("rejectedCount").textContent = rejected;
+    }
 
-                <div class="modal-footer">
-                    <button type="button" class="cancel-button" id="cancelModal">Cancel</button>
-                    <button type="submit" class="primary-button">Create Application</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    function updateDashboard() {
+        updateStatsAndPipeline();
+        renderTable();
+    }
 
-    <script src="applications.js"></script>
-</body>
-</html>
+    /* =========================================
+       4. FILTERS & PIPELINE EVENT LISTENERS
+    ========================================= */
+    pipelineItems.forEach(item => {
+        item.addEventListener("click", function () {
+            pipelineItems.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+            currentPipelineStatus = this.getAttribute("data-status") || "";
+            renderTable();
+        });
+    });
+
+    [searchInput, countryFilter, visaFilter, officerFilter].forEach(element => {
+        if (element) {
+            element.addEventListener("input", renderTable);
+            element.addEventListener("change", renderTable);
+        }
+    });
+
+    if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener("click", function () {
+            if (searchInput) searchInput.value = "";
+            if (countryFilter) countryFilter.value = "";
+            if (visaFilter) visaFilter.value = "";
+            if (officerFilter) officerFilter.value = "";
+            currentPipelineStatus = "";
+
+            pipelineItems.forEach(btn => btn.classList.remove("active"));
+            if (pipelineItems[0]) pipelineItems[0].classList.add("active");
+
+            renderTable();
+        });
+    }
+
+    /* =========================================
+       5. TABLE ACTIONS & CHECKBOX SELECTION
+    ========================================= */
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener("change", function () {
+            const checkboxes = document.querySelectorAll(".record-select");
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+    }
+
+    if (tableBody) {
+        tableBody.addEventListener("click", function (e) {
+            const target = e.target;
+            const appId = target.getAttribute("data-id");
+
+            if (target.classList.contains("delete-btn")) {
+                if (confirm(`Are you sure you want to delete application ${appId}?`)) {
+                    applicationsData = applicationsData.filter(app => app.id !== appId);
+                    updateDashboard();
+                }
+            } else if (target.classList.contains("view-btn")) {
+                const app = applicationsData.find(a => a.id === appId);
+                if (app) {
+                    alert(`Application Details:\nID: ${app.id}\nCustomer: ${app.customerName}\nCountry: ${app.country}\nVisa: ${app.visa}\nStatus: ${app.status}\nFee Paid: PKR ${app.paid}/${app.fee}`);
+                }
+            }
+        });
+    }
+
+    /* =========================================
+       6. CSV EXPORT
+    ========================================= */
+    if (exportBtn) {
+        exportBtn.addEventListener("click", function () {
+            const filteredData = getFilteredData();
+            if (filteredData.length === 0) {
+                alert("No records available to export.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Application ID,Customer Name,Passport,Country,Visa Type,Officer,Submission Date,Status,Fee,Paid\n";
+
+            filteredData.forEach(row => {
+                csvContent += `"${row.id}","${row.customerName}","${row.passport}","${row.country}","${row.visa}","${row.officer}","${row.submissionDate}","${row.status}",${row.fee},${row.paid}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `applications_export_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
+    // --- INITIALIZATION ---
+    updateDashboard();
+});
