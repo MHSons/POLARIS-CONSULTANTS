@@ -15,6 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const formMessage = document.getElementById("formMessage");
     const cnicInput = document.getElementById("cnic");
     const currentYear = document.getElementById("currentYear");
+    const visaTypeSelect = document.getElementById("visaType");
+
+    // Dynamic Field Wrappers
+    const studyFields = document.getElementById("studyFields");
+    const universityInput = document.getElementById("universityName")?.parentElement;
+    const intakeInput = document.getElementById("intake")?.parentElement;
+    const employerInput = document.getElementById("employerName")?.parentElement;
+    const jobTitleInput = document.getElementById("jobTitle")?.parentElement;
+    const visitPurposeInput = document.getElementById("visitPurpose")?.parentElement;
 
     /* =================================================
        CURRENT YEAR
@@ -24,7 +33,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =================================================
-       CNIC FORMAT
+       DYNAMIC VISA FIELDS VISIBILITY
+    ================================================= */
+    function updateVisaFields() {
+        const selectedVisa = visaTypeSelect ? visaTypeSelect.value : "";
+
+        if (studyFields) studyFields.style.display = "none";
+        if (universityInput) universityInput.style.display = "none";
+        if (intakeInput) intakeInput.style.display = "none";
+        if (employerInput) employerInput.style.display = "none";
+        if (jobTitleInput) jobTitleInput.style.display = "none";
+        if (visitPurposeInput) visitPurposeInput.style.display = "none";
+
+        if (selectedVisa === "Study Visa") {
+            if (studyFields) studyFields.style.display = "block";
+            if (universityInput) universityInput.style.display = "block";
+            if (intakeInput) intakeInput.style.display = "block";
+        } else if (selectedVisa === "Work Visa" || selectedVisa === "Business Visa") {
+            if (employerInput) employerInput.style.display = "block";
+            if (jobTitleInput) jobTitleInput.style.display = "block";
+        } else if (selectedVisa === "Visit Visa" || selectedVisa === "Family Visa" || selectedVisa === "Transit Visa") {
+            if (visitPurposeInput) visitPurposeInput.style.display = "block";
+        }
+    }
+
+    if (visaTypeSelect) {
+        visaTypeSelect.addEventListener("change", updateVisaFields);
+        updateVisaFields();
+    }
+
+    /* =================================================
+       CNIC AUTO FORMAT (XXXXX-XXXXXXX-X)
     ================================================= */
     if (cnicInput) {
         cnicInput.addEventListener("input", function () {
@@ -33,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (value.length > 13) {
                 value = value.substring(0, 13);
             }
-            if (value.length > 5) {
+
+            if (value.length > 12) {
+                value = value.substring(0, 5) + "-" + value.substring(5, 12) + "-" + value.substring(12);
+            } else if (value.length > 5) {
                 value = value.substring(0, 5) + "-" + value.substring(5);
-            }
-            if (value.length > 13) {
-                value = value.substring(0, 13) + "-" + value.substring(13);
             }
 
             this.value = value;
@@ -73,6 +112,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Clear error automatically on field typing/selection
+    if (form) {
+        form.querySelectorAll("input, select, textarea").forEach((input) => {
+            input.addEventListener("input", () => clearError(input));
+            input.addEventListener("change", () => clearError(input));
+        });
+    }
+
     /* =================================================
        REQUIRED FIELD VALIDATION
     ================================================= */
@@ -100,55 +147,27 @@ document.addEventListener("DOMContentLoaded", function () {
         const visaType = document.getElementById("visaType");
         const consent = document.getElementById("consent");
 
-        /* FULL NAME */
-        if (!validateRequired(fullName, "Please enter your full name.")) {
-            valid = false;
-        }
+        if (!validateRequired(fullName, "Please enter your full name.")) valid = false;
 
-        /* CNIC */
         if (!validateRequired(cnic, "Please enter your CNIC.")) {
             valid = false;
         } else if (cnic.value.length !== 15) {
-            showError(cnic, "Please enter a valid CNIC.");
+            showError(cnic, "Please enter a valid CNIC (e.g. 12345-1234567-1).");
             valid = false;
         }
 
-        /* PASSPORT */
-        if (!validateRequired(passportNumber, "Please enter your passport number.")) {
-            valid = false;
-        }
+        if (!validateRequired(passportNumber, "Please enter your passport number.")) valid = false;
+        if (!validateRequired(phone, "Please enter your phone number.")) valid = false;
+        if (!validateRequired(address, "Please enter your address.")) valid = false;
+        if (!validateRequired(country, "Please select your destination country.")) valid = false;
+        if (!validateRequired(visaType, "Please select your visa type.")) valid = false;
 
-        /* PHONE */
-        if (!validateRequired(phone, "Please enter your phone number.")) {
-            valid = false;
-        }
-
-        /* ADDRESS */
-        if (!validateRequired(address, "Please enter your address.")) {
-            valid = false;
-        }
-
-        /* COUNTRY */
-        if (!validateRequired(country, "Please select your destination country.")) {
-            valid = false;
-        }
-
-        /* VISA TYPE */
-        if (!validateRequired(visaType, "Please select your visa type.")) {
-            valid = false;
-        }
-
-        /* CONSENT */
         const consentError = document.getElementById("consentError");
-        if (!consent.checked) {
-            if (consentError) {
-                consentError.textContent = "Please confirm the information.";
-            }
+        if (!consent || !consent.checked) {
+            if (consentError) consentError.textContent = "Please confirm the information.";
             valid = false;
         } else {
-            if (consentError) {
-                consentError.textContent = "";
-            }
+            if (consentError) consentError.textContent = "";
         }
 
         return valid;
@@ -159,35 +178,47 @@ document.addEventListener("DOMContentLoaded", function () {
     ================================================= */
     function getFormData() {
         return {
-            fullName: document.getElementById("fullName").value.trim(),
-            cnic: document.getElementById("cnic").value.trim(),
-            passportNumber: document.getElementById("passportNumber").value.trim(),
-            passportExpiry: document.getElementById("passportExpiry").value || null,
-            dateOfBirth: document.getElementById("dateOfBirth").value || null,
-            gender: document.getElementById("gender").value || null,
-            nationality: document.getElementById("nationality").value.trim(),
-            phone: document.getElementById("phone").value.trim(),
-            whatsappNumber: document.getElementById("whatsappNumber").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            city: document.getElementById("city").value.trim(),
-            address: document.getElementById("address").value.trim(),
-            country: document.getElementById("country").value,
-            visaType: document.getElementById("visaType").value,
-            courseName: document.getElementById("courseName").value.trim(),
-            universityName: document.getElementById("universityName").value.trim(),
-            intake: document.getElementById("intake").value.trim(),
-            employerName: document.getElementById("employerName").value.trim(),
-            jobTitle: document.getElementById("jobTitle").value.trim(),
-            visitPurpose: document.getElementById("visitPurpose").value.trim(),
-            source: document.getElementById("source").value || "Website",
-            notes: document.getElementById("notes").value.trim()
+            fullName: document.getElementById("fullName")?.value.trim() || "",
+            cnic: document.getElementById("cnic")?.value.trim() || "",
+            passportNumber: document.getElementById("passportNumber")?.value.trim() || "",
+            passportExpiry: document.getElementById("passportExpiry")?.value || null,
+            dateOfBirth: document.getElementById("dateOfBirth")?.value || null,
+            gender: document.getElementById("gender")?.value || null,
+            nationality: document.getElementById("nationality")?.value.trim() || "Pakistani",
+            phone: document.getElementById("phone")?.value.trim() || "",
+            whatsappNumber: document.getElementById("whatsappNumber")?.value.trim() || "",
+            email: document.getElementById("email")?.value.trim() || "",
+            city: document.getElementById("city")?.value.trim() || "",
+            address: document.getElementById("address")?.value.trim() || "",
+            country: document.getElementById("country")?.value || "",
+            visaType: document.getElementById("visaType")?.value || "",
+            courseName: document.getElementById("courseName")?.value.trim() || "",
+            universityName: document.getElementById("universityName")?.value.trim() || "",
+            intake: document.getElementById("intake")?.value.trim() || "",
+            employerName: document.getElementById("employerName")?.value.trim() || "",
+            jobTitle: document.getElementById("jobTitle")?.value.trim() || "",
+            visitPurpose: document.getElementById("visitPurpose")?.value.trim() || "",
+            source: document.getElementById("source")?.value || "Website",
+            notes: document.getElementById("notes")?.value.trim() || ""
         };
     }
 
     /* =================================================
-       SAVE CUSTOMER
+       GET OR CREATE CUSTOMER (HANDLES DUPLICATES)
     ================================================= */
-    async function createCustomer(data) {
+    async function getOrCreateCustomer(data) {
+        // Check for existing customer record by CNIC or Passport
+        const { data: existing } = await supabaseClient
+            .from("customers")
+            .select("*")
+            .or(`cnic.eq.${data.cnic},passport_number.eq.${data.passportNumber}`)
+            .maybeSingle();
+
+        if (existing) {
+            return existing;
+        }
+
+        // Insert new customer if record doesn't exist
         const { data: customer, error } = await supabaseClient
             .from("customers")
             .insert([{
@@ -286,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =================================================
-       WHATSAPP MESSAGE
+       WHATSAPP MESSAGE GENERATOR
     ================================================= */
     function createWhatsAppMessage(data) {
         return `
@@ -330,70 +361,65 @@ Website Application`.trim();
         form.addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            /* CLEAR MESSAGE */
             formMessage.textContent = "";
             formMessage.className = "form-message";
 
-            /* VALIDATE */
             if (!validateForm()) {
                 formMessage.textContent = "Please correct the highlighted fields.";
                 formMessage.classList.add("error");
                 return;
             }
 
-            /* GET DATA */
             const data = getFormData();
 
-            /* BUTTON LOADING */
             submitButton.disabled = true;
-            buttonText.classList.add("hidden");
-            buttonLoader.classList.remove("hidden");
+            if (buttonText) buttonText.classList.add("hidden");
+            if (buttonLoader) buttonLoader.classList.remove("hidden");
 
             try {
-                /* CHECK SUPABASE */
                 if (typeof supabaseClient === "undefined") {
                     throw new Error("Supabase is not configured.");
                 }
 
-                /* 1. CUSTOMER */
-                const customer = await createCustomer(data);
+                // 1. CUSTOMER (Get existing or create new)
+                const customer = await getOrCreateCustomer(data);
 
-                /* 2. LEAD */
+                // 2. LEAD
                 const lead = await createLead(data, customer.id);
 
-                /* 3. APPLICATION */
+                // 3. APPLICATION
                 const application = await createApplication(data, customer.id, lead.id);
 
-                /* WHATSAPP MESSAGE */
+                // WhatsApp Dispatch Message
                 const whatsappMessage = createWhatsAppMessage(data);
 
-                console.log("Customer:", customer);
-                console.log("Lead:", lead);
-                console.log("Application:", application);
-                console.log("WhatsApp Message:", whatsappMessage);
-
-                /* SUCCESS */
-                formMessage.textContent = "Application submitted successfully! Our team will contact you shortly.";
+                formMessage.textContent = "Application submitted successfully! Redirecting to WhatsApp...";
                 formMessage.classList.add("success");
 
-                /* RESET FORM */
+                // Auto-open WhatsApp chat with pre-filled message
+                const targetPhone = "923000000000"; // Replace with your company WhatsApp number
+                const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                setTimeout(() => {
+                    window.open(waUrl, "_blank");
+                }, 1000);
+
                 form.reset();
 
-                /* DEFAULT NATIONALITY */
                 const nationality = document.getElementById("nationality");
                 if (nationality) {
                     nationality.value = "Pakistani";
                 }
+                updateVisaFields();
 
             } catch (error) {
                 console.error("SUBMISSION ERROR:", error);
                 formMessage.textContent = "We could not submit your application. Please try again or contact Polaris Consultants.";
                 formMessage.classList.add("error");
             } finally {
-                /* RESTORE BUTTON */
                 submitButton.disabled = false;
-                buttonText.classList.remove("hidden");
-                buttonLoader.classList.add("hidden");
+                if (buttonText) buttonText.classList.remove("hidden");
+                if (buttonLoader) buttonLoader.classList.add("hidden");
             }
         });
     }
